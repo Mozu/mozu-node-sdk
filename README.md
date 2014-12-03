@@ -1,6 +1,6 @@
-# Mozu JavaScript SDK
+# Mozu Node SDK
 
-The Mozu JavaScript SDK provides a JavaScript API for connecting to Mozu web services.
+The Mozu Node SDK provides a NodeJS API for connecting to Mozu web services.
 
 ## Usage
 
@@ -41,6 +41,10 @@ client.commerce().catalog().admin().products().getProducts().then(function(res) 
 
 *   NodeJS >= 0.10
 
-## Planned
+## Test
 
-*   Real NodeJS testing (Nock)
+    npm test
+
+The tests use Nock to record HTTP requests on the first run, and then use the recorded requests as fixtures for subsequent runs. You can export an environment variable called `NOCK_RECORD` to force re-recording of requests; otherwise they expire every 24 hours.
+
+You can also use a local HTTP request monitor proxy like Fiddler or Charles; just export the environment variable `USE_FIDDLER`.
