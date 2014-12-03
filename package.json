@@ -1,0 +1,32 @@
+{
+  "name": "mozu-javascript-sdk",
+  "title": "Mozu JavaScript SDK",
+  "author": "Volusion, Inc.",
+  "contributors": [
+    {
+      "name": "James Zetlen",
+      "email": "james_zetlen@volusion.com"
+    }
+  ],
+  "version": "0.9.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mozu/mozu-javascript-sdk.git"
+  },
+  "dependencies": {
+    "uritemplate": "~0",
+    "when": "~3",
+    "request": "~2",
+    "node.extend": "~1"
+  },
+  "main": "./src/init",
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "chai-as-promised": "^4.1.1",
+    "mocha": "^1.21.4",
+    "nock": "^0.48.0"
+  },
+  "scripts": {
+    "test": "node maketest.js"
+  }
+}
