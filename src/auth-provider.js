@@ -1,7 +1,8 @@
 var constants = require('./constants'),
     when = require('when');
 
-var tenantsCache = {};
+var tenantsCache = {},
+    claimsCache = {};
 
 /**
  * A promise that will resolve to an App Claims
@@ -106,6 +107,12 @@ var allClaimMethods = {
   addMostRecentUserClaims: false,
   getUserTenants: function(userid) {
     return tenantsCache[userid];
+  },
+  getContextTenants: function(context) {
+    if (context.user) {
+      return AuthProvider.getUserTenants(context.user.id);
+    }
+    return claimsCache[context[constants.headers.APPCLAIMS]];
   }
 };
 

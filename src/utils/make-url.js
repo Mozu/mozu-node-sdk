@@ -9,14 +9,23 @@ function wipeout(why) {
   throw new Error("Could not create URL from template. " + why);
 }
 
-function makeTenantPodUrl(context) {
+function ensureTrailingSlash(url) {
+  return (url.split().pop() === "/") ? url : (url + "/");
+}
+
+function ensureTenantPodUrl(context) {
   var tenant,
-    availableTenants = AuthProvider.getUserTenants(context.user.id);
-  if (!context.tenantId) wipeout("No tenant ID set.");
-  if (!availableTenants) wipeout("No available tenants collection in context. Was AuthProvider.getAdminUserAuthTicket ever called?");
-  tenant = findWhere(availableTenants || [], { id: context.tenantId });
-  if (!tenant) wipeout("Tenant " + context.tenantId + " not found in collection of available tenants: " + availableTenants.map(function(t) { return t.id }));
-  return "https://" + tenant.domain + "/";
+    availableTenants;
+  if (!context.tenantPod) {
+    if (!context.tenantId) wipeout("No tenant ID set.");
+    availableTenants = AuthProvider.getContextTenants(context);
+    if (!availableTenants) wipeout("No available tenants collection in context. Was AuthProvider.getAdminUserAuthTicket ever called?");
+    tenant = findWhere(availableTenants || [], { id: context.tenantId });
+    if (!tenant) wipeout("Tenant " + context.tenantId + " not found in collection of available tenants: " + availableTenants.map(function(t) { return t.id }));
+    context.tenantPod = "https://" + tenant.domain + "/";
+  }
+  context.tenantPod = ensureTrailingSlash(context.tenantPod);
+  return context;
 }
 
 /**
@@ -30,11 +39,11 @@ module.exports = function makeUrl(client, tpt, body) {
   var context = client.context,
     template = templateCache[tpt] || (templateCache[tpt] = uritemplate.parse(tpt)),
     ctx = extend({
-      homePod: context.baseUrl
+      homePod: ensureTrailingSlash(context.baseUrl)
     }, context, body);
 
-  if (tpt.indexOf('{+tenantPod}') !== -1 && !ctx.tenantPod) {
-    ctx.tenantPod = makeTenantPodUrl(ctx);
+  if (tpt.indexOf('{+tenantPod}') !== -1) {
+    ensureTenantPodUrl(ctx);
   }
   return template.expand(ctx);
 }
