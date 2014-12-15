@@ -17,7 +17,7 @@ module.exports = function(config) {
     
     tasks.push(function() {
       return request(extend({}, config, self.defaultRequestOptions, {
-        url: makeUrl(self.context, config.url, body || {}),
+        url: makeUrl(self, config.url, body || {}),
         context: self.context,
         body: body
       }, options));

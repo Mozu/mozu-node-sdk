@@ -4,11 +4,8 @@ var extend = require('node.extend'),
     makeClient = require('./utils/make-client'),
     constants = require('./constants'),
     findWhere = require('./utils/find-where'),
-    rdashAlpha = /-([\da-z])/gi,
-    cccb = function (match, l) {
-        return l.toUpperCase();
-    },
-    cutoff = constants.headerPrefix.length;
+    camelCase = require('./utils/camel-case');
+    
 
 function Client(cfg) {
   extend(this, cfg);
@@ -26,12 +23,10 @@ Client.prototype.root = function() {
   return new Client(this);
 };
 
-function camelCase (str) {
-  return (str.charAt(0).toUpperCase() + str.substring(1)).replace(rdashAlpha, cccb);
-};
-
-function createAccessor(name) {
-  var accessorName = camelCase(name.substring(cutoff));
+// dynamically create all the context accessors for the context values sent in
+// request headers
+Object.keys(constants.headers).forEach(function createAccessor(key) {
+  var name = constants.headers[key], accessorName = camelCase(name);
   Client.prototype['get' + accessorName] = function() {
     return this.context[name];
   };
@@ -39,13 +34,7 @@ function createAccessor(name) {
     this.context[name] = this.context[name + "Id"] = val;
     return this;
   };
-}
-
-for (var h in constants.headers) {
-  if (Object.prototype.hasOwnProperty.call(constants.headers, h)) {
-    createAccessor(constants.headers[h]);
-  }
-}
+})
 
 extend(Client.prototype, {
   commerce: require('./clients/commerce')(Client),

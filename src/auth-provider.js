@@ -1,6 +1,8 @@
 var constants = require('./constants'),
     when = require('when');
 
+var tenantsCache = {};
+
 /**
  * A promise that will resolve to an App Claims
  * @typedef {Object} AppClaimsPromise
@@ -26,6 +28,12 @@ AuthTicket.create = function(json) {
   return new AuthTicket(json);
 }
 
+function cacheUserTenants(json) {
+  if (json.availableTenants && json.availableTenants.length > 0) {
+    tenantsCache[json.user.id] = json.availableTenants;
+  }
+}
+
 function getPlatformAuthTicket(client) {
   return client.platform().applications().authTicket().authenticateApp({
     applicationId: client.context.appId,
@@ -43,7 +51,7 @@ function refreshPlatformAuthTicket(client, ticket) {
 
 function getDeveloperAuthTicket(client) {
   return client.root().platform().developer().developerAdminUserAuthTicket().createDeveloperUserAuthTicket(client.context.developerAccount).then(function(json) {
-    if (json.availableTenants && json.availableTenants.length > 0) client.context.availableTenants = availableTenants;
+    cacheUserTenants(json);
     return AuthTicket.create(json);
   });
 }
@@ -55,7 +63,7 @@ function refreshDeveloperAuthTicket(client, ticket) {
 function getAdminUserAuthTicket(client) {
   return client.root().platform().adminuser().tenantAdminUserAuthTicket().createUserAuthTicket({ tenantId: client.getTenant() }, { body: client.context.developerAccount }).then(function(json) {
     client.context.user = json.user;
-    if (json.availableTenants && json.availableTenants.length > 0) client.context.availableTenants = availableTenants;
+    cacheUserTenants(json);
     return AuthTicket.create(json);
   })
 }
@@ -95,7 +103,10 @@ var allClaimMethods = {
   addPlatformAppClaims: makeClaimMemoizer('addPlatformAppClaims', getPlatformAuthTicket, refreshPlatformAuthTicket, constants.headers.APPCLAIMS),
   addDeveloperUserClaims: makeClaimMemoizer('addDeveloperUserClaims', getDeveloperAuthTicket, refreshDeveloperAuthTicket, constants.headers.USERCLAIMS),
   addAdminUserClaims: makeClaimMemoizer('addAdminUserClaims', getAdminUserAuthTicket, refreshAdminUserAuthTicket, constants.headers.USERCLAIMS),
-  addMostRecentUserClaims: false
+  addMostRecentUserClaims: false,
+  getUserTenants: function(userid) {
+    return tenantsCache[userid];
+  }
 };
 
 module.exports = allClaimMethods;

@@ -1,5 +1,6 @@
 var uritemplate = require('uritemplate'),
 extend = require('node.extend'),
+AuthProvider = require('../auth-provider'),
 findWhere = require('./find-where');
 
 var templateCache = {};
@@ -8,17 +9,14 @@ function wipeout(why) {
   throw new Error("Could not create URL from template. " + why);
 }
 
-function makeTenantPodUrlFromContext(context) {
+function makeTenantPodUrl(context) {
   var tenant,
-  extra = {};
-  if (!context.tenantPod) {
-    if (!context.tenantId) wipeout("No tenant ID set.");
-    if (!context.availableTenants) wipeout("No available tenants collection in context. Was AuthProvider.getAdminUserAuthTicket ever called?");
-    tenant = findWhere(context.availableTenants || [], { id: context.tenantId });
-    if (!tenant) wipeout("Tenant " + context.tenantId + " not found in collection of available tenants: " + context.availableTenants.map(function(t) { return t.id }));
-    extra.tenantPod = "https://" + tenant.domain + "/";
-  }
-  return extend(extra, context);
+    availableTenants = AuthProvider.getUserTenants(context.user.id);
+  if (!context.tenantId) wipeout("No tenant ID set.");
+  if (!availableTenants) wipeout("No available tenants collection in context. Was AuthProvider.getAdminUserAuthTicket ever called?");
+  tenant = findWhere(availableTenants || [], { id: context.tenantId });
+  if (!tenant) wipeout("Tenant " + context.tenantId + " not found in collection of available tenants: " + availableTenants.map(function(t) { return t.id }));
+  return "https://" + tenant.domain + "/";
 }
 
 /**
@@ -28,15 +26,15 @@ function makeTenantPodUrlFromContext(context) {
  * @param  {Object} body      An object consisting of the JSON body of the request, to be used to interpolate URL paramters.
  * @return {string}         A fully qualified URL.
  */
-module.exports = function makeUrl(context, tpt, body) {
-  var template = templateCache[tpt] || (templateCache[tpt] = uritemplate.parse(tpt)),
-    initialContext = {
+module.exports = function makeUrl(client, tpt, body) {
+  var context = client.context,
+    template = templateCache[tpt] || (templateCache[tpt] = uritemplate.parse(tpt)),
+    ctx = extend({
       homePod: context.baseUrl
-    };
+    }, context, body);
 
-  if (tpt.indexOf('{+tenantPod}') !== -1) {
-    initialContext.tenantPod = makeTenantPodUrlFromContext(context);
+  if (tpt.indexOf('{+tenantPod}') !== -1 && !ctx.tenantPod) {
+    ctx.tenantPod = makeTenantPodUrl(ctx);
   }
-  var ctx = extend(initialContext, context, body);
   return template.expand(ctx);
 }

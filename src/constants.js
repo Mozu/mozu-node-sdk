@@ -6,9 +6,7 @@ var version = require('./version'),
     SITE = 16,
     MASTERCATALOG = 32,
     CATALOG = 64,
-    NONE = 128,
-    all,
-    hOP = Object.prototype.hasOwnProperty;
+    NONE = 128;
 
 // scopes are not yet in use, but when the services can reflect
 // their required scope, here will be all the bitmask constants
@@ -21,7 +19,7 @@ MASTERCATALOG |= TENANT;
 CATALOG |= MASTERCATALOG;
 SHOPPER |= SITE | CATALOG;
 
-all = {
+module.exports = {
   scopes: {
     DEVELOPER: DEVELOPER,
     ADMINUSER: ADMINUSER,
@@ -55,11 +53,3 @@ all = {
   },
   version: version.current
 };
-
-for (var h in all.headers) {
-  if (hOP.call(all.headers, h)) {
-    all.headers[h] = all.headerPrefix + all.headers[h];
-  }
-}
-
-module.exports = all;

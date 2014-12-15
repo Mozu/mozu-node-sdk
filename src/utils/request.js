@@ -11,15 +11,14 @@ var request = require('request'),
     CATALOG = constants.headers.CATALOG,
     DATAVIEWMODE = constants.headers.DATAVIEWMODE;
 
-function makeContext(conf) {
-  var headers = {},
-  context = conf.context;
+function makeHeaders(conf) {
 
-  for (var h in constants.headers) {
-    if (constants.headers.hasOwnProperty(h) && context[constants.headers[h]]) {
-      headers[constants.headers[h]] = context[constants.headers[h]];
+  return Object.keys(constants.headers).reduce(function(memo, key) {
+    if (conf.context[constants.headers[key]]) {
+      memo[constants.headerPrefix + constants.headers[key]] = conf.context[constants.headers[key]];
     }
-  }
+    return memo;
+  }, {});
 
   // 
   // until scopes can reflect accurately out of the service classes, we'll just push all the context we have
@@ -43,7 +42,7 @@ function makeContext(conf) {
   // if (((conf.scope & scopes.CATALOG) == scopes.CATALOG) && context[CATALOG]) {
   //   headers[CATALOG] = context[CATALOG];
   // }
-  return headers;
+  // return headers;
 }
 
 /**
@@ -60,7 +59,7 @@ module.exports = function(options) {
   } else {
     conf.json = true;
   }
-  conf.headers = makeContext(conf);
+  conf.headers = makeHeaders(conf);
   request(conf, function(error, message, response) {
     if (error) return deferred.reject(error);
     if (message && message.statusCode >= 400 && message.statusCode < 600) deferred.reject(response);
