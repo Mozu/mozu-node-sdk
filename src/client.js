@@ -47,27 +47,6 @@ for (var h in constants.headers) {
   }
 }
 
-function setTenantPodFromId(client, tenantId, forceDelete) {
-  var tenant = findWhere(client.context.availableTenants || [], { id: tenantId });
-  if (tenant) {
-    client.context.tenantPod = "https://" + tenant.domain + "/";
-  } else if (forceDelete) {
-    delete client.context.tenantPod;
-  }
-}
-
-var existingSetTenant = Client.prototype.setTenant;
-Client.prototype.setTenant = function(tenantId) {
-  existingSetTenant.call(this, tenantId);
-  setTenantPodFromId(this, tenantId, true);
-};
-
-
-Client.prototype.setAvailableTenants = function(arr) {
-  this.context.availableTenants = arr;
-  setTenantPodFromId(this, this.getTenant());
-}
-
 extend(Client.prototype, {
   commerce: require('./clients/commerce')(Client),
   content: require('./clients/content')(Client),
