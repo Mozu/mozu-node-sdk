@@ -27,6 +27,6 @@
     "mocha": "^1.21.4"
   },
   "scripts": {
-    "test": "node maketest.js"
+    "test": "./node_modules/.bin/mocha"
   }
 }
