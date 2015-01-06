@@ -1,3 +1,12 @@
+[0.9.2](https://github.com/Mozu/mozu-javascript-sdk/releases/tag/v0.9.2) / 2015-01-06
+-------------------------------------------------------------------------------------
+
+*   **Added** Security methods for testing SHA hashes
+*   **Changed** Made testing pattern more modular
+*   **Removed** Nock-generated test fixtures, which were more trouble than they were worth.
+*   **Changed** Stopped all calls from automatically including user claims.
+*   **Changed** Updated how the tenant URL is generated.
+
 [0.9.1](https://github.com/Mozu/mozu-javascript-sdk/releases/tag/v0.9.1) / 2014-09-02
 -------------------------------------------------------------------------------------
 
