@@ -87,6 +87,41 @@ client.content().documentlists().document().getDocuments({
 });
 ```
 
+The `options` argument is optional, but consists of any option that can be passed to the underlying [request](https://github.com/request/request) library.
+
+```
+client.content().documentlists().document().getDocuments({
+    pageSize: 5,
+    documentListName: 'files@mozu'
+}, {
+    followAllRedirects: true,
+    maxRedirects: 5
+});
+```
+
+You can also pass a `context` parameter to options to override the current client context for the duration of one call.
+
+```
+client.content().documentlists().document().getDocuments({
+    pageSize: 5,
+    documentListName: 'files@mozu'
+}, {
+    followAllRedirects: true,
+    maxRedirects: 5,
+    context: {
+        site: 6789
+    }
+});
+```
+
+You can set the `defaultRequestOptions` property of your client object for certain options to be passed in to every request:
+```js
+client.defaultRequestOptions = {
+  proxy: "http://127.0.0.1:8888",
+  strictSSL: false
+};
+```
+
 ### Extras
 
 #### Validate Hashes
