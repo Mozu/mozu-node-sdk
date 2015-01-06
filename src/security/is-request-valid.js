@@ -1,4 +1,4 @@
-var hashStream = require('./sha-256-generator'),
+var hashStream = require('./hash-stream'),
     concat = require('concat-stream'),
     constants = require('../constants'),
     url = require('url'),
