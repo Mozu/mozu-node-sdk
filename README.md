@@ -80,7 +80,7 @@ productAdminClient.updateProductInCatalogs(payload, opts);
 ### Making Calls
 All of the API methods take two arguments: a `body` to use as POST data or URL parameters, and a set of `options` to specify the scope of the request (i.e. what kind of claims to use, whether to include a Site header or just a Tenant header, and other properties).
 
-```
+```js
 client.content().documentlists().document().getDocuments({
     pageSize: 5,
     documentListName: 'files@mozu'
@@ -89,7 +89,7 @@ client.content().documentlists().document().getDocuments({
 
 The `options` argument is optional, but consists of any option that can be passed to the underlying [request](https://github.com/request/request) library.
 
-```
+```js
 client.content().documentlists().document().getDocuments({
     pageSize: 5,
     documentListName: 'files@mozu'
@@ -101,7 +101,7 @@ client.content().documentlists().document().getDocuments({
 
 You can also pass a `context` parameter to options to override the current client context for the duration of one call.
 
-```
+```js
 client.content().documentlists().document().getDocuments({
     pageSize: 5,
     documentListName: 'files@mozu'
