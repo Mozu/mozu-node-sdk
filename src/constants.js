@@ -51,5 +51,6 @@ module.exports = {
     LIVE: 'Live',
     PENDING: 'Pending'
   },
+  capabilityTimeoutInSeconds: 180,
   version: version.current
 };

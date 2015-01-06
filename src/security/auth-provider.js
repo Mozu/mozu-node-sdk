@@ -1,5 +1,6 @@
-var constants = require('./constants'),
-    when = require('when');
+var constants = require('../constants'),
+    when = require('when'),
+    scopes = constants.scopes;
 
 var tenantsCache = {},
     claimsCache = {};
@@ -40,7 +41,7 @@ function getPlatformAuthTicket(client) {
     applicationId: client.context.appId,
     sharedSecret: client.context.sharedSecret
   }, {
-    scope: constants.scopes.NONE
+    scope: scopes.NONE
   }).then(AuthTicket.create);
 }
 
@@ -93,14 +94,14 @@ function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
       claimsOp = when(client);
     }
     claimsOp.ensure(function() {
-      allClaimMethods.addMostRecentUserClaims = allClaimMethods[calleeName];
+      AuthProvider.addMostRecentUserClaims = AuthProvider[calleeName];
     });
     return claimsOp;
   };
 }
 
 
-var allClaimMethods = {
+var AuthProvider = {
   addPlatformAppClaims: makeClaimMemoizer('addPlatformAppClaims', getPlatformAuthTicket, refreshPlatformAuthTicket, constants.headers.APPCLAIMS),
   addDeveloperUserClaims: makeClaimMemoizer('addDeveloperUserClaims', getDeveloperAuthTicket, refreshDeveloperAuthTicket, constants.headers.USERCLAIMS),
   addAdminUserClaims: makeClaimMemoizer('addAdminUserClaims', getAdminUserAuthTicket, refreshAdminUserAuthTicket, constants.headers.USERCLAIMS),
@@ -113,7 +114,37 @@ var allClaimMethods = {
       return AuthProvider.getUserTenants(context.user.id);
     }
     return claimsCache[context[constants.headers.APPCLAIMS]];
+  },
+  /**
+ * Return an array of tasks (functions returning Promises) that performs, in sequence, all necessary authentication tasks for the given scope.
+ * @param  {Client} client The client in whose context to run the tasks. AuthProvider will cache the claims per client.
+ * @param  {Scope} scope  A scope (bitmask). If the scope is not NONE, then app claims will be added. If the scope is DEVELOPER xor ADMINUSER, user claims will be added.
+ * @return {Array}        A list of tasks. If no auth is required, the list will be empty.
+ */
+  getAuthTasks: function(client, scope) {
+    var tasks = [];
+    if (scope & scopes.DEVELOPER) {
+      tasks.push(function() {
+        return AuthProvider.addDeveloperUserClaims(client);
+      });
+    } else if (scope & scopes.ADMINUSER) {
+      tasks.push(function() {
+        return AuthProvider.addAdminUserClaims(client);
+      })
+    }
+    if (!scope && AuthProvider.addMostRecentUserClaims) {
+      tasks.push(function() {
+        return AuthProvider.addMostRecentUserClaims(client);
+      });
+    }
+    if (!(scope & scopes.NONE)) {
+      tasks.push(function() {
+        return AuthProvider.addPlatformAppClaims(client);
+      });
+    }
+
+    return tasks;
   }
 };
 
-module.exports = allClaimMethods;
+module.exports = AuthProvider;

@@ -17,7 +17,7 @@ module.exports = function(Client){
 	return Client.sub({
 		getTenantScopesForUser : (function(getTenantScopes) { 
 			return function getDefaultScope(conf) {
-				AuthProvider = AuthProvider || require('../../../auth-provider');
+				AuthProvider = AuthProvider || require('../../../security/auth-provider');
 				if (conf) return getTenantScopes.call(this, conf);
 				if (this.context.user) return getTenantScopes.call(this, { userId: this.context.user.userId });
 				 return AuthProvider.addAdminUserClaims(this).then(function() {

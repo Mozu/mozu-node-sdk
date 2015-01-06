@@ -1,6 +1,6 @@
 var uritemplate = require('uritemplate'),
 extend = require('node.extend'),
-AuthProvider = require('../auth-provider'),
+AuthProvider = require('../security/auth-provider'),
 findWhere = require('./find-where');
 
 var templateCache = {};
