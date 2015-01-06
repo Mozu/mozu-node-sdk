@@ -1,7 +1,5 @@
 var chai = require('chai'),
-    nock = require('nock'),
     client = require('../src/init').client(),
-    record = require('./utils/record'),
     testConfig = require('./utils/config');
 
 chai.should();
@@ -11,6 +9,7 @@ client.setTenant(testConfig.tenant);
 client.setMasterCatalog(testConfig.masterCatalog);
 
 if (process.env.USE_FIDDLER) {
+  console.log('using fiddler proxy')
   client.defaultRequestOptions = {
     proxy: "http://127.0.0.1:8888",
     strictSSL: false
@@ -20,21 +19,25 @@ if (process.env.USE_FIDDLER) {
 describe('the Mozu JavaScript SDK', function() {
   
   this.timeout(20000);
-  var today = new Date();
-  var recorder = record('fixtures-' + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate());
-  before(recorder.before);
-  after(recorder.after);
+  var opts = {
+    pageSize: 5
+  };
 
   describe('Catalog service', function() {
-    it('returns Products from ProductAdmin.GetProducts()', function() {
-      return client.commerce().catalog().admin().product().getProducts().should.eventually.be.ok;
-      // nock will implicitly throw if there are any problems with authentication
+    it('returns Products from ProductAdmin.GetProducts()', function(done) {
+      return client.commerce().catalog().admin().product().getProducts(opts)
+        .should.eventually.have.property('items')
+        .of.length(opts.pageSize)
+        .notify(done);
     });
   });
   describe('Commerce service', function() {
-    it('returns Orders from CommerceAdmin.getOrders()', function() {
-      return client.commerce().order().getOrders().should.eventually.be.ok;
-      // nock will implicitly throw if there are any problems with authentication
+    it('returns Orders from CommerceAdmin.getOrders()', function(done) {
+      opts.pageSize--;
+      return client.commerce().order().getOrders(opts)
+        .should.eventually.have.property('items')
+        .of.length(opts.pageSize)
+        .notify(done);
     });
   });
   describe('Content service', function() {
