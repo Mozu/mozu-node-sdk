@@ -14,7 +14,7 @@ module.exports = function isRequestValid(context, req, cb) {
       currentDate = new Date(),
       diff = (currentDate - requestDate) / 1000;
 
-  req.pipe(hashStream(context.secretKey, queryString.dt)).pipe(concat(function(hash) {
+  req.pipe(hashStream(context.sharedSecret, queryString.dt)).pipe(concat(function(hash) {
     if (hash !== queryString.messageHash || diff > timeout) {
       console.error(util.format("Unauthorized access from %s, %s, %s Computed: %s"), 
                     req.headers.host, queryString.messageHash, queryString.dt, hash);
