@@ -122,6 +122,50 @@ client.defaultRequestOptions = {
 };
 ```
 
+### Handling Responses
+
+All API calls return a Promise, specifically a [when](https://github.com/cujojs/when) promise. Promises are one of the most standard and popular ways of handling asynchronous code in JavaScript. The Promise represents an "eventual value". It's an object which is either pending, resolved (success) or rejected (failure). You can attach handlers to it using the standard `.then(onResolved, onRejected)` method.
+
+Crucially, promises can be chained. Inside a promise handler, you can return a promise in order to produce a promise that will only resolve once both the inner and outer promise have.
+
+```js
+// get a customer ID from an order and then get all orders for that customer
+client.commerce().order().getOrder({ orderId: 'ab96c79e59b79a76' }).then(function(order) {
+   return client.commerce().order().getOrders({
+    filter: "CustomerId eq " + order.customerAccountId
+   })
+}).then(function(orders) {
+    // orders will be a list of orders for the customer of the first order
+});
+```
+
+Including [when](https://github.com/cujojs/when) in your project gives you access to static methods which can manipulate when-generated promises. This can be useful for higher-order promise tasks, such as joining multiple promises together into a single result.
+
+```js
+// get a fully-hydrated customer from an order and add all orders for that customer
+var when = require('when');
+
+function joinCustomerAndOrdersFromOrder(order) {
+   return when.join(
+    client.commerce().order().getOrders({
+      filter: "CustomerId eq " + order.customerAccountId
+   }),
+    client.commerce().customer().customerAccount().getAccount({
+      accountId: order.customerAccountId
+   }));
+}
+
+client.commerce().order().getOrder({ orderId: 'ab96c79e59b79a76' })
+  .then(joinCustomerAndOrdersFromOrder).spread(function(orders, customer) {
+    // orders will be a list of orders for the customer,
+    // customer will be the full customer object
+    console.log("Customer:", customer)
+    console.log("Orders:", orders)
+}, function() {
+    console.error("Request failed");
+});
+```
+
 ### Extras
 
 #### Validate Hashes
