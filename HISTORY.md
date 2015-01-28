@@ -1,3 +1,8 @@
+[0.9.3](https://github.com/Mozu/mozu-javascript-sdk/releases/tag/v0.9.3) / 2015-01-28
+-------------------------------------------------------------------------------------
+
+*   **Changed** Security methods now use appKey instead of legacy appId, resolving an issue where devAccountNamespace was null
+
 [0.9.2](https://github.com/Mozu/mozu-javascript-sdk/releases/tag/v0.9.2) / 2015-01-06
 -------------------------------------------------------------------------------------
 
