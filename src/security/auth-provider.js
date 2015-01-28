@@ -38,7 +38,7 @@ function cacheUserTenants(json) {
 
 function getPlatformAuthTicket(client) {
   return client.platform().applications().authTicket().authenticateApp({
-    applicationId: client.context.appId,
+    applicationId: client.context.appKey,
     sharedSecret: client.context.sharedSecret
   }, {
     scope: scopes.NONE
@@ -79,9 +79,9 @@ function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
   return function(client) {
     var claimsOp,
         now = new Date(),
-        cached = claimCache[client.context.appId],
+        cached = claimCache[client.context.appKey],
         cacheAndUpdateClient = function(ticket) {
-          claimCache[client.context.appId] = ticket;
+          claimCache[client.context.appKey] = ticket;
           client.context[claimHeader] = ticket.accessToken;
           return client;
         };

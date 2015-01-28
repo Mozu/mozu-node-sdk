@@ -29,7 +29,7 @@ function getConfig() {
 module.exports = {
   client: function(cfg) {
     cfg = cfg || {};
-    if (!cfg || !cfg.appId || !cfg.sharedSecret  || !cfg.baseUrl) {
+    if (!cfg || !cfg.appKey || !cfg.sharedSecret  || !cfg.baseUrl) {
       cfg = extend(getConfig(), cfg);
     }
     return new Client({context: cfg});

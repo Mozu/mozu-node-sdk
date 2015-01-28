@@ -13,7 +13,7 @@ You may pass configuration into the client factory directly:
 ```js
 var client = require('mozu-node-sdk').client({
     context: {
-        "appId": "00000",
+        "appKey": "00000",
         "sharedSecret": "9864c0520cc0468397faa37600f1f110",
         "baseUrl": "https://home.mozu.com/",
         "developerAccountId": "001",
