@@ -42,7 +42,7 @@ function reportError(error) {
     console.error(error.message, error);
 }
 
-client.commerce().catalog().admin().products().getProducts({
+client.commerce().catalog().admin().product().getProducts({
     filter: 'categoryId req 123'
 }).then(log, reportError);
 ```
