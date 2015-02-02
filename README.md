@@ -53,7 +53,7 @@ A full context is necessary before making calls. The Mozu API needs requests to 
 
 The following context values will be sent as HTTP request headers when they are present. 
  - `client.context['app-claims']`: The claims header for your associated Application. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for all calls.
- - `client.context['user-claims']: The claims header for your associated user. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for many calls.
+ - `client.context['user-claims']`: The claims header for your associated user. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for many calls.
  - `client.context['tenant']`: The tenant ID, for scoping calls to a tenant. Required at minimum for all calls to services outside the Home Pod; `tenant` is the outermost scope.
  - `client.context['site']`: The site ID, for scoping calls to a site.
  - `client.context['master-catalog']`: The master catalog ID, for scoping calls to a master catalog.
