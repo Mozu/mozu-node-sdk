@@ -32,7 +32,7 @@ In order to pass context from layer to layer of the API, traverse the graph by c
 ```js
 var client = require('mozu-node-sdk').client();
 
-client.setTenant(1234);
+client.context.tenant = 1234;
 
 function log(result) {
     console.log(util.inspect(result));
@@ -49,15 +49,18 @@ client.commerce().catalog().admin().product().getProducts({
 
 ### Modifying Context
 
-A full context is necessary before making calls. The Mozu API needs requests to have a full collection of context headers before it will respond to requests. You can load context initially when creating a client, but you can also modify context on an existing client using these methods:
+A full context is necessary before making calls. The Mozu API needs requests to have a full collection of context headers before it will respond to requests. You can load context initially when creating a client, but you can also modify context on an existing client by simply updating the values in the `client.context` object.
 
- - `client.setAppClaims`: Set the app-claims header. The SDK manages its own authentication, so you should rarely have to call this.
- - `client.setUserClaims`: Set the user-claims header. The SDK manages its own authentication, so you should rarely have to call this.
- - `client.setTenant`: Set the tenant ID.
- - `client.setSite`: Set the site ID.
- - `client.setMasterCatalog`: Set the master catalog ID.
- - `client.setCatalog`: Set the catalog ID.
- - `client.setDataviewMode`: Set the data view mode. This can be either `LIVE` (default) or `PENDING`. A data view mode of `PENDING` will show staged changes as if they are live. 
+The following context values will be sent as HTTP request headers when they are present. 
+ - `client.context['app-claims']`: The claims header for your associated Application. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for all calls.
+ - `client.context['user-claims']: The claims header for your associated user. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for many calls.
+ - `client.context['tenant']`: The tenant ID, for scoping calls to a tenant. Required at minimum for all calls to services outside the Home Pod; `tenant` is the outermost scope.
+ - `client.context['site']`: The site ID, for scoping calls to a site.
+ - `client.context['master-catalog']`: The master catalog ID, for scoping calls to a master catalog.
+ - `client.context['catalog']`: The catalog ID, for scoping calls to a catalog..
+ - `client.context['dataview-mode']`: The data view mode for a call. This can be either `LIVE` (default) or `PENDING`. A data view mode of `PENDING` will show staged changes as if they are live. 
+
+You can also store arbitrary data on the context, and it will be passed around to the various clients you create. This can be useful for login information, common state, or secret keys.
 
 ### Navigating Sections
 

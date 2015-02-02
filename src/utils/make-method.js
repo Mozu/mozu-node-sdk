@@ -1,9 +1,8 @@
 var extend = require('node.extend'),
     request = require('./request'),
     makeUrl = require('./make-url'),
-    pipeline = require('when/pipeline'),
-    scopes = require('../constants').scopes,
-    AuthProvider = require('../security/auth-provider');
+    PrerequisiteManager = require('./prerequisite-manager'),
+    pipeline = require('when/pipeline');
 
 /**
  * Create an API method that runs a request based on a configuration and a body. The method handles and caches authentication automatically based on a provided scope, by delegating to AuthProvider where necessary.
@@ -13,7 +12,7 @@ var extend = require('node.extend'),
 module.exports = function(config) {
   return function(body, options) {
     var self = this,
-        tasks = AuthProvider.getAuthTasks(this, resolveScope(options, config));
+        tasks = PrerequisiteManager.getTasks(this, options, config);
     
     tasks.push(function() {
       return request(extend({}, config, self.defaultRequestOptions, {
@@ -26,10 +25,3 @@ module.exports = function(config) {
   }
 }
 
-function resolveScope(options, config) {
-  if (options && options.scope) {
-    if (scopes[options.scope]) return scopes[options.scope];
-    return options.scope;
-  }
-  return config.scope;
-}

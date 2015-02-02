@@ -2,8 +2,7 @@ var constants = require('../constants'),
     when = require('when'),
     scopes = constants.scopes;
 
-var tenantsCache = {},
-    claimsCache = {};
+var claimsCache = {};
 
 /**
  * A promise that will resolve to an App Claims
@@ -30,12 +29,6 @@ AuthTicket.create = function(json) {
   return new AuthTicket(json);
 }
 
-function cacheUserTenants(json) {
-  if (json.availableTenants && json.availableTenants.length > 0) {
-    tenantsCache[json.user.id] = json.availableTenants;
-  }
-}
-
 function getPlatformAuthTicket(client) {
   return client.platform().applications().authTicket().authenticateApp({
     applicationId: client.context.appKey,
@@ -53,7 +46,6 @@ function refreshPlatformAuthTicket(client, ticket) {
 
 function getDeveloperAuthTicket(client) {
   return client.root().platform().developer().developerAdminUserAuthTicket().createDeveloperUserAuthTicket(client.context.developerAccount).then(function(json) {
-    cacheUserTenants(json);
     return AuthTicket.create(json);
   });
 }
@@ -63,9 +55,8 @@ function refreshDeveloperAuthTicket(client, ticket) {
 }
 
 function getAdminUserAuthTicket(client) {
-  return client.root().platform().adminuser().tenantAdminUserAuthTicket().createUserAuthTicket({ tenantId: client.getTenant() }, { body: client.context.developerAccount }).then(function(json) {
+  return client.root().platform().adminuser().tenantAdminUserAuthTicket().createUserAuthTicket({ tenantId: client.getContextTenant() }, { body: client.context.developerAccount }).then(function(json) {
     client.context.user = json.user;
-    cacheUserTenants(json);
     return AuthTicket.create(json);
   })
 }
@@ -105,46 +96,7 @@ var AuthProvider = {
   addPlatformAppClaims: makeClaimMemoizer('addPlatformAppClaims', getPlatformAuthTicket, refreshPlatformAuthTicket, constants.headers.APPCLAIMS),
   addDeveloperUserClaims: makeClaimMemoizer('addDeveloperUserClaims', getDeveloperAuthTicket, refreshDeveloperAuthTicket, constants.headers.USERCLAIMS),
   addAdminUserClaims: makeClaimMemoizer('addAdminUserClaims', getAdminUserAuthTicket, refreshAdminUserAuthTicket, constants.headers.USERCLAIMS),
-  addMostRecentUserClaims: false,
-  getUserTenants: function(userid) {
-    return tenantsCache[userid];
-  },
-  getContextTenants: function(context) {
-    if (context.user) {
-      return AuthProvider.getUserTenants(context.user.id);
-    }
-    return claimsCache[context[constants.headers.APPCLAIMS]];
-  },
-  /**
- * Return an array of tasks (functions returning Promises) that performs, in sequence, all necessary authentication tasks for the given scope.
- * @param  {Client} client The client in whose context to run the tasks. AuthProvider will cache the claims per client.
- * @param  {Scope} scope  A scope (bitmask). If the scope is not NONE, then app claims will be added. If the scope is DEVELOPER xor ADMINUSER, user claims will be added.
- * @return {Array}        A list of tasks. If no auth is required, the list will be empty.
- */
-  getAuthTasks: function(client, scope) {
-    var tasks = [];
-    if (scope & scopes.DEVELOPER) {
-      tasks.push(function() {
-        return AuthProvider.addDeveloperUserClaims(client);
-      });
-    } else if (scope & scopes.ADMINUSER) {
-      tasks.push(function() {
-        return AuthProvider.addAdminUserClaims(client);
-      })
-    }
-    if (!scope && AuthProvider.addMostRecentUserClaims) {
-      tasks.push(function() {
-        return AuthProvider.addMostRecentUserClaims(client);
-      });
-    }
-    if (!(scope & scopes.NONE)) {
-      tasks.push(function() {
-        return AuthProvider.addPlatformAppClaims(client);
-      });
-    }
-
-    return tasks;
-  }
+  addMostRecentUserClaims: false
 };
 
 module.exports = AuthProvider;
