@@ -1,3 +1,7 @@
+[0.9.4](https://github.com/Mozu/mozu-javascript-sdk/releases/tag/v0.9.4) / 2015-02-12
+-------------------------------------------------------------------------------------
+*   **Fixed** Bad repository URL in `package.json`.
+
 [0.9.3](https://github.com/Mozu/mozu-javascript-sdk/releases/tag/v0.9.3) / 2015-01-28
 -------------------------------------------------------------------------------------
 

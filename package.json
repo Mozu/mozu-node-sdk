@@ -8,10 +8,10 @@
       "email": "james_zetlen@volusion.com"
     }
   ],
-  "version": "0.9.3",
+  "version": "0.9.4",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mozu/mozu-javascript-sdk.git"
+    "url": "https://github.com/Mozu/mozu-node-sdk.git"
   },
   "dependencies": {
     "concat-stream": "^1.4.7",
