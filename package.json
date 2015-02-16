@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "concat-stream": "^1.4.7",
+    "needle": "git://github.com/tomas/needle.git#1e18950",
     "node.extend": "~1",
-    "request": "~2",
     "uritemplate": "~0",
     "when": "~3"
   },

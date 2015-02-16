@@ -11,7 +11,7 @@ module.exports = function setup() {
     console.log('using fiddler proxy');
     client.defaultRequestOptions = {
       proxy: "http://127.0.0.1:8888",
-      strictSSL: false
+      rejectUnauthorized: false
     };
   }
 }

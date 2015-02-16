@@ -1,4 +1,4 @@
-var request = require('request'),
+var needle = require('needle'),
     constants = require('../constants'),
     scopes = constants.scopes,
     when = require('when'),
@@ -10,6 +10,15 @@ var request = require('request'),
     MASTERCATALOG = constants.headers.MASTERCATALOG,
     CATALOG = constants.headers.CATALOG,
     DATAVIEWMODE = constants.headers.DATAVIEWMODE;
+
+needle.defaults({
+  compressed: true,
+  follow: true,
+  timeout: 20000,
+  accept: 'application/json',
+  json: true,
+  user_agent: 'Mozu Node SDK v' + constants.version
+});
 
 function makeHeaders(conf) {
 
@@ -53,17 +62,11 @@ function makeHeaders(conf) {
 module.exports = function(options) {
   var deferred = when.defer(),
       conf = extend({}, options);
-  if (conf.body && typeof conf.body === "object") {
-    conf.json = conf.body;
-    delete conf.body;
-  } else {
-    conf.json = true;
-  }
   conf.headers = makeHeaders(conf);
-  request(conf, function(error, message, response) {
-    if (error) return deferred.reject(error);
-    if (message && message.statusCode >= 400 && message.statusCode < 600) deferred.reject(response);
-    deferred.resolve(response);
-  })
+  needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {
+    if (err) return deferred.reject(err);
+    if (response && response.statusCode >= 400 && response.statusCode < 600) deferred.reject(response);
+    return deferred.resolve(body);
+  });
   return deferred.promise;
 };
