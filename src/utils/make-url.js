@@ -1,31 +1,10 @@
 var uritemplate = require('uritemplate'),
-extend = require('node.extend'),
-AuthProvider = require('../security/auth-provider'),
-findWhere = require('./find-where');
+extend = require('node.extend');
 
 var templateCache = {};
 
-function wipeout(why) {
-  throw new Error("Could not create URL from template. " + why);
-}
-
 function ensureTrailingSlash(url) {
-  return (url.split().pop() === "/") ? url : (url + "/");
-}
-
-function ensureTenantPodUrl(context) {
-  var tenant,
-    availableTenants;
-  if (!context.tenantPod) {
-    if (!context.tenantId) wipeout("No tenant ID set.");
-    availableTenants = AuthProvider.getContextTenants(context);
-    if (!availableTenants) wipeout("No available tenants collection in context. Was AuthProvider.getAdminUserAuthTicket ever called?");
-    tenant = findWhere(availableTenants || [], { id: context.tenantId });
-    if (!tenant) wipeout("Tenant " + context.tenantId + " not found in collection of available tenants: " + availableTenants.map(function(t) { return t.id }));
-    context.tenantPod = "https://" + tenant.domain + "/";
-  }
-  context.tenantPod = ensureTrailingSlash(context.tenantPod);
-  return context;
+  return (url.charAt(url.length-1) === "/") ? url : (url + "/");
 }
 
 /**
@@ -39,11 +18,11 @@ module.exports = function makeUrl(client, tpt, body) {
   var context = client.context,
     template = templateCache[tpt] || (templateCache[tpt] = uritemplate.parse(tpt)),
     ctx = extend({
-      homePod: ensureTrailingSlash(context.baseUrl)
+      homePod: ensureTrailingSlash(context.baseUrl),
+      tenantId: context.tenant // URI templates expect tenantId
     }, context, body);
 
-  if (tpt.indexOf('{+tenantPod}') !== -1) {
-    ensureTenantPodUrl(ctx);
-  }
+  if (ctx.tenantPod) ctx.tenantPod = ensureTrailingSlash(ctx.tenantPod);
+
   return template.expand(ctx);
 }

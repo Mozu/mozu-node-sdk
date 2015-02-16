@@ -10,7 +10,7 @@ describe('Platform service', function() {
   it('returns a Tenant from GetTenant', function(done) {
 
     var tenant = setup.client.platform().tenant().getTenant({
-      tenantId: setup.client.getTenant()
+      tenantId: setup.client.context.tenant
     });
 
     when.join(
