@@ -1,3 +1,8 @@
+[0.10.0](https://github.com/Mozu/mozu-node-sdk/releases/tag/v0.10.0) / 2015-02-16
+-------------------------------------------------------------------------------------
+*   **Changed** Removed accessors for context. Just manipulate the `context` object directly. instead of calling `client.setTenant()` or `client.getTenant()`, just access the `client.context.tenant` property.
+*   **Added** Correctly call the GetTenant endpoint to acquire the tenant pod URL.
+
 [0.9.4](https://github.com/Mozu/mozu-javascript-sdk/releases/tag/v0.9.4) / 2015-02-12
 -------------------------------------------------------------------------------------
 *   **Fixed** Bad repository URL in `package.json`.
