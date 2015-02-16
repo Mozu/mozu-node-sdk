@@ -8,7 +8,7 @@
       "email": "james_zetlen@volusion.com"
     }
   ],
-  "version": "0.10.0",
+  "version": "0.11.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Mozu/mozu-node-sdk.git"
