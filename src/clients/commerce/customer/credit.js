@@ -30,6 +30,10 @@ module.exports = function(Client){
 			method: constants.verbs.PUT,
 			url: '{+tenantPod}api/commerce/customer/credits/{code}/associate-to-shopper?responseFields={responseFields}'
 		}),
+		resendCreditCreatedEmail :Client.method({
+			method: constants.verbs.PUT,
+			url: '{+tenantPod}api/commerce/customer/credits/{code}/Resend-Email'
+		}),
 		updateCredit :Client.method({
 			method: constants.verbs.PUT,
 			url: '{+tenantPod}api/commerce/customer/credits/{code}?responseFields={responseFields}'

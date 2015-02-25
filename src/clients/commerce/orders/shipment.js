@@ -20,7 +20,7 @@ module.exports = function(Client){
 		}),
 		getAvailableShipmentMethods :Client.method({
 			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/methods'
+			url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/methods?draft={draft}'
 		}),
 		createPackageShipments :Client.method({
 			method: constants.verbs.POST,

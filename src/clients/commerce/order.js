@@ -50,6 +50,10 @@ module.exports = function(Client){
 			method: constants.verbs.PUT,
 			url: '{+tenantPod}api/commerce/orders/{orderId}/draft?version={version}'
 		}),
+		resendOrderConfirmationEmail :Client.method({
+			method: constants.verbs.PUT,
+			url: '{+tenantPod}api/commerce/orders/{orderId}/email/resend'
+		}),
 		changeOrderUserId :Client.method({
 			method: constants.verbs.PUT,
 			url: '{+tenantPod}api/commerce/orders/{orderId}/users?responseFields={responseFields}'

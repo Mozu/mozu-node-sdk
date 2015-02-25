@@ -15,8 +15,8 @@ module.exports = function(Client){
 		"package": require('./orders/package')(Client),
 		"payment": require('./orders/payment')(Client),
 		"pickup": require('./orders/pickup')(Client),
+		"refund": require('./orders/refund')(Client),
 		"shipment": require('./orders/shipment')(Client)
 	});
 };
-
 
