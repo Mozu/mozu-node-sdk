@@ -1,10 +1,8 @@
 var extend = require('node.extend'),
     sub = require('./utils/sub'),
     makeMethod = require('./utils/make-method'),
-    makeClient = require('./utils/make-client'),
-    constants = require('./constants'),
-    findWhere = require('./utils/find-where'),
-    camelCase = require('./utils/camel-case');
+    makeClient = require('./utils/make-client');
+
     
 
 function Client(cfg) {

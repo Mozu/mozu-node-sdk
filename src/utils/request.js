@@ -1,15 +1,7 @@
 var needle = require('needle'),
     constants = require('../constants'),
-    scopes = constants.scopes,
     when = require('when'),
-    extend = require('node.extend'),
-    APPCLAIMS = constants.headers.APPCLAIMS,
-    USERCLAIMS = constants.headers.USERCLAIMS,
-    TENANT = constants.headers.TENANT,
-    SITE = constants.headers.SITE,
-    MASTERCATALOG = constants.headers.MASTERCATALOG,
-    CATALOG = constants.headers.CATALOG,
-    DATAVIEWMODE = constants.headers.DATAVIEWMODE;
+    extend = require('node.extend');
 
 needle.defaults({
   compressed: true,

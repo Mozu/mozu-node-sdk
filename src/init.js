@@ -4,7 +4,7 @@ var fs = require('fs'),
     path = require('path'),
     Client = require('./client');
 
-var legalConfigNames = ['mozu.config','mozu.config.json']
+var legalConfigNames = ['mozu.config','mozu.config.json'];
 
 function getConfig() {
   var conf;
@@ -29,10 +29,16 @@ function getConfig() {
 module.exports = {
   client: function(cfg) {
     cfg = cfg || {};
-    if (!cfg || !cfg.appKey || !cfg.sharedSecret  || !cfg.baseUrl) {
-      cfg = extend(getConfig(), cfg);
+    
+     if ( process.env.mozuHosted ) {
+      cfg = extend( cfg,process.env.mozuHosted.sdkConfig);
+    }
+    else{
+      if (!cfg || !cfg.appKey || !cfg.sharedSecret  || !cfg.baseUrl) {
+        cfg = extend(getConfig(), cfg);
+      }
     }
     return new Client({context: cfg});
   }
-}
+};
 // END INIT

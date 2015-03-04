@@ -12,7 +12,12 @@ var extend = require('node.extend'),
 module.exports = function(config) {
   return function(body, options) {
     var self = this,
-        tasks = PrerequisiteManager.getTasks(this, options, config);
+        tasks = [];
+
+    if ( !process.env.mozuHosted )
+    {
+      tasks = PrerequisiteManager.getTasks(this, options, config);
+    }
     
     tasks.push(function() {
       return request(extend({}, config, self.defaultRequestOptions, {
@@ -22,6 +27,6 @@ module.exports = function(config) {
       }, options));
     });
     return pipeline(tasks);
-  }
-}
+  };
+};
 
