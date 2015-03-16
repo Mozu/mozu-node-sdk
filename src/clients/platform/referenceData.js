@@ -46,6 +46,10 @@ module.exports = function(Client){
 			method: constants.verbs.GET,
 			url: '{+homePod}api/platform/reference/countries?responseFields={responseFields}'
 		}),
+		getCountriesWithStates :Client.method({
+			method: constants.verbs.GET,
+			url: '{+homePod}api/platform/reference/countrieswithstates?responseFields={responseFields}'
+		}),
 		getCurrencies :Client.method({
 			method: constants.verbs.GET,
 			url: '{+homePod}api/platform/reference/currencies?responseFields={responseFields}'

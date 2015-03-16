@@ -14,13 +14,13 @@ var constants = require('../../../constants');
 
 module.exports = function(Client){
 	return Client.sub({
-		performFulfillmentAction :Client.method({
+		createRefund :Client.method({
 			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillment/actions/?responseFields={responseFields}'
+			url: '{+tenantPod}api/commerce/orders/{orderId}/refunds?responseFields={responseFields}'
 		}),
-		resendPackageFulfillmentEmail :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillment/email/resend?responseFields={responseFields}'
+		resendRefundEmail :Client.method({
+			method: constants.verbs.PUT,
+			url: '{+tenantPod}api/commerce/orders/{orderId}/refunds/{refundId}'
 		})	
 	});
 };

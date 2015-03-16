@@ -24,7 +24,7 @@ module.exports = function(Client){
 		}),
 		getProduct :Client.method({
 			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&responseFields={responseFields}'
+			url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&supressOutOfStock404={supressOutOfStock404}&responseFields={responseFields}'
 		}),
 		configuredProduct :Client.method({
 			method: constants.verbs.POST,

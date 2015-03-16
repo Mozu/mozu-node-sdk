@@ -20,7 +20,7 @@ module.exports = function(Client){
 		}),
 		updateDocumentListType :Client.method({
 			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/content/documentlistTypes/{documentListTypeName}?responseFields={responseFields}'
+			url: '{+tenantPod}api/content/documentlistTypes/{documentListTypeFQN}?responseFields={responseFields}'
 		})	
 	});
 };

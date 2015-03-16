@@ -70,6 +70,10 @@ module.exports = function(Client){
 			method: constants.verbs.PUT,
 			url: '{+tenantPod}api/commerce/returns/{returnId}?responseFields={responseFields}'
 		}),
+		resendReturnEmail :Client.method({
+			method: constants.verbs.PUT,
+			url: '{+tenantPod}api/commerce/returns/email/resend'
+		}),
 		deleteOrderItem :Client.method({
 			method: constants.verbs.DELETE,
 			url: '{+tenantPod}api/commerce/returns/{orderId}/items/{orderItemId}?updatemode={updateMode}&version={version}'
