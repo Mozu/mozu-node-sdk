@@ -11,6 +11,7 @@ module.exports = function(Client){
 		"siteData": require('./platform/siteData')(Client),
 		"tenant": require('./platform/tenant')(Client),
 		"tenantData": require('./platform/tenantData')(Client),
+		"tenantExtensions": require('./platform/tenantExtensions')(Client),
 		"userData": require('./platform/userData')(Client)
 	});
 };
