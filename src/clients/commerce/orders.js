@@ -6,6 +6,7 @@ module.exports = function(Client){
 		"attributedefinition": require('./orders/attributedefinition')(Client),
 		"billingInfo": require('./orders/billingInfo')(Client),
 		"digitalPackage": require('./orders/digitalPackage')(Client),
+		"extendedProperty": require('./orders/extendedProperty')(Client),
 		"fulfillmentAction": require('./orders/fulfillmentAction')(Client),
 		"fulfillmentInfo": require('./orders/fulfillmentInfo')(Client),
 		"orderAttribute": require('./orders/orderAttribute')(Client),
@@ -15,7 +16,6 @@ module.exports = function(Client){
 		"package": require('./orders/package')(Client),
 		"payment": require('./orders/payment')(Client),
 		"pickup": require('./orders/pickup')(Client),
-		"refund": require('./orders/refund')(Client),
 		"shipment": require('./orders/shipment')(Client)
 	});
 };

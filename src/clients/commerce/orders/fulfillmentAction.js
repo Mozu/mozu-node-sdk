@@ -20,7 +20,7 @@ module.exports = function(Client){
 		}),
 		resendPackageFulfillmentEmail :Client.method({
 			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillment/email/resend?responseFields={responseFields}'
+			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillment/package/{packageId}/Resend-Email?responseFields={responseFields}'
 		})	
 	});
 };
