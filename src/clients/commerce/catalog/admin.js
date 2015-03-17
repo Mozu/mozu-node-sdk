@@ -12,7 +12,8 @@ module.exports = function(Client){
 		"productReservation": require('./admin/productReservation')(Client),
 		"products": require('./admin/products')(Client),
 		"publishingScope": require('./admin/publishingScope')(Client),
-		"search": require('./admin/search')(Client)
+		"search": require('./admin/search')(Client),
+		"softAllocation": require('./admin/softAllocation')(Client)
 	});
 };
 

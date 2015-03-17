@@ -32,7 +32,7 @@ module.exports = function(Client){
 		}),
 		changePassword :Client.method({
 			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/Change-Password'
+			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/Change-Password?unlockAccount={unlockAccount}'
 		}),
 		addLoginToExistingCustomer :Client.method({
 			method: constants.verbs.POST,
@@ -57,6 +57,10 @@ module.exports = function(Client){
 		addAccounts :Client.method({
 			method: constants.verbs.POST,
 			url: '{+tenantPod}api/commerce/customer/accounts/Bulk?responseFields={responseFields}'
+		}),
+		changePasswords :Client.method({
+			method: constants.verbs.POST,
+			url: '{+tenantPod}api/commerce/customer/accounts/Change-Passwords?responseFields={responseFields}'
 		}),
 		getLoginStateByEmailAddress :Client.method({
 			method: constants.verbs.POST,

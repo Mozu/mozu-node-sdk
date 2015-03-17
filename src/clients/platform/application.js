@@ -14,13 +14,33 @@ var constants = require('../../constants');
 
 module.exports = function(Client){
 	return Client.sub({
-		getApplication :Client.method({
+		getAppPackageNames :Client.method({
 			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/applications/{appId}?responseFields={responseFields}'
+			url: '{+homePod}api/platform/developer/applications/{applicationKey}/packagenames?responseFields={responseFields}'
 		}),
-		updateApplication :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/platform/applications/{appId}?responseFields={responseFields}'
+		getAppVersions :Client.method({
+			method: constants.verbs.GET,
+			url: '{+homePod}api/platform/developer/applications/versions/{nsAndAppId}?responseFields={responseFields}'
+		}),
+		getPackageFileMetadata :Client.method({
+			method: constants.verbs.GET,
+			url: '{+homePod}api/platform/developer/packages/{applicationKey}/filemetadata/{filepath}?responseFields={responseFields}'
+		}),
+		getPackageMetadata :Client.method({
+			method: constants.verbs.GET,
+			url: '{+homePod}api/platform/developer/packages/{applicationKey}/metadata?responseFields={responseFields}'
+		}),
+		upsertPackageFile :Client.method({
+			method: constants.verbs.POST,
+			url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{filepath}?lastModifiedTime={lastModifiedTime}&responseFields={responseFields}'
+		}),
+		renamePackageFile :Client.method({
+			method: constants.verbs.POST,
+			url: '{+homePod}api/platform/developer/packages/{applicationKey}/files_rename?responseFields={responseFields}'
+		}),
+		deletePackageFile :Client.method({
+			method: constants.verbs.DELETE,
+			url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{filepath}'
 		})	
 	});
 };

@@ -72,7 +72,7 @@ module.exports = function(Client){
 		}),
 		resendReturnEmail :Client.method({
 			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/returns/email/resend'
+			url: '{+tenantPod}api/commerce/returns/Resend-Email'
 		}),
 		deleteOrderItem :Client.method({
 			method: constants.verbs.DELETE,

@@ -52,7 +52,7 @@ module.exports = function(Client){
 		}),
 		resendOrderConfirmationEmail :Client.method({
 			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/email/resend'
+			url: '{+tenantPod}api/commerce/orders/{orderId}/Resend-Email'
 		}),
 		changeOrderUserId :Client.method({
 			method: constants.verbs.PUT,
