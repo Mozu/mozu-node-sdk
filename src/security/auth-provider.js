@@ -51,7 +51,7 @@ function getDeveloperAuthTicket(client) {
 }
 
 function refreshDeveloperAuthTicket(client, ticket) {
-  return client.root().platform().developer().developerAdminUserAuthTicket().refreshDeveloperUserAuthTicket(ticket).then(AuthTicket.create);
+  return client.root().platform().developer().developerAdminUserAuthTicket().refreshDeveloperAuthTicket(ticket).then(AuthTicket.create);
 }
 
 function getAdminUserAuthTicket(client) {
@@ -62,7 +62,7 @@ function getAdminUserAuthTicket(client) {
 }
 
 function refreshAdminUserAuthTicket(client, ticket) {
-  return client.root().platform().adminuser().authtickets().refreshAuthTicket(ticket).then(AuthTicket.create);
+  return client.root().platform().adminuser().tenantAdminUserAuthTicket().refreshAuthTicket(ticket).then(AuthTicket.create);
 }
 
 function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
