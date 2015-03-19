@@ -3,6 +3,23 @@ var needle = require('needle'),
     when = require('when'),
     extend = require('node.extend');
 
+
+function errorify(res) {
+  if (typeof res === "string") {
+    return new Error(res);
+  }
+  var message = res.message || res.body && res.message;
+  var err;
+  if (message) {
+    err = new Error(message);
+    err.originalError = res;
+    return err;
+  }
+  err = new Error("Unknown error!");
+  err.originalError = res;
+  return err;
+}
+
 needle.defaults({
   compressed: true,
   follow: true,
@@ -57,7 +74,7 @@ module.exports = function(options) {
   conf.headers = makeHeaders(conf);
   needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {
     if (err) return deferred.reject(err);
-    if (response && response.statusCode >= 400 && response.statusCode < 600) deferred.reject(response);
+    if (response && response.statusCode >= 400 && response.statusCode < 600) deferred.reject(errorify(response));
     return deferred.resolve(body);
   });
   return deferred.promise;
