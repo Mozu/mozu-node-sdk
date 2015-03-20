@@ -1,4 +1,5 @@
 var needle = require('needle'),
+    util = require('util'),
     constants = require('../constants'),
     when = require('when'),
     extend = require('node.extend');
@@ -8,15 +9,21 @@ function errorify(res) {
   if (typeof res === "string") {
     return new Error(res);
   }
-  var message = res.message || res.body && res.message;
+  var message = res.message || res.body && res.body.message;
   var err;
-  if (message) {
-    err = new Error(message);
-    err.originalError = res;
-    return err;
+  var parsedBody;
+
+  if (!message && typeof res.body === "string") {
+    try {
+      parsedBody = JSON.parse(res.body);
+      message = parsedBody.message;
+    } catch(e) {
+      message = res.body;
+    }
   }
-  err = new Error("Unknown error!");
-  err.originalError = res;
+
+  err = new Error(message || "Unknown error!");
+  err.originalError = parsedBody || res.body || res;
   return err;
 }
 
