@@ -31,7 +31,9 @@ module.exports = {
     cfg = cfg || {};
     
      if ( process.env.mozuHosted ) {
-      cfg = extend( cfg,process.env.mozuHosted.sdkConfig);
+      try {
+        cfg = extend( cfg, JSON.parse(process.env.mozuHosted).sdkConfig);
+      } catch(e) {}
     }
     else{
       if (!cfg || !cfg.appKey || !cfg.sharedSecret  || !cfg.baseUrl) {

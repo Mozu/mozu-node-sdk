@@ -29,7 +29,7 @@ function errorify(res) {
 
 needle.defaults({
   compressed: true,
-  follow: true,
+  follow: 10,
   timeout: 20000,
   accept: 'application/json',
   json: true,

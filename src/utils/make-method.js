@@ -20,7 +20,7 @@ module.exports = function(config) {
   }
 
   if (process.env.mozuHosted) {
-    return doRequest.bind(this);
+    return doRequest;
   } else {
     return function(body, options) {
       return pipeline((PrerequisiteManager.getTasks(this, options, config) || []).concat([doRequest.bind(this, body, options)]));
