@@ -8,7 +8,7 @@
       "email": "james_zetlen@volusion.com"
     }
   ],
-  "version": "1.15.15052-hotfix5",
+  "version": "1.15.15052-hotfix6",
   "repository": {
     "type": "git",
     "url": "https://github.com/Mozu/mozu-node-sdk.git"
