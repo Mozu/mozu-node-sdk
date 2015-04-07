@@ -27,20 +27,24 @@ function getConfig() {
 
 
 module.exports = {
-  client: function(cfg) {
-    cfg = cfg || {};
+  client: function(context, extraConfig) {
+    context = context || {};
     
      if ( process.env.mozuHosted ) {
       try {
-        cfg = extend( cfg, JSON.parse(process.env.mozuHosted).sdkConfig);
+        context = extend( context, JSON.parse(process.env.mozuHosted).sdkConfig);
       } catch(e) {}
     }
     else{
-      if (!cfg || !cfg.appKey || !cfg.sharedSecret  || !cfg.baseUrl) {
-        cfg = extend(getConfig(), cfg);
+      if (!context || !context.appKey || !context.sharedSecret  || !context.baseUrl) {
+        context = extend(getConfig(), context);
       }
     }
-    return new Client({context: cfg});
+    var config = {
+      context: context
+    };
+    if (extraConfig) extend(config, extraConfig);
+    return new Client(config);
   }
 };
 // END INIT
