@@ -4,12 +4,10 @@ var extend = require('node.extend'),
     makeClient = require('./utils/make-client'),
     inMemoryAuthCache = require('./security/in-memory-auth-cache');
 
-    
-
 function Client(cfg) {
   extend(this, cfg);
   this.defaultRequestOptions = this.defaultRequestOptions || {};
-  this.authenticationStorage = cfg.plugins && cfg.plugins.authenticationStorage || inMemoryAuthCache();
+  this.authenticationStorage = this.authenticationStorage || cfg.plugins && cfg.plugins.authenticationStorage || inMemoryAuthCache();
 }
 
 extend(Client, {

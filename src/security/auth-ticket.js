@@ -17,4 +17,4 @@ function AuthTicket(json) {
   }
 }
 
-module.export = AuthTicket;
+module.exports = AuthTicket;

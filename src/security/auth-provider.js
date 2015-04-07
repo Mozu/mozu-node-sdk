@@ -56,12 +56,16 @@ function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
       });
     }
     var op = when.promise(function(resolve, reject) {
-      client.authenticationStorage.get('application', client.context, function(err, ticket) {
+      client.authenticationStorage.get(calleeToClaimType[calleeName], client.context, function(err, ticket) {
         resolve(ticket);
       });
     }).then(function(ticket) {
-      if (!ticket) return requester(client).then(cacheAndUpdateClient);
-      if (ticket.accessTokenExpiration < new Date()) return refresher(client, ticket).then(cacheAndUpdateClient);
+      if (!ticket) {
+        return requester(client).then(cacheAndUpdateClient);
+      }
+      if ((new Date(ticket.accessTokenExpiration)) < new Date()) {
+        return refresher(client, ticket).then(cacheAndUpdateClient);
+      }
       client.context[claimHeader] = ticket.accessToken;
       return client;
     });

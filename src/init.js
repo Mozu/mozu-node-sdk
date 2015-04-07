@@ -4,6 +4,10 @@ var fs = require('fs'),
     path = require('path'),
     Client = require('./client');
 
+if (process.env.DEBUG && process.env.DEBUG.indexOf('mozu') !== -1) {
+  require('when/monitor/console');
+}
+
 var legalConfigNames = ['mozu.config','mozu.config.json'];
 
 function getConfig() {
@@ -43,7 +47,9 @@ module.exports = {
     var config = {
       context: context
     };
-    if (extraConfig) extend(config, extraConfig);
+    if (extraConfig) {
+      extend(config, extraConfig);
+    }
     return new Client(config);
   }
 };
