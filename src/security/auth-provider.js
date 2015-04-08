@@ -15,6 +15,8 @@ function getPlatformAuthTicket(client) {
 function refreshPlatformAuthTicket(client, ticket) {
   return client.platform().applications().authTicket().refreshAppAuthTicket({
     refreshToken: ticket.refreshToken
+  }, {
+    scope: scopes.NONE
   }).then(AuthTicket);
 }
 
