@@ -6,7 +6,8 @@ var version = require('./version'),
     SITE = 16,
     MASTERCATALOG = 32,
     CATALOG = 64,
-    NONE = 128;
+    APP_ONLY = 128,
+    NONE = 256
 
 // scopes are not yet in use, but when the services can reflect
 // their required scope, here will be all the bitmask constants
@@ -28,6 +29,7 @@ module.exports = {
     SITE: SITE,
     MASTERCATALOG: MASTERCATALOG,
     CATALOG: CATALOG,
+    APP_ONLY: APP_ONLY,
     NONE: NONE
   },
   verbs: {

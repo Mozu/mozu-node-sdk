@@ -39,12 +39,20 @@ needle.defaults({
 
 function makeHeaders(conf) {
 
-  return Object.keys(constants.headers).reduce(function(memo, key) {
+  function iterateHeaders(memo, key) {
     if (conf.context[constants.headers[key]]) {
       memo[constants.headerPrefix + constants.headers[key]] = conf.context[constants.headers[key]];
     }
     return memo;
-  }, {});
+  }
+
+  if (conf.scope && conf.scope & constants.scopes.NONE) {
+    return {};
+  } else if (conf.scope && conf.scope & constants.scopes.APP_ONLY) {
+    return ['APPCLAIMS'].reduce(iterateHeaders, {});
+  } else {
+    return Object.keys(constants.headers).reduce(iterateHeaders, {});
+  }
 
   // 
   // until scopes can reflect accurately out of the service classes, we'll just push all the context we have

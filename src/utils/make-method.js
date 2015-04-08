@@ -15,7 +15,8 @@ module.exports = function(config) {
     return request(extend({}, config, this.defaultRequestOptions, {
         url: makeUrl(this, config.url, body || {}),
         context: this.context,
-        body: body
+        body: body,
+        json: true
       }, options));
   }
 

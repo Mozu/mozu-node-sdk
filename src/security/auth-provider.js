@@ -29,14 +29,19 @@ function refreshDeveloperAuthTicket(client, ticket) {
 }
 
 function getAdminUserAuthTicket(client) {
-  return client.root().platform().adminuser().tenantAdminUserAuthTicket().createUserAuthTicket({ tenantId: client.context.tenant }, { body: client.context.developerAccount }).then(function(json) {
+  return client.root().platform().adminuser().tenantAdminUserAuthTicket().createUserAuthTicket({ tenantId: client.context.tenant }, { 
+    body: client.context.adminUser,
+    scope: constants.scopes.APP_ONLY
+  }).then(function(json) {
     client.context.user = json.user;
     return AuthTicket(json);
   })
 }
 
 function refreshAdminUserAuthTicket(client, ticket) {
-  return client.root().platform().adminuser().tenantAdminUserAuthTicket().refreshAuthTicket(ticket).then(AuthTicket);
+  return client.root().platform().adminuser().tenantAdminUserAuthTicket().refreshAuthTicket(ticket, {
+    scope: constants.scopes.APP_ONLY
+  }).then(AuthTicket);
 }
 
 var calleeToClaimType = {
