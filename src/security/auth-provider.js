@@ -29,7 +29,7 @@ function refreshDeveloperAuthTicket(client, ticket) {
 }
 
 function getAdminUserAuthTicket(client) {
-  return client.root().platform().adminuser().tenantAdminUserAuthTicket().createUserAuthTicket({ tenantId: client.getContextTenant() }, { body: client.context.developerAccount }).then(function(json) {
+  return client.root().platform().adminuser().tenantAdminUserAuthTicket().createUserAuthTicket({ tenantId: client.context.tenant }, { body: client.context.developerAccount }).then(function(json) {
     client.context.user = json.user;
     return AuthTicket(json);
   })

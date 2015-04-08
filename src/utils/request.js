@@ -11,19 +11,20 @@ function errorify(res) {
   }
   var message = res.message || res.body && res.body.message;
   var err;
+  var stringBody = typeof res.body === "string" ? res.body : (Buffer.isBuffer(res.body) ? res.body.toString() : null);
   var parsedBody;
 
-  if (!message && typeof res.body === "string") {
+  if (!message && stringBody) {
     try {
-      parsedBody = JSON.parse(res.body);
-      message = parsedBody.message;
+      parsedBody = JSON.parse(stringBody);
+      message = parsedBody.message || stringBody;
     } catch(e) {
-      message = res.body;
+      message = stringBody;
     }
   }
 
   err = new Error(message || "Unknown error!");
-  err.originalError = parsedBody || res.body || res;
+  err.originalError = parsedBody || stringBody || res.body;
   return err;
 }
 
