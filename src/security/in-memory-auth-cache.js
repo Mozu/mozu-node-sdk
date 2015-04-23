@@ -27,7 +27,7 @@ function generateCacheKey(claimtype, context) {
   return cmps.join();
 }
 
-module.exports = function() {
+var InMemoryAuthCache = module.exports = function InMemoryAuthCache() {
   var claimsCaches = {
     application: {},
     developer: {},
@@ -44,6 +44,7 @@ module.exports = function() {
     set: function(claimtype, context, ticket, callback) {
       claimsCaches[claimtype][generateCacheKey(claimtype, context)] = ticket;
       setImmediate(callback);
-    }
+    },
+    constructor: InMemoryAuthCache
   }
 };
