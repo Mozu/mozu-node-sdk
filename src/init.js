@@ -31,6 +31,9 @@ function getConfig() {
 
 
 module.exports = {
+  setDefaultRequestOptions: function(options) {
+    Client.defaultRequestOptions = options;
+  },
   client: function(context, extraConfig) {
     context = context || {};
     

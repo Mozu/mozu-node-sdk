@@ -125,6 +125,14 @@ client.defaultRequestOptions = {
 };
 ```
 
+You can set these defaults for all client objects by calling the `setDefaultRequestOptions()` method on the SDK itself.
+```js
+require('mozu-node-sdk').setDefaultRequestOptions({
+    proxy: "http://127.0.0.1:8888",
+    rejectUnauthorized: true
+});
+```
+
 ### Handling Responses
 
 All API calls return a Promise, specifically a [when](https://github.com/cujojs/when) promise. Promises are one of the most standard and popular ways of handling asynchronous code in JavaScript. The Promise represents an "eventual value". It's an object which is either pending, resolved (success) or rejected (failure). You can attach handlers to it using the standard `.then(onResolved, onRejected)` method.
@@ -171,19 +179,32 @@ client.commerce().order().getOrder({ orderId: 'ab96c79e59b79a76' })
 
 ### Extras
 
-#### Authentication Storage
+#### Creating Clients Directly
 
-The `require('mozu-node-sdk').client()` factory actually takes two arguments: a context, and a `plugins` collection. Currently, the only supported plugin type is `AuthenticationStorage`. You can supply an AuthenticationStorage plugin by putting it in configuration object you send to the second argument to the client factory:
+You can retrieve the `Client` constructor directly:
+
 ```js
-// `null` to fetch context from a local config file
-var persistentAuthClient = require('mozu-node-sdk').client(null, {
-    plugins: {
-        authenticationStorage: customAuthStorageObject
-    }
+var Client = require('mozu-node-sdk/src/client');
+
+var client = new Client({
+    context: someContextObject,
+    plugins: [somePlugin],
+    defaultRequestOptions: someDefaultRequestOptions
 });
 ```
 
-The SDK will call this object to store and retrieve auth tickets. It must implement the following methods, both asynchronous:
+#### Authentication Storage
+
+The `require('mozu-node-sdk').client()` factory actually takes two arguments: a context, and a `plugins` array. Currently, the only supported plugin type is `AuthenticationStorage`. You can supply an AuthenticationStorage plugin by putting it in an array you send to the second argument to the client factory:
+
+```js
+// `null` to fetch context from a local config file
+var persistentAuthClient = require('mozu-node-sdk').client(null, {
+    plugins: [customAuthStorageObject]
+});
+```
+
+The SDK will call this object to store and retrieve auth tickets. It must be a function that receives a client as its argument, and returns an object that implements the following methods, both asynchronous:
 
 ##### `AuthenticationStorage.get(claimType, context, callback)`
 Retrieve a stored auth ticket. Should never return tickets whose refresh tokens have expired.
@@ -207,7 +228,7 @@ Store an auth ticket. Invoke an asynchronous callback to indicate that the ticke
  - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
  - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument that should be null. There is no result sent to this callback; as long as the error is null, the operation succeeded.
 
-The only AuthenticationStorage plugin that exists yet is [Multipass](https://github.com/zetlen/mozu-multipass).
+The only plugin that exists so far is [Multipass](https://github.com/zetlen/mozu-multipass) for AuthenticationStorage.
 
 #### Validate Hashes
 
