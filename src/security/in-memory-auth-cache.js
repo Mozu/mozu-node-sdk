@@ -8,8 +8,13 @@ function isExpired(ticket) {
 }
 
 function generateCacheKey(claimtype, context) {
-  assert(context.appKey, "No application key in context!");
-  var cmps = [context.appKey];
+  var cmps;
+  if (!process.env.mozuHosted) {
+    assert(context.appKey, "No application key in context!");
+    cmps = [context.appKey];
+  } else {
+    cmps = ['mozuHosted'];
+  }
   switch(claimtype) {
     case "developer":
       assert(context.developerAccountId, "No developer account id in context!");
@@ -36,8 +41,8 @@ var InMemoryAuthCache = module.exports = function InMemoryAuthCache() {
 
   return {
     get: function(claimtype, context, callback) {
+      var ticket = claimsCaches[claimtype][generateCacheKey(claimtype, context)];
       setImmediate(function() {
-        var ticket = claimsCaches[claimtype][generateCacheKey(claimtype, context)];
         callback(null, ticket && !isExpired(ticket) && ticket || undefined);
       });
     },

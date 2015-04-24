@@ -1,50 +1,51 @@
+var assert = require('assert')
 var setup = require('./utils/config');
+var enableDestroy = require('server-destroy');
 var when = require('when');
+var SDK = require('../');
 
 describe('Mozu Hosted Calls', function() {
 
-
     var tenantPod;
+    var homePod;
 
     before(function(done) {
-        var chai = require('chai');
-
-
-        chai.should();
-        chai.use(require('chai-as-promised'));
-
         var http = require('http');
-
         tenantPod = http.createServer(function(request, response) {
             response.writeHead(200, {
                 "Content-Type": "text/json"
             });
             tenantPod.handle(request, response);
-
         });
         tenantPod.listen(1789);
+        homePod = http.createServer(function(request, response) {
+            response.writeHead(403, {
+                "Content-Type": "text/json"
+            });
+            response.end(JSON.stringify({
+                message: 'Should not call home pod in mozuHosted environment with request: ' + request.url
+            }));
+        });
+        homePod.listen(1456);
+        enableDestroy(tenantPod);
+        enableDestroy(homePod);
         done();
     });
+
     after(function(done) {
-        tenantPod.close(done);
+        homePod.destroy(function() {
+            tenantPod.destroy(done);
+        });
+        process.env.mozuHosted = '';
     });
 
     this.timeout(20000);
 
 
+    it('provide a readymade SDK client whose context can be hand-modified', function() {
 
-    it('provide a readymade SDK client whose context can be hand-modified', function(done) {
-
-
-
-
-        var client = null,
-            assert = require('assert'),
+        var client,
             headersConstants = require('../src/constants').headers,
-            errorFn = function(error) {
-                console.error(error.message, error);
-                done();
-            },
             sdkConfig = {
                 baseUrl: "http://localhost:1456/",
                 tenantPod: "http://localhost:1789/",
@@ -52,20 +53,16 @@ describe('Mozu Hosted Calls', function() {
         sdkConfig[headersConstants.SITE] = 123;
         sdkConfig[headersConstants.USERCLAIMS] = "fonzie";
 
-
         process.env.mozuHosted = JSON.stringify({
             sdkConfig: sdkConfig
         });
-        client = require('../').client();
 
-
+        client = SDK.client();
 
         client.context[headersConstants.USERCLAIMS] = null;
         client.context[headersConstants.SITE] = 23;
 
         var reachedHandle = [];
-
-
 
         tenantPod.handle = function(req, resp) {
 
@@ -77,28 +74,21 @@ describe('Mozu Hosted Calls', function() {
             resp.end("{ items:[]}");
 
         };
-        return client.commerce().catalog().admin().product().getProducts({})
-            .then(function() {
 
-                tenantPod.handle = function(req, resp) {
+        return client.commerce().catalog().admin().product().getProducts({}).then(function() {
 
-                    reachedHandle.push(2);
+            tenantPod.handle = function(req, resp) {
+                reachedHandle.push(2);
+                assert.equal(req.headers['x-vol-' + headersConstants.USERCLAIMS], 'fonzie', "should have user claims");
+                assert.equal(req.headers['x-vol-' + headersConstants.SITE], 123, 'site should be restored from process.env');
+                resp.end("{ items:[]}");
+            };
 
-                    assert.equal(req.headers['x-vol-' + headersConstants.USERCLAIMS], 'fonzie', "should have user claims");
-                    assert.equal(req.headers['x-vol-' + headersConstants.SITE], 123, 'site should be restored from process.env');
+            client = SDK.client();
 
-                    resp.end("{ items:[]}");
-                };
-                client = require('../').client();
-                return client.commerce().catalog().admin().product().getProducts().then(function() {
-                    reachedHandle.should.deep.eql([1,2]);
-                    done();
-                }, errorFn);
-
-            }, errorFn);
-
-
-
-
+            return client.commerce().catalog().admin().product().getProducts().then(function(s) {
+                assert.equal(reachedHandle.join(','),'1,2', 'did not reach both handles');
+            });
+        });
     });
 });
