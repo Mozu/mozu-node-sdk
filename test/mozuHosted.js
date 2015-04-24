@@ -33,7 +33,7 @@ describe('Mozu Hosted Calls', function() {
 
 
 
-    it('can_modify_context_w_hosted', function(done) {
+    it('provide a readymade SDK client whose context can be hand-modified', function(done) {
 
 
 
@@ -63,9 +63,13 @@ describe('Mozu Hosted Calls', function() {
         client.context[headersConstants.USERCLAIMS] = null;
         client.context[headersConstants.SITE] = 23;
 
+        var reachedHandle = [];
+
 
 
         tenantPod.handle = function(req, resp) {
+
+            reachedHandle.push(1);
 
             assert.ok(!req.headers['x-vol-' + headersConstants.USERCLAIMS], "user claims should be null");
             assert.equal(req.headers['x-vol-' + headersConstants.SITE], 23, 'site doesnt match context change');
@@ -73,17 +77,21 @@ describe('Mozu Hosted Calls', function() {
             resp.end("{ items:[]}");
 
         };
-        client.commerce().catalog().admin().product().getProducts({})
+        return client.commerce().catalog().admin().product().getProducts({})
             .then(function() {
+
                 tenantPod.handle = function(req, resp) {
 
+                    reachedHandle.push(2);
+
                     assert.equal(req.headers['x-vol-' + headersConstants.USERCLAIMS], 'fonzie', "should have user claims");
-                    assert.equal(req.headers['x-vol-' + headersConstants.SITE], 123, 'site shoudld be restored from process.env');
+                    assert.equal(req.headers['x-vol-' + headersConstants.SITE], 123, 'site should be restored from process.env');
 
                     resp.end("{ items:[]}");
                 };
                 client = require('../').client();
-                client.commerce().catalog().admin().product().getProducts().then(function() {
+                return client.commerce().catalog().admin().product().getProducts().then(function() {
+                    reachedHandle.should.deep.eql([1,2]);
                     done();
                 }, errorFn);
 
