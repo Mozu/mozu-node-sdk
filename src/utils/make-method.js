@@ -10,18 +10,23 @@ var extend = require('node.extend'),
  * @return {Function} A function that takes two parameters, a `body` object to be used as JSON payload, and optionally an `options` object to be sent to `request` to override default options. Expects to be run in the context of a Client.
  */
 module.exports = function(config) {
-  return function(body, options) {
-    var self = this,
-        tasks = PrerequisiteManager.getTasks(this, options, config);
-    
-    tasks.push(function() {
-      return request(extend({}, config, self.defaultRequestOptions, {
-        url: makeUrl(self, config.url, body || {}),
-        context: self.context,
-        body: body
+
+  function doRequest(body, options) {
+    return request(extend({}, config, this.defaultRequestOptions, {
+        url: makeUrl(this, config.url, body || {}),
+        context: this.context,
+        body: body,
+        json: true
       }, options));
-    });
-    return pipeline(tasks);
   }
-}
+
+  if (process.env.mozuHosted) {
+    return doRequest;
+  } else {
+    return function(body, options) {
+      return pipeline((PrerequisiteManager.getTasks(this, options, config) || []).concat([doRequest.bind(this, body, options)]));
+    }
+  }
+
+};
 

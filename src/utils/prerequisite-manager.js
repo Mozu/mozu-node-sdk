@@ -13,7 +13,7 @@ function cacheTenantsFromTicket(ticket) {
   if (tenants) {
     for (var i = 0; i < tenants.length; i++) {
       tenantsCache[tenants[i].id] = tenants[i];
-    };
+    }
   }
   delete ticket.availableTenants;
   return ticket;
@@ -52,7 +52,7 @@ function getTenantInfo(id) {
   } else if (scope & scopes.ADMINUSER) {
     tasks.push(function() {
       return AuthProvider.addAdminUserClaims(client).then(cacheTenantsFromTicket);
-    })
+    });
   }
   if (!scope && AuthProvider.addMostRecentUserClaims) {
     tasks.push(function() {

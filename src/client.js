@@ -2,20 +2,18 @@ var extend = require('node.extend'),
     sub = require('./utils/sub'),
     makeMethod = require('./utils/make-method'),
     makeClient = require('./utils/make-client'),
-    constants = require('./constants'),
-    findWhere = require('./utils/find-where'),
-    camelCase = require('./utils/camel-case');
-    
+    inMemoryAuthCache = require('./security/in-memory-auth-cache');
 
 function Client(cfg) {
   extend(this, cfg);
   this.defaultRequestOptions = this.defaultRequestOptions || {};
+  this.authenticationStorage = this.authenticationStorage || cfg.plugins && cfg.plugins.authenticationStorage || inMemoryAuthCache();
 }
 
 extend(Client, {
   method: makeMethod,
-  sub: function() {
-    return makeClient(sub.apply(this, [Client].concat([].slice.call(arguments)))); 
+  sub: function(methods) {
+    return makeClient(sub(Client, methods));
   }
 });
 

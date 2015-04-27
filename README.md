@@ -171,6 +171,44 @@ client.commerce().order().getOrder({ orderId: 'ab96c79e59b79a76' })
 
 ### Extras
 
+#### Authentication Storage
+
+The `require('mozu-node-sdk').client()` factory actually takes two arguments: a context, and a `plugins` collection. Currently, the only supported plugin type is `AuthenticationStorage`. You can supply an AuthenticationStorage plugin by putting it in configuration object you send to the second argument to the client factory:
+```js
+// `null` to fetch context from a local config file
+var persistentAuthClient = require('mozu-node-sdk').client(null, {
+    plugins: {
+        authenticationStorage: customAuthStorageObject
+    }
+});
+```
+
+The SDK will call this object to store and retrieve auth tickets. It must implement the following methods, both asynchronous:
+
+##### `AuthenticationStorage.get(claimType, context, callback)`
+Retrieve a stored auth ticket. Should never return tickets whose refresh tokens have expired.
+**Arguments:**
+ - `claimType` *(String)* A string representing the type of ticket to retrieve. Can be one of the following strings:
+    - `"platform"` -- an app claim for your application
+    - `"developer"` -- a user claim for a developer account to use Platform services
+    - `"admin-user"` -- a user claim for an administrator to work with tenant data
+ - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
+ - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument first that should be null, and a `ticket` argument second, that will be either `undefined` if no ticket exists, or an Auth Ticket a qualifying one exists.
+
+
+
+##### `AuthenticationStorage.set(claimType, context, ticket, callback)`
+Store an auth ticket. Invoke an asynchronous callback to indicate that the ticket was successfully stored.
+**Arguments:**
+ - `claimType` *(String)* A string representing the type of ticket to store. Can be one of the following strings:
+    - `"platform"` -- an app claim for your application
+    - `"developer"` -- a user claim for a developer account to use Platform services
+    - `"admin-user"` -- a user claim for an administrator to work with tenant data
+ - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
+ - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument that should be null. There is no result sent to this callback; as long as the error is null, the operation succeeded.
+
+The only AuthenticationStorage plugin that exists yet is [Multipass](https://github.com/zetlen/mozu-multipass).
+
 #### Validate Hashes
 
 The JavaScript SDK comes with an implementation of the Mozu API message hash function. You can get the hash of a request stream with `mozu-node-sdk/src/security/hash-stream`:

@@ -12,6 +12,7 @@ module.exports = function makeClient(clientCls) {
     cfg.context = this.context;
     if (!cfg.context[versionKey]) cfg.context[versionKey] = version;
     cfg.defaultRequestOptions = this.defaultRequestOptions;
+    if (!cfg.authenticationStorage) cfg.authenticationStorage = this.authenticationStorage;
     return new clientCls(cfg);
   };
 }
