@@ -90,7 +90,7 @@ client.content().documentlists().document().getDocuments({
 });
 ```
 
-The `options` argument is optional, but consists of any option that can be passed to the underlying [needle](https://github.com/tomas/needle) library.
+The `options` argument is optional, but consists of any option that can be passed to the underlying [needle](https://github.com/tomas/needle) library, or other special options described below.
 
 ```js
 client.content().documentlists().document().getDocuments({
@@ -102,20 +102,23 @@ client.content().documentlists().document().getDocuments({
 });
 ```
 
-You can also pass a `context` parameter to options to override the current client context for the duration of one call.
+#### Other Options
 
-```js
-client.content().documentlists().document().getDocuments({
-    pageSize: 5,
-    documentListName: 'files@mozu'
-}, {
-    timeout: 60000,
-    multipart: true,
-    context: {
-        site: 6789
-    }
-});
-```
+ - `parseDates` *(Boolean)* Parse ISO 8601 dates in the Mozu API JSON responses into native JavaScript dates. This option uses regular expressions and slows down JSON parsing by a small (linear) amount. It defaults to `true`. If you're having performance problems, you can set it to `false` for one call or in your `defaultRequestOptions` for all calls.
+
+ - `context` *(Object)* Override the current client context for the duration of one call.
+   ```js
+   client.content().documentlists().document().getDocuments({
+       pageSize: 5,
+       documentListName: 'files@mozu'
+   }, {
+       timeout: 60000,
+       multipart: true,
+       context: {
+           site: 6789
+       }
+   });
+   ```
 
 You can set the `defaultRequestOptions` property of your client object for certain options to be passed in to every request:
 ```js

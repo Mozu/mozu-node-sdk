@@ -9,6 +9,8 @@ describe('Mozu Hosted Calls', function() {
     var tenantPod;
     var homePod;
 
+    var blankResponse = JSON.stringify({ items: [] });
+
     before(function(done) {
         var http = require('http');
         tenantPod = http.createServer(function(request, response) {
@@ -71,7 +73,7 @@ describe('Mozu Hosted Calls', function() {
             assert.ok(!req.headers['x-vol-' + headersConstants.USERCLAIMS], "user claims should be null");
             assert.equal(req.headers['x-vol-' + headersConstants.SITE], 23, 'site doesnt match context change');
 
-            resp.end("{ items:[]}");
+            resp.end(blankResponse);
 
         };
 
@@ -81,7 +83,7 @@ describe('Mozu Hosted Calls', function() {
                 reachedHandle.push(2);
                 assert.equal(req.headers['x-vol-' + headersConstants.USERCLAIMS], 'fonzie', "should have user claims");
                 assert.equal(req.headers['x-vol-' + headersConstants.SITE], 123, 'site should be restored from process.env');
-                resp.end("{ items:[]}");
+                resp.end(blankResponse);
             };
 
             client = SDK.client();
