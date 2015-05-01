@@ -1,6 +1,7 @@
 var needle = require('needle'),
     util = require('util'),
     constants = require('../constants'),
+    makeLocalProxyAgent = require('./make-local-proxy-agent'),
     when = require('when'),
     extend = require('node.extend');
 
@@ -94,6 +95,9 @@ module.exports = function(options) {
   var deferred = when.defer(),
       conf = extend({}, options);
   conf.headers = makeHeaders(conf);
+  if (process.env.USE_FIDDLER) {
+    conf.agent = makeLocalProxyAgent(conf.headers);
+  }
   needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {
     if (err) return deferred.reject(err);
     try {

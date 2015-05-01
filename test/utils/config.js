@@ -9,9 +9,5 @@ module.exports = function setup() {
 
   if (process.env.USE_FIDDLER) {
     console.log('using fiddler proxy');
-    client.defaultRequestOptions = {
-      proxy: "http://127.0.0.1:8888",
-      rejectUnauthorized: false
-    };
   }
 }
