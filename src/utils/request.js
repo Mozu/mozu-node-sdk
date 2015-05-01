@@ -92,21 +92,21 @@ function parseDate(key, value) {
  */
 
 module.exports = function(options) {
-  var deferred = when.defer(),
-      conf = extend({}, options);
+  var conf = extend({}, options);
   conf.headers = makeHeaders(conf);
   if (process.env.USE_FIDDLER) {
     conf.agent = makeLocalProxyAgent(conf.headers);
   }
-  needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {
-    if (err) return deferred.reject(err);
-    try {
-      body = JSON.parse(body, (conf.parseDates !== false) && parseDate);
-    } catch(e) { 
-      return deferred.reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
-    }
-    if (response && response.statusCode >= 400 && response.statusCode < 600) deferred.reject(errorify(response));
-    return deferred.resolve(body);
+  return when.promise(function(resolve, reject) {
+    needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {
+      if (err) return reject(err);
+      try {
+        body = JSON.parse(body, (conf.parseDates !== false) && parseDate);
+      } catch(e) { 
+        return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
+      }
+      if (response && response.statusCode >= 400 && response.statusCode < 600) return reject(errorify(response));
+      return resolve(body);
+    });
   });
-  return deferred.promise;
 };
