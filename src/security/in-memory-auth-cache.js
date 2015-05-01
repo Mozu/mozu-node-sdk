@@ -17,9 +17,8 @@ function generateCacheKey(claimtype, context) {
   }
   switch(claimtype) {
     case "developer":
-      assert(context.developerAccountId, "No developer account id in context!");
       assert(context.developerAccount && context.developerAccount.emailAddress, "No developer account email address in context!");
-      cmps.push(context.developerAccountId, context.developerAccount.emailAddress);
+      cmps.push(context.developerAccount.emailAddress, context.developerAccountId);
       break;
     case "admin-user":
       assert(context.tenant, "No tenant in context!");
