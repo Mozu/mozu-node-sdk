@@ -20,11 +20,18 @@ module.exports = function(config) {
       }, options));
   }
 
-  if (process.env.mozuHosted) {
-    return doRequest;
-  } else {
-    return function(body, options) {
-      return pipeline((PrerequisiteManager.getTasks(this, options, config) || []).concat([doRequest.bind(this, body, options)]));
+  return function(body, options) {
+    var tasks;
+    var doThisRequest = doRequest.bind(this, body, options);
+    if (process.env.mozuHosted) {
+      return doThisRequest();
+    } else {
+      tasks = PrerequisiteManager.getTasks(this, options, config) || [];
+      tasks.push(doThisRequest);
+      return pipeline(tasks);
+      // this is more readable than the below, earlier version:
+      // return pipeline((PrerequisiteManager.getTasks(this, options, config) || []).concat([doRequest.bind(this, body, options)]));
+      // and no slower really
     }
   }
 

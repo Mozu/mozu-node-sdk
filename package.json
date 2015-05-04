@@ -8,7 +8,7 @@
       "email": "james_zetlen@volusion.com"
     }
   ],
-  "version": "1.15.15052-hotfix9",
+  "version": "1.15.15052-hotfix12",
   "repository": {
     "type": "git",
     "url": "https://github.com/Mozu/mozu-node-sdk.git"
@@ -17,6 +17,7 @@
     "concat-stream": "^1.4.7",
     "needle": "^0.9.0",
     "node.extend": "~1",
+    "tunnel-agent": "^0.4.0",
     "uritemplate": "~0",
     "when": "~3"
   },
@@ -25,7 +26,8 @@
     "chai": "^1.9.2",
     "chai-as-promised": "^4.1.1",
     "mocha": "^1.21.4",
-    "mozu-multipass": "^0.1.3"
+    "mozu-multipass": "^0.1.3",
+    "server-destroy": "^1.0.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha"

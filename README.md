@@ -90,7 +90,7 @@ client.content().documentlists().document().getDocuments({
 });
 ```
 
-The `options` argument is optional, but consists of any option that can be passed to the underlying [needle](https://github.com/tomas/needle) library.
+The `options` argument is optional, but consists of any option that can be passed to the underlying [needle](https://github.com/tomas/needle) library, or other special options described below.
 
 ```js
 client.content().documentlists().document().getDocuments({
@@ -102,20 +102,23 @@ client.content().documentlists().document().getDocuments({
 });
 ```
 
-You can also pass a `context` parameter to options to override the current client context for the duration of one call.
+#### Other Options
 
-```js
-client.content().documentlists().document().getDocuments({
-    pageSize: 5,
-    documentListName: 'files@mozu'
-}, {
-    timeout: 60000,
-    multipart: true,
-    context: {
-        site: 6789
-    }
-});
-```
+ - `parseDates` *(Boolean)* Parse ISO 8601 dates in the Mozu API JSON responses into native JavaScript dates. This option uses regular expressions and slows down JSON parsing by a small (linear) amount. It defaults to `true`. If you're having performance problems, you can set it to `false` for one call or in your `defaultRequestOptions` for all calls.
+
+ - `context` *(Object)* Override the current client context for the duration of one call.
+   ```js
+   client.content().documentlists().document().getDocuments({
+       pageSize: 5,
+       documentListName: 'files@mozu'
+   }, {
+       timeout: 60000,
+       multipart: true,
+       context: {
+           site: 6789
+       }
+   });
+   ```
 
 You can set the `defaultRequestOptions` property of your client object for certain options to be passed in to every request:
 ```js
@@ -123,6 +126,14 @@ client.defaultRequestOptions = {
   proxy: "http://127.0.0.1:8888",
   rejectUnauthorized: false
 };
+```
+
+You can set these defaults for all client objects by calling the `setDefaultRequestOptions()` method on the SDK itself.
+```js
+require('mozu-node-sdk').setDefaultRequestOptions({
+    proxy: "http://127.0.0.1:8888",
+    rejectUnauthorized: true
+});
 ```
 
 ### Handling Responses
@@ -171,19 +182,32 @@ client.commerce().order().getOrder({ orderId: 'ab96c79e59b79a76' })
 
 ### Extras
 
-#### Authentication Storage
+#### Creating Clients Directly
 
-The `require('mozu-node-sdk').client()` factory actually takes two arguments: a context, and a `plugins` collection. Currently, the only supported plugin type is `AuthenticationStorage`. You can supply an AuthenticationStorage plugin by putting it in configuration object you send to the second argument to the client factory:
+You can retrieve the `Client` constructor directly:
+
 ```js
-// `null` to fetch context from a local config file
-var persistentAuthClient = require('mozu-node-sdk').client(null, {
-    plugins: {
-        authenticationStorage: customAuthStorageObject
-    }
+var Client = require('mozu-node-sdk/src/client');
+
+var client = new Client({
+    context: someContextObject,
+    plugins: [somePlugin],
+    defaultRequestOptions: someDefaultRequestOptions
 });
 ```
 
-The SDK will call this object to store and retrieve auth tickets. It must implement the following methods, both asynchronous:
+#### Authentication Storage
+
+The `require('mozu-node-sdk').client()` factory actually takes two arguments: a context, and a `plugins` array. Currently, the only supported plugin type is `AuthenticationStorage`. You can supply an AuthenticationStorage plugin by putting it in an array you send to the second argument to the client factory:
+
+```js
+// `null` to fetch context from a local config file
+var persistentAuthClient = require('mozu-node-sdk').client(null, {
+    plugins: [customAuthStorageObject]
+});
+```
+
+The SDK will call this object to store and retrieve auth tickets. It must be a function that receives a client as its argument, and returns an object that implements the following methods, both asynchronous:
 
 ##### `AuthenticationStorage.get(claimType, context, callback)`
 Retrieve a stored auth ticket. Should never return tickets whose refresh tokens have expired.
@@ -207,7 +231,7 @@ Store an auth ticket. Invoke an asynchronous callback to indicate that the ticke
  - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
  - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument that should be null. There is no result sent to this callback; as long as the error is null, the operation succeeded.
 
-The only AuthenticationStorage plugin that exists yet is [Multipass](https://github.com/zetlen/mozu-multipass).
+The only plugin that exists so far is [Multipass](https://github.com/zetlen/mozu-multipass) for AuthenticationStorage.
 
 #### Validate Hashes
 

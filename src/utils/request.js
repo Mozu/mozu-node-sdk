@@ -1,6 +1,7 @@
 var needle = require('needle'),
     util = require('util'),
     constants = require('../constants'),
+    makeLocalProxyAgent = require('./make-local-proxy-agent'),
     when = require('when'),
     extend = require('node.extend');
 
@@ -33,7 +34,7 @@ needle.defaults({
   follow: 10,
   timeout: 20000,
   accept: 'application/json',
-  json: true,
+  parse_response: false,
   user_agent: 'Mozu Node SDK v' + constants.version
 });
 
@@ -79,19 +80,33 @@ function makeHeaders(conf) {
   // return headers;
 }
 
+var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+function parseDate(key, value) {
+  return (typeof value === 'string' && reISO.exec(value)) ? new Date(value) : value;
+}
+
 /**
  * Make an HTTP request to the Mozu API. This method populates headers based on the scope of the supplied context.
  * @param  {Object} options The request options, to be passed to the `request` module. Look up on NPM for details.
  * @return {Promise<ApiResponse,ApiError>}         A Promise that will fulfill as the JSON response from the API, or reject with an error as JSON from the API.
  */
+
 module.exports = function(options) {
-  var deferred = when.defer(),
-      conf = extend({}, options);
+  var conf = extend({}, options);
   conf.headers = makeHeaders(conf);
-  needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {
-    if (err) return deferred.reject(err);
-    if (response && response.statusCode >= 400 && response.statusCode < 600) deferred.reject(errorify(response));
-    return deferred.resolve(body);
+  if (process.env.USE_FIDDLER) {
+    conf.agent = makeLocalProxyAgent(conf.headers);
+  }
+  return when.promise(function(resolve, reject) {
+    needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {
+      if (err) return reject(err);
+      try {
+        body = JSON.parse(body, (conf.parseDates !== false) && parseDate);
+      } catch(e) { 
+        return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
+      }
+      if (response && response.statusCode >= 400 && response.statusCode < 600) return reject(errorify(response));
+      return resolve(body);
+    });
   });
-  return deferred.promise;
 };
