@@ -18,10 +18,6 @@ module.exports = function(Client){
 			method: constants.verbs.GET,
 			url: '{+tenantPod}api/commerce/storefront/locations/{code}?responseFields={responseFields}'
 		}),
-		getLocationInUsageType :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/storefront/locationUsageTypes/{locationUsageType}/locations/{code}?responseFields={responseFields}'
-		}),
 		getLocationsInUsageType :Client.method({
 			method: constants.verbs.GET,
 			url: '{+tenantPod}api/commerce/storefront/locationUsageTypes/{locationUsageType}/locations?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'

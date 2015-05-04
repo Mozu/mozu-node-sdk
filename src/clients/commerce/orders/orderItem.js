@@ -14,6 +14,10 @@ var constants = require('../../../constants');
 
 module.exports = function(Client){
 	return Client.sub({
+		getOrderItemViaLineId :Client.method({
+			method: constants.verbs.GET,
+			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{lineId}?draft={draft}&responseFields={responseFields}'
+		}),
 		getOrderItem :Client.method({
 			method: constants.verbs.GET,
 			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}?draft={draft}&responseFields={responseFields}'
@@ -29,6 +33,10 @@ module.exports = function(Client){
 		updateOrderItemDiscount :Client.method({
 			method: constants.verbs.PUT,
 			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/discounts/{discountId}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+		}),
+		updateItemDuty :Client.method({
+			method: constants.verbs.PUT,
+			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/dutyAmount/{dutyAmount}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
 		}),
 		updateItemFulfillment :Client.method({
 			method: constants.verbs.PUT,

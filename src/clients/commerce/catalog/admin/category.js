@@ -36,7 +36,7 @@ module.exports = function(Client){
 		}),
 		deleteCategoryById :Client.method({
 			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/categories/{categoryId}/?cascadeDelete={cascadeDelete}'
+			url: '{+tenantPod}api/commerce/catalog/admin/categories/{categoryId}/?cascadeDelete={cascadeDelete}&forceDelete={forceDelete}&reassignToParent={reassignToParent}'
 		})	
 	});
 };
