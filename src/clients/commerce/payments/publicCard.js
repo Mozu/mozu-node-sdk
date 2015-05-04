@@ -16,15 +16,15 @@ module.exports = function(Client){
 	return Client.sub({
 		create :Client.method({
 			method: constants.verbs.POST,
-			url: '{+homePod}api/commerce/payments/cards/'
+			url: '{+pciPod}api/commerce/payments/cards/'
 		}),
 		update :Client.method({
 			method: constants.verbs.PUT,
-			url: '{+homePod}api/commerce/payments/cards/{cardId}'
+			url: '{+pciPod}api/commerce/payments/cards/{cardId}'
 		}),
 		delete :Client.method({
 			method: constants.verbs.DELETE,
-			url: '{+homePod}api/commerce/payments/cards/{cardId}'
+			url: '{+pciPod}api/commerce/payments/cards/{cardId}'
 		})	
 	});
 };

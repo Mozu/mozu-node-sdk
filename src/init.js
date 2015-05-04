@@ -45,16 +45,21 @@ module.exports = {
      if ( process.env.mozuHosted ) {
       try {
         context = extend( context, JSON.parse(process.env.mozuHosted).sdkConfig);
+        console.log(config);
+
       } catch(e) {}
     }
     else{
-      if (!context || !context.appKey || !context.sharedSecret  || !context.baseUrl) {
+      if (!context || !context.appKey || !context.sharedSecret  || !context.baseUrl || !context.basePciUrl) {
         context = extend(getConfig(), context);
+        console.log(config);
+
       }
     }
     var config = {
       context: context
     };
+
     if (extraConfig) {
       extend(config, extraConfig);
     }
