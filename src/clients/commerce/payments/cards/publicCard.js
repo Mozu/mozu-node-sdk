@@ -9,18 +9,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var constants = require('../../../../constants');
 
 
 module.exports = function(Client){
 	return Client.sub({
-		performFulfillmentAction :Client.method({
+		sendCreateMessage :Client.method({
 			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillment/actions/?responseFields={responseFields}'
+			url: '{+tenantPod}api/commerce/payments/cards/{cardId}/sync/create'
 		}),
-		resendPackageFulfillmentEmail :Client.method({
+		sendDeleteMessage :Client.method({
 			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillment/email/resend?responseFields={responseFields}'
+			url: '{+tenantPod}api/commerce/payments/cards/{cardId}/sync/delete'
+		}),
+		sendUpdateMessage :Client.method({
+			method: constants.verbs.POST,
+			url: '{+tenantPod}api/commerce/payments/cards/{cardId}/sync/update'
 		})	
 	});
 };

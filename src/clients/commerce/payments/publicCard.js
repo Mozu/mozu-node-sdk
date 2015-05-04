@@ -14,13 +14,17 @@ var constants = require('../../../constants');
 
 module.exports = function(Client){
 	return Client.sub({
-		performFulfillmentAction :Client.method({
+		create :Client.method({
 			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillment/actions/?responseFields={responseFields}'
+			url: '{+homePod}api/commerce/payments/cards/'
 		}),
-		resendPackageFulfillmentEmail :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillment/email/resend?responseFields={responseFields}'
+		update :Client.method({
+			method: constants.verbs.PUT,
+			url: '{+homePod}api/commerce/payments/cards/{cardId}'
+		}),
+		delete :Client.method({
+			method: constants.verbs.DELETE,
+			url: '{+homePod}api/commerce/payments/cards/{cardId}'
 		})	
 	});
 };

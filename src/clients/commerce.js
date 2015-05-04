@@ -12,6 +12,7 @@ module.exports = function(Client){
 		"location": require('./commerce/location')(Client),
 		"order": require('./commerce/order')(Client),
 		"orders": require('./commerce/orders')(Client),
+		"payments": require('./commerce/payments')(Client),
 		"return": require('./commerce/return')(Client),
 		"returns": require('./commerce/returns')(Client),
 		"settings": require('./commerce/settings')(Client),

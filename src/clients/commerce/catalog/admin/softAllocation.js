@@ -30,6 +30,10 @@ module.exports = function(Client){
 			method: constants.verbs.POST,
 			url: '{+tenantPod}api/commerce/catalog/admin/softallocations/convert'
 		}),
+		renewSoftAllocations :Client.method({
+			method: constants.verbs.POST,
+			url: '{+tenantPod}api/commerce/catalog/admin/softallocations/renew'
+		}),
 		updateSoftAllocations :Client.method({
 			method: constants.verbs.PUT,
 			url: '{+tenantPod}api/commerce/catalog/admin/softallocations/'
