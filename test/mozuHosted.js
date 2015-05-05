@@ -45,14 +45,12 @@ describe('Mozu Hosted Calls', function() {
 
 
     it('provide a readymade SDK client whose context can be hand-modified', function() {
-        var client,
-        it('can_modify_context_w_hosted', function(done) {
-            assert = require('assert'),
+         var client,
             headersConstants = require('../src/constants').headers,
             sdkConfig = {
                 baseUrl: "http://localhost:1456/",
                 tenantPod: "http://localhost:1789/",
-        };
+            };
         sdkConfig[headersConstants.SITE] = 123;
         sdkConfig[headersConstants.USERCLAIMS] = "fonzie";
 
@@ -88,6 +86,7 @@ describe('Mozu Hosted Calls', function() {
             };
 
             client = SDK.client();
+
             return client.commerce().catalog().admin().product().getProducts().then(function(s) {
                 assert.equal(reachedHandle.join(','),'1,2', 'did not reach both handles');
             });

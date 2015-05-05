@@ -64,13 +64,12 @@ function getTenantInfo(id) {
     });
   }
 
-  //console.log(requestConfig.url);
   //if url requires a PCI pod but context is not set throw error
-  //if (urlRequiresPciPod(requestConfig.Url)) {
-  //  if (!client.context.tenant) {
-  //    throw new Error("Could not perform request to PCI service '" + requestConfig.url + "'; no tenant ID was set.");
-  //  }
-  //}
+  if (urlRequiresPciPod(requestConfig.url)) {
+    if (!client.context.tenant) {
+      throw new Error("Could not perform request to PCI service '" + requestConfig.url + "'; no tenant ID was set.");
+    }
+  }
 
   // if url requires a tenant pod but we don't have one...
   var currentTenant;
