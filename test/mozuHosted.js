@@ -45,7 +45,8 @@ describe('Mozu Hosted Calls', function() {
 
 
     it('provide a readymade SDK client whose context can be hand-modified', function() {
-         var client,
+
+        var client,
             headersConstants = require('../src/constants').headers,
             sdkConfig = {
                 baseUrl: "http://localhost:1456/",
