@@ -19,10 +19,10 @@ module.exports = function makeUrl(client, tpt, body) {
     template = templateCache[tpt] || (templateCache[tpt] = uritemplate.parse(tpt)),
     ctx = extend({
       homePod: ensureTrailingSlash(context.baseUrl),
-      tenantId: context.tenant // URI templates expect tenantId
+      tenantId: context.tenant, // URI templates expect tenantId
+      pciPod: ensureTrailingSlash(context.basePciUrl)
     }, context, body);
 
   if (ctx.tenantPod) ctx.tenantPod = ensureTrailingSlash(ctx.tenantPod);
-
   return template.expand(ctx);
 }

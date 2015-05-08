@@ -8,6 +8,10 @@ function urlRequiresTenantPod(template) {
   return template.indexOf('{+tenantPod}') !== -1;
 }
 
+function urlRequiresPciPod(template) {
+  return template.indexOf('{+pciPod}') !== -1;
+}
+
 function cacheTenantsFromTicket(ticket) {
   var tenants = ticket.availableTenants;
   if (tenants) {
@@ -58,6 +62,13 @@ function getTenantInfo(id) {
     tasks.push(function() {
       return AuthProvider.addMostRecentUserClaims(client);
     });
+  }
+
+  //if url requires a PCI pod but context is not set throw error
+  if (urlRequiresPciPod(requestConfig.url)) {
+    if (!client.context.tenant) {
+      throw new Error("Could not perform request to PCI service '" + requestConfig.url + "'; no tenant ID was set.");
+    }
   }
 
   // if url requires a tenant pod but we don't have one...
