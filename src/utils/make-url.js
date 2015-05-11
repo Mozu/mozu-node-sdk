@@ -18,11 +18,18 @@ module.exports = function makeUrl(client, tpt, body) {
   var context = client.context,
     template = templateCache[tpt] || (templateCache[tpt] = uritemplate.parse(tpt)),
     ctx = extend({
-      homePod: ensureTrailingSlash(context.baseUrl),
+      homePod: context.baseUrl && ensureTrailingSlash(context.baseUrl),
       tenantId: context.tenant, // URI templates expect tenantId
-      pciPod: ensureTrailingSlash(context.basePciUrl)
+      pciPod: context.basePciUrl && ensureTrailingSlash(context.basePciUrl)
     }, context, body);
 
   if (ctx.tenantPod) ctx.tenantPod = ensureTrailingSlash(ctx.tenantPod);
+
+  // ensure the correct base url is present
+  var baseVar = template.expressions[0];
+  if (baseVar.operator && baseVar.operator.symbol === '+' && baseVar.varspecs && !ctx[baseVar.varspecs[0].varname]) {
+    throw new Error('Could not make URL from template ' + tpt + '. Your context is missing a ' + baseVar.varspecs[0].varname + '.');
+  } 
+
   return template.expand(ctx);
 }
