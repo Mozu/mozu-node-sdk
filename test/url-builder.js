@@ -20,7 +20,7 @@ describe('URL builder', function() {
     var client = setup.client.commerce().payments().publicCard();
     delete client.context.basePciUrl;
     return client.create(opts)
-      .should.be.rejectedWith('Could not make URL from template {+pciPod}api/commerce/payments/cards/. Your context is missing a pciPod.')
+      .should.be.rejectedWith('Could not make URL from template {+pciPod}payments/commerce/payments/cards/. Your context is missing a pciPod.')
   });
   
 });

@@ -15,7 +15,7 @@ describe('Platform service', function() {
 
     when.join(
       tenant.should.eventually.have.property('domain'),
-      tenant.should.eventually.have.property('id',2628),
+      tenant.should.eventually.have.property('id',setup.client.context.tenant),
       tenant.should.eventually.have.property('sites').should.eventually.have.property('length')
     ).should.notify(done);
 
