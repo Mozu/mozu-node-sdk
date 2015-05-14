@@ -4,6 +4,7 @@ var needle = require('needle'),
     makeLocalProxyAgent = require('./make-local-proxy-agent'),
     when = require('when'),
     extend = require('node.extend');
+    var url = require('url');
 
 
 function errorify(res) {
@@ -85,6 +86,16 @@ function parseDate(key, value) {
   return (typeof value === 'string' && reISO.exec(value)) ? new Date(value) : value;
 }
 
+var fiddlerUrl = 'http://127.0.0.1:8888';
+function addFiddlerProxy(conf) {
+  conf.agent = makeLocalProxyAgent({
+    target: url.parse(conf.url), 
+    proxy: url.parse(fiddlerUrl),
+    headers: conf.headers
+  });
+  return conf;
+}
+
 /**
  * Make an HTTP request to the Mozu API. This method populates headers based on the scope of the supplied context.
  * @param  {Object} options The request options, to be passed to the `request` module. Look up on NPM for details.
@@ -95,7 +106,7 @@ module.exports = function(options) {
   var conf = extend({}, options);
   conf.headers = makeHeaders(conf);
   if (process.env.USE_FIDDLER) {
-    conf.agent = makeLocalProxyAgent(conf.headers);
+    conf = addFiddlerProxy(conf);
   }
   return when.promise(function(resolve, reject) {
     needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {

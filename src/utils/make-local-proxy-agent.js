@@ -44,11 +44,25 @@ function makeProxyHeaders(headers) {
     }, {});
 }
 
-module.exports =  function(headers) {
-  return tunnelAgent.httpsOverHttp({
+
+var agentFactories = {
+  'https:https:': tunnelAgent.httpsOverHttps,
+  'https:http:': tunnelAgent.httpsOverHttp,
+  'http:https:': tunnelAgent.httpOverHttps,
+  'http:http:': tunnelAgent.httpOverHttp
+};
+function getAgentFactory(targetProtocol, proxyProtocol) {
+  return agentFactories[targetProtocol + proxyProtocol].bind(tunnelAgent);
+}
+
+module.exports =  function(agentConfig) {
+  var headers = agentConfig.headers,
+      target = agentConfig.target,
+      proxy = agentConfig.proxy;
+  return getAgentFactory(target.protocol, proxy.protocol)({
     proxy: {
-      host: '127.0.0.1',
-      port: 8888,
+      host: proxy.hostname,
+      port: proxy.port,
       headers: makeProxyHeaders(headers)
     },
     headers: headers,
