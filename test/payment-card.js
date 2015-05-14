@@ -9,9 +9,9 @@ describe('Payment Card Service', function() {
     cvv: "123",
     cardType: "visa",
     expireMonth: "11",
-    expireYear: "19",
+    expireYear: "2019",
     cardHolderName: "Demo User",
-    cardIssueNumber: "4111111111111111",
+    cardNumber: "4111111111111111",
     cardIssueMonth: "01",
     cardIssueYear: "14"
   };

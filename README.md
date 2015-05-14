@@ -16,6 +16,7 @@ var client = require('mozu-node-sdk').client({
         "appKey": "00000",
         "sharedSecret": "9864c0520cc0468397faa37600f1f110",
         "baseUrl": "https://home.mozu.com/",
+        "basePciUrl" : "https://crds.mozu.com/"
         "developerAccountId": "001",
         "developerAccount": {
             "emailAddress": "example@volusion.com",
