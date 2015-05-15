@@ -49,7 +49,7 @@ module.exports = {
       } catch(e) {}
     }
     else{
-      if (!context || !context.appKey || !context.sharedSecret  || !context.baseUrl || !context.basePciUrl) {
+      if (!context || !context.appKey || !context.sharedSecret  || !context.baseUrl) {
         context = extend(getConfig(), context);
       }
     }
