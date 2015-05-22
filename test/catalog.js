@@ -1,8 +1,8 @@
-var setup = require('./utils/config');
+var setupAssertions = require('./utils/setup-assertion-library');
 
 describe('Catalog service', function() {
 
-  before(setup);
+  before(setupAssertions);
   
   this.timeout(20000);
   var opts = {
@@ -10,7 +10,9 @@ describe('Catalog service', function() {
   };
 
   it('returns Products from ProductAdmin.GetProducts()', function(done) {
-    return setup.client.commerce().catalog().admin().product().getProducts(opts)
+    var client = require('../clients/commerce/catalog/admin/product')();
+    console.log(client);
+    client.getProducts(opts)
       .should.eventually.have.property('items')
       .of.length(opts.pageSize)
       .notify(done);
