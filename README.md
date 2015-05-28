@@ -11,7 +11,7 @@ Full reference documentation is available in the form of the [REST Resources](ht
 You may pass configuration into the client factory directly:
 
 ```js
-var client = require('mozu-node-sdk').client({
+var client = require('mozu-node-sdk/clients/platform/application')({
     context: {
         "appKey": "00000",
         "sharedSecret": "9864c0520cc0468397faa37600f1f110",
@@ -28,12 +28,15 @@ var client = require('mozu-node-sdk').client({
 
 Or, if you have a JSON file in your working directory called `mozu.config.json` or `mozu.config`, the SDK will attempt to read configuration out of that instead, and you can call the client factory with no arguments.
 
-In order to pass context from layer to layer of the API, traverse the graph by calling each layer as a function instead of a plain dot lookup. For example, accessing Platform.AdminUser.Accounts would be `client.platform().adminuser().accounts()`, rather than `client.platform.adminuser.accounts`.
+In order to access different features of the API, use `require()` to pull in a client, and pass it your existing client instance in order to preserve context.
 
 ```js
-var client = require('mozu-node-sdk').client();
+var appsClient = require('mozu-node-sdk/clients/platform/application')();
 
 client.context.tenant = 1234;
+
+var productClient = require('mozu-node-sdk/clients/commerce/catalog/admin/product')(appsClient);
+// this will preserve the tenant you added to the prior context
 
 function log(result) {
     console.log(util.inspect(result));
@@ -43,10 +46,11 @@ function reportError(error) {
     console.error(error.message, error);
 }
 
-client.commerce().catalog().admin().product().getProducts({
+productClient.getProducts({
     filter: 'categoryId req 123'
 }).then(log, reportError);
 ```
+
 
 ### Modifying Context
 
@@ -65,7 +69,21 @@ You can also store arbitrary data on the context, and it will be passed around t
 
 ### Navigating Sections
 
-The client object has subsections for each service, and sub-properties for each method. In order to preserve client context, navigate the object tree of sections by calling each one as a function. This passes and preserves context between the API clients.
+Use `require()` to navigate the directory structure of the SDK. Each directory will return a constructor for creating a client with the relevant methods.
+```js
+var cartClient = require('mozu-node-sdk/commerce/cart')()
+```
+
+Share context between clients by passing client instances to each others' constructors.
+```js
+var productSearchClient = require('mozu-node-sdk/commerce/catalog/storefront/productSearchResult')(cartClient);
+```
+
+#### Legacy Interface
+
+**Prior to the 1.17 release, the only way to traverse the service graph was to call each layer as a function, e.g. `client.commerce().catalog().admin().product()`. This interface still works, but we recommend the direct requires; they are faster, and when bundling for code actions, the direct requires result in much smaller bundles.**
+
+In the legacy interface, the client object has subsections for each service, and sub-properties for each method. In order to preserve client context, navigate the object tree of sections by calling each one as a function. This passes and preserves context between the API clients.
 
 ```js
 // WRONG
@@ -85,16 +103,16 @@ productAdminClient.updateProductInCatalogs(payload, opts);
 All of the API methods take two arguments: a `body` to use as POST data or URL parameters, and a set of `options` to specify the scope of the request (i.e. what kind of claims to use, whether to include a Site header or just a Tenant header, and other properties).
 
 ```js
-client.content().documentlists().document().getDocuments({
+require('mozu-node-sdk/clients/content/documentlists/document')().getDocuments({
     pageSize: 5,
     documentListName: 'files@mozu'
 });
 ```
 
-The `options` argument is optional, but consists of any option that can be passed to the underlying [needle](https://github.com/tomas/needle) library, or other special options described below.
+The `options` argument is optional, but consists of any option that can be passed to the underlying Node `http` client, or other special options described below.
 
 ```js
-client.content().documentlists().document().getDocuments({
+require('mozu-node-sdk/clients/content/documentlists/document')().getDocuments({
     pageSize: 5,
     documentListName: 'files@mozu'
 }, {
@@ -109,7 +127,7 @@ client.content().documentlists().document().getDocuments({
 
  - `context` *(Object)* Override the current client context for the duration of one call.
    ```js
-   client.content().documentlists().document().getDocuments({
+   require('mozu-node-sdk/clients/content/documentlists/document')().getDocuments({
        pageSize: 5,
        documentListName: 'files@mozu'
    }, {
@@ -145,8 +163,9 @@ Crucially, promises can be chained. Inside a promise handler, you can return a p
 
 ```js
 // get a customer ID from an order and then get all orders for that customer
-client.commerce().order().getOrder({ orderId: 'ab96c79e59b79a76' }).then(function(order) {
-   return client.commerce().order().getOrders({
+var orderClient = require('mozu-node-sdk/clients/commerce/order');
+orderClient.getOrder({ orderId: 'ab96c79e59b79a76' }).then(function(order) {
+   return orderClient.getOrders({
     filter: "CustomerId eq " + order.customerAccountId
    })
 }).then(function(orders) {
@@ -159,18 +178,18 @@ Including [when](https://github.com/cujojs/when) in your project gives you acces
 ```js
 // get a fully-hydrated customer from an order and add all orders for that customer
 var when = require('when');
-
+var customerAccountClient = require('mozu-node-sdk/clients/commerce/customer/customerAccount')(orderClient);
 function joinCustomerAndOrdersFromOrder(order) {
    return when.join(
-    client.commerce().order().getOrders({
+    orderClient.getOrders({
       filter: "CustomerId eq " + order.customerAccountId
    }),
-    client.commerce().customer().customerAccount().getAccount({
+    customerAccountClient.getAccount({
       accountId: order.customerAccountId
    }));
 }
 
-client.commerce().order().getOrder({ orderId: 'ab96c79e59b79a76' })
+orderClient.getOrder({ orderId: 'ab96c79e59b79a76' })
   .then(joinCustomerAndOrdersFromOrder).spread(function(orders, customer) {
     // orders will be a list of orders for the customer,
     // customer will be the full customer object
@@ -182,20 +201,6 @@ client.commerce().order().getOrder({ orderId: 'ab96c79e59b79a76' })
 ```
 
 ### Extras
-
-#### Creating Clients Directly
-
-You can retrieve the `Client` constructor directly:
-
-```js
-var Client = require('mozu-node-sdk/src/client');
-
-var client = new Client({
-    context: someContextObject,
-    plugins: [somePlugin],
-    defaultRequestOptions: someDefaultRequestOptions
-});
-```
 
 #### Authentication Storage
 
