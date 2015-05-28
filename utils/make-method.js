@@ -3,7 +3,7 @@ var extend = require('./tiny-extend'),
     request = require('./request'),
     makeUrl = require('./make-url'),
     PrerequisiteManager = require('./prerequisite-manager'),
-    pipeline = require('when/pipeline');
+    pipeline = require('./promise-pipeline');
 
 /**
  * Create an API method that runs a request based on a configuration and a body. The method handles and caches authentication automatically based on a provided scope, by delegating to AuthProvider where necessary.

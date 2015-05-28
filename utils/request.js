@@ -1,5 +1,5 @@
+/* global Promise */
 var constants = require('../constants');
-var when = require('when');
 var extend = require('./tiny-extend');
 var path = require('path');
 var url = require('url');
@@ -10,6 +10,8 @@ var protocolHandlers = {
 var streamToCallback = require('./stream-to-callback');
 var parseJsonDates = require('./parse-json-dates');
 var errorify = require('./errorify');
+
+require('when/es6-shim/Promise.browserify-es6');
 
 var USER_AGENT = 'Mozu Node SDK v' + constants.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ')';
 
@@ -66,7 +68,7 @@ module.exports = function(options, transform) {
   if (!protocolHandler) {
     throw new Error('Protocol ' + uri.protocol + ' not supported.');
   }
-  return when.promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
     var requestOptions = {
       hostname: uri.hostname,
       port: uri.port || (uri.protocol === 'https:' ? 443 : 80),

@@ -1,9 +1,10 @@
+/* global Promise */
 'use strict';
 var constants = require('../constants'),
-    when = require('when'),
     AuthTicket = require('./auth-ticket'),
     scopes = constants.scopes;
 
+require('when/es6-shim/Promise.browserify-es6');
 
 var makeAppAuthClient = (function() {
   var c;
@@ -78,14 +79,14 @@ var calleeToClaimType = {
 function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
   return function(client) {
     var cacheAndUpdateClient = function(ticket) {
-      return when.promise(function(resolve) {
+      return new Promise(function(resolve) {
         client.authenticationStorage.set(calleeToClaimType[calleeName], client.context, ticket, function() {
           client.context[claimHeader] = ticket.accessToken;
           resolve(client);
         });
       });
     };
-    var op = when.promise(function(resolve) {
+    var op = new Promise(function(resolve) {
       client.authenticationStorage.get(calleeToClaimType[calleeName], client.context, function(err, ticket) {
         resolve(ticket);
       });
@@ -99,9 +100,10 @@ function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
       client.context[claimHeader] = ticket.accessToken;
       return client;
     });
-    op.ensure(function() {
+    function setRecent() {
       AuthProvider.addMostRecentUserClaims = AuthProvider[calleeName];
-    });
+    }
+    op.then(setRecent, setRecent);
     return op;
   };
 }
