@@ -17,7 +17,7 @@ describe('Payment Card Service', function() {
   };
 
   it('returns CardId from Commerce.Payments.publicCard.Cards', function(done) {
-    return setup.client.commerce().payments().publicCard().create(opts)
+    return require('../clients/commerce/payments/publicCard')().create(opts)
       .should.eventually.have.property('id')
       .notify(done);
   });

@@ -1,3 +1,4 @@
+'use strict';
 var constants = require('../constants'),
     when = require('when'),
     AuthTicket = require('./auth-ticket'),
@@ -44,7 +45,7 @@ function refreshPlatformAuthTicket(client, ticket) {
 
 function getDeveloperAuthTicket(client) {
   return makeDeveloperAuthClient(client).createDeveloperUserAuthTicket(client.context.developerAccount).then(function(json) {
-    return AuthTicket(json);
+    return new AuthTicket(json);
   });
 }
 
@@ -58,8 +59,8 @@ function getAdminUserAuthTicket(client) {
     scope: constants.scopes.APP_ONLY
   }).then(function(json) {
     client.context.user = json.user;
-    return AuthTicket(json);
-  })
+    return new AuthTicket(json);
+  });
 }
 
 function refreshAdminUserAuthTicket(client, ticket) {
@@ -77,14 +78,14 @@ var calleeToClaimType = {
 function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
   return function(client) {
     var cacheAndUpdateClient = function(ticket) {
-      return when.promise(function(resolve, reject) {
+      return when.promise(function(resolve) {
         client.authenticationStorage.set(calleeToClaimType[calleeName], client.context, ticket, function() {
           client.context[claimHeader] = ticket.accessToken;
           resolve(client);
         });
       });
-    }
-    var op = when.promise(function(resolve, reject) {
+    };
+    var op = when.promise(function(resolve) {
       client.authenticationStorage.get(calleeToClaimType[calleeName], client.context, function(err, ticket) {
         resolve(ticket);
       });
@@ -102,7 +103,7 @@ function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
       AuthProvider.addMostRecentUserClaims = AuthProvider[calleeName];
     });
     return op;
-  }
+  };
 }
 
 

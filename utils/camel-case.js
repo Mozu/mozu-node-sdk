@@ -1,6 +1,6 @@
 function cccb (match, l) {
   return l.toUpperCase();
-};
+}
 
 var rdashAlpha = /-([\da-z])/gi;
 

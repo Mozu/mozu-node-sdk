@@ -37,7 +37,7 @@ var onlyHeaders = [
   'proxy-authorization'
 ];
 
-var proxy = url.parse(FIDDLER_URL)
+var proxy = url.parse(FIDDLER_URL);
 
 function makeProxyHeaders(headers) {
   return Object.keys(headers)
@@ -73,4 +73,4 @@ module.exports = function addFiddlerProxy(conf) {
     rejectUnauthorized: false
   });
   return conf;
-}
+};

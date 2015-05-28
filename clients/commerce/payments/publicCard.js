@@ -9,22 +9,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client');
+var constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		create :Client.method({
-			method: constants.verbs.POST,
-			url: '{+pciPod}payments/commerce/payments/cards/'
-		}),
-		update :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+pciPod}payments/commerce/payments/cards/{cardId}'
-		}),
-		delete :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+pciPod}payments/commerce/payments/cards/{cardId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	create :Client.method({
+		method: constants.verbs.POST,
+		url: '{+pciPod}payments/commerce/payments/cards/'
+	}),
+	update :Client.method({
+		method: constants.verbs.PUT,
+		url: '{+pciPod}payments/commerce/payments/cards/{cardId}'
+	}),
+	delete :Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+pciPod}payments/commerce/payments/cards/{cardId}'
+	})	
+});

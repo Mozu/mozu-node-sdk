@@ -50,5 +50,5 @@ var InMemoryAuthCache = module.exports = function InMemoryAuthCache() {
       setImmediate(callback);
     },
     constructor: InMemoryAuthCache
-  }
+  };
 };

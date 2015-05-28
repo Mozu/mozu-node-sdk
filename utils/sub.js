@@ -8,10 +8,10 @@ var util = require('util'),
  * @return {Function}       The new subclass.
  */
 module.exports = function sub(cons, proto) {
-  var sub = function() {
+  var child = function() {
       cons.apply(this, arguments);
   };
-  util.inherits(sub, cons);
-  if (proto) extend(sub.prototype, proto);
-  return sub;
-}
+  util.inherits(child, cons);
+  if (proto) extend(child.prototype, proto);
+  return child;
+};

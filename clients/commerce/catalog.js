@@ -1,8 +1,6 @@
+var Client = require('../../client');
 
-module.exports = function(Client){
-	return Client.sub({
-		"admin": require('./catalog/admin')(Client),
-		"storefront": require('./catalog/storefront')(Client)
-	});
-};
-
+module.exports = Client.sub({
+	"admin": require('./catalog/admin'),
+	"storefront": require('./catalog/storefront')
+});

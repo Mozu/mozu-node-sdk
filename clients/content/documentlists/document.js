@@ -9,42 +9,41 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client');
+var constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getDocumentContent :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
-		}),
-		getDocument :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
-		}),
-		getDocuments :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/documents?filter={filter}&sortBy={sortBy}&pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
-		}),
-		createDocument :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/documents?responseFields={responseFields}'
-		}),
-		updateDocumentContent :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
-		}),
-		updateDocument :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
-		}),
-		deleteDocument :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}'
-		}),
-		deleteDocumentContent :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getDocumentContent :Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
+	}),
+	getDocument :Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
+	}),
+	getDocuments :Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents?filter={filter}&sortBy={sortBy}&pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
+	}),
+	createDocument :Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents?responseFields={responseFields}'
+	}),
+	updateDocumentContent :Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
+	}),
+	updateDocument :Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
+	}),
+	deleteDocument :Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}'
+	}),
+	deleteDocumentContent :Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
+	})	
+});

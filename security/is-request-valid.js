@@ -24,4 +24,4 @@ module.exports = function isRequestValid(context, req, cb) {
     }
   }));
 
-}
+};

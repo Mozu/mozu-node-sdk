@@ -89,9 +89,9 @@ module.exports = function(options) {
         }
         if (response && response.statusCode >= 400 && response.statusCode < 600) return reject(errorify(response));
         return resolve(body);
-      })
+      });
     });
-    request.setTimeout(options.timeout || 20000, reject)
+    request.setTimeout(options.timeout || 20000, reject);
     request.on('error', reject);
     if (payload) request.write(payload);
     request.end();

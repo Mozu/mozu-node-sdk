@@ -9,6 +9,6 @@ module.exports = function streamToCallback(stream, cb) {
   });
   stream.on('error', cb);
   stream.on('end', function() {
-    cb(null, buf)
+    cb(null, buf);
   });
-}
+};

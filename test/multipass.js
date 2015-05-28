@@ -14,7 +14,7 @@ describe('External authentication storage', function() {
 
   before(function() {
 
-    client = require('../src/init').client(null, {
+    client = require('../').client({
       plugins: [require('mozu-multipass')]
     }).commerce().catalog().admin().product();
 

@@ -9,12 +9,19 @@ describe('Catalog service', function() {
     pageSize: 5
   };
 
-  it('returns Products from ProductAdmin.GetProducts()', function(done) {
-    var client = require('../clients/commerce/catalog/admin/product')();
-    client.getProducts(opts)
+  function testClient(client) {
+    return client.getProducts(opts)
       .should.eventually.have.property('items')
-      .of.length(opts.pageSize)
-      .notify(done);
-  });
+      .of.length(opts.pageSize);
+  }
+
+  describe('returns Products from ProductAdmin.GetProducts()', function() {
+    it('in legacy require mode client.commerce()', function() {
+      return testClient(require('../').client().commerce().catalog().admin().product());
+    });
+    it('in progressive require mode `require(\'../clients/commerce/...\')`', function() {
+      return testClient(require('../clients/commerce/catalog/admin/product')());
+    });
+  })
   
 });

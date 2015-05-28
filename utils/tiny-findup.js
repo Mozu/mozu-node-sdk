@@ -12,4 +12,4 @@ module.exports = function findup(filename) {
     dir = path.resolve(dir, '..');
   }
   return exists && maybeFile;
-}
+};

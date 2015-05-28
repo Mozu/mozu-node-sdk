@@ -19,4 +19,4 @@ module.exports = function hashStream(secretKey, date) {
   hash2.write(date);
 
   return hash2;
-}
+};

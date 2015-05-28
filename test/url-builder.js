@@ -17,7 +17,7 @@ describe('URL builder', function() {
   };
 
   it('provides an informative error if your client context does not include a required base url', function() {
-    var client = setup.client.commerce().payments().publicCard();
+    var client = require('../clients/commerce/payments/publicCard')();
     delete client.context.basePciUrl;
     return client.create(opts)
       .should.be.rejectedWith('Could not make URL from template {+pciPod}payments/commerce/payments/cards/. Your context is missing a pciPod.')
