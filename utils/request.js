@@ -14,19 +14,10 @@ var errorify = require('./errorify');
 
 var USER_AGENT = 'Mozu Node SDK v' + constants.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ')';
 
-
-// needle.defaults({
-//   compressed: true,
-//   //follow: 10,
-//   //accept: 'application/json',
-//   //parse_response: false,
-//   //user_agent: 
-// });
-
 /**
  * Handle headers
  */ 
-function makeHeaders(conf) {
+function makeHeaders(conf, payload) {
   var headers;
   function iterateHeaders(memo, key) {
     if (conf.context[constants.headers[key]]) {
@@ -42,15 +33,15 @@ function makeHeaders(conf) {
     headers = Object.keys(constants.headers).reduce(iterateHeaders, {});
   }
 
-  if (conf.body) {
-    headers['Transfer-Encoding'] = 'chunked';
+  if (payload) {
+    headers['Content-Length'] = payload.length.toString();
   }
 
   return extend({
-    'accept': 'application/json',
-    'connection': 'close',
-    'content-type': 'text/json; charset=UTF-8',
-    'user-agent': USER_AGENT,
+    'Accept': 'application/json',
+    'Connection': 'close',
+    'Content-Type': 'application/json; charset=utf-8',
+    'User-Agent': USER_AGENT,
   }, headers, conf.headers || {});
 }
 
@@ -63,7 +54,14 @@ function makeHeaders(conf) {
 module.exports = function(options) {
   var conf = extend({}, options);
   conf.method = (conf.method || 'get').toUpperCase();
-  conf.headers = makeHeaders(conf);
+  var payload;
+  if (conf.body) {
+    payload = conf.body;
+    if (typeof payload !== "string") {
+      payload = JSON.stringify(payload);
+    }
+  }
+  conf.headers = makeHeaders(conf, payload);
   if (process.env.USE_FIDDLER) {
     conf = addFiddlerProxy(conf);
   }
@@ -95,13 +93,7 @@ module.exports = function(options) {
     });
     request.setTimeout(options.timeout || 20000, reject)
     request.on('error', reject);
-    if (conf.body) {
-      var payload = conf.body;
-      if (typeof payload !== "string") {
-        payload = JSON.stringify(payload);
-      }
-      request.write(payload);
-    }
+    if (payload) request.write(payload);
     request.end();
   });
 };

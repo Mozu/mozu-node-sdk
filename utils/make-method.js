@@ -13,6 +13,7 @@ var extend = require('node.extend'),
 module.exports = function(config) {
 
   function doRequest(body, options) {
+    options = options || {};
     var urlSpec = makeUrl(this, config.url, body);
     var finalRequestConfig = extend({}, config, this.defaultRequestOptions, {
       url: urlSpec.url,
