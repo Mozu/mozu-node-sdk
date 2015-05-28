@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "concat-stream": "^1.4.7",
-    "findup-sync": "^0.2.1",
     "node.extend": "~1",
     "tunnel-agent": "^0.4.0",
     "uritemplate": "~0",
