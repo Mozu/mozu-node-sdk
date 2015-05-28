@@ -1,5 +1,5 @@
 ﻿var Client = require('./client');
-var extend = require('node.extend');
+var extend = require('./utils/tiny-extend');
 
 module.exports = {
   suppressUnhandledRejections: function() {

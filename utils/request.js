@@ -1,6 +1,6 @@
 var constants = require('../constants');
 var when = require('when');
-var extend = require('node.extend');
+var extend = require('./tiny-extend');
 var path = require('path');
 var url = require('url');
 var protocolHandlers = {

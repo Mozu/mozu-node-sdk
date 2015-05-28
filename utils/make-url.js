@@ -1,6 +1,6 @@
 'use strict';
 var uritemplate = require('uritemplate'),
-extend = require('node.extend');
+extend = require('./tiny-extend');
 
 var templateCache = {};
 

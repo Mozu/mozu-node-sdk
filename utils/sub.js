@@ -1,5 +1,5 @@
 var util = require('util'),
-    extend = require('node.extend');
+    extend = require('./tiny-extend');
 
 /**
  * Subclass a constructor. Like Node's `util.inherits` but lets you pass additions to the prototype, and composes constructors.

@@ -1,4 +1,4 @@
-var extend = require('node.extend'),
+var extend = require('./utils/tiny-extend'),
     sub = require('./utils/sub'),
     constants = require('./constants'),
     makeMethod = require('./utils/make-method'),

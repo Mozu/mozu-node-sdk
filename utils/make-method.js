@@ -1,5 +1,5 @@
 'use strict';
-var extend = require('node.extend'),
+var extend = require('./tiny-extend'),
     request = require('./request'),
     makeUrl = require('./make-url'),
     PrerequisiteManager = require('./prerequisite-manager'),
