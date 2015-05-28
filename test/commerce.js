@@ -1,4 +1,7 @@
 var setupAssertions = require('./utils/setup-assertion-library');
+var proxyConf = {
+  plugins: [require('../plugins/fiddler-proxy')]
+};
 
 describe('Commerce service', function() {
 
@@ -18,10 +21,10 @@ describe('Commerce service', function() {
   describe('returns Orders from CommerceAdmin.GetOrders()', function() {
 
     it('in legacy require mode client.commerce()', function() {
-      return testClient(require('../').client().commerce().order());
+      return testClient(require('../').client(null, proxyConf).commerce().order());
     });
     it('in progressive require mode `require(\'../clients/commerce/...\')`', function() {
-      return testClient(require('../clients/commerce/order')());
+      return testClient(require('../clients/commerce/order')(proxyConf));
     });
   });
 });

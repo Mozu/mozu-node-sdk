@@ -1,4 +1,7 @@
 var setupChai = require('./utils/setup-assertion-library');
+var proxyConf = {
+  plugins: [require('../plugins/fiddler-proxy')]
+};
 
 describe('Payment Card Service', function() {
 
@@ -17,7 +20,7 @@ describe('Payment Card Service', function() {
   };
 
   it('returns CardId from Commerce.Payments.publicCard.Cards', function(done) {
-    return require('../clients/commerce/payments/publicCard')().create(opts)
+    return require('../clients/commerce/payments/publicCard')(proxyConf).create(opts)
       .should.eventually.have.property('id')
       .notify(done);
   });

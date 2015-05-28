@@ -1,5 +1,8 @@
 var setupChai = require('./utils/setup-assertion-library');
 var when = require('when');
+var proxyConf = {
+  plugins: [require('../plugins/fiddler-proxy')]
+};
 
 describe('Platform service', function() {
 
@@ -8,7 +11,7 @@ describe('Platform service', function() {
   this.timeout(20000);
 
   it('returns a Tenant from GetTenant', function(done) {
-    var client = require('../clients/platform/tenant')();
+    var client = require('../clients/platform/tenant')(proxyConf);
     var tenant = client.getTenant({
       tenantId: client.context.tenant
     });

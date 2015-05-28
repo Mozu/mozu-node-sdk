@@ -15,7 +15,7 @@ describe('External authentication storage', function() {
   before(function() {
 
     client = require('../').client(null, {
-      plugins: [require('mozu-multipass')]
+      plugins: [require('mozu-multipass'), require('../plugins/fiddler-proxy')]
     }).commerce().catalog().admin().product();
 
     var oldGet = client.authenticationStorage.get;
@@ -23,7 +23,6 @@ describe('External authentication storage', function() {
       timesCalled.push(new Date(), Array.prototype.slice.call(arguments));
       oldGet.apply(this, arguments);
     }
-
 
   });
   

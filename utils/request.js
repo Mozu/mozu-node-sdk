@@ -8,7 +8,6 @@ var protocolHandlers = {
   'https:': require('https')
 };
 var streamToCallback = require('./stream-to-callback');
-var addFiddlerProxy = require('./add-fiddler-proxy');
 var parseJsonDates = require('./parse-json-dates');
 var errorify = require('./errorify');
 
@@ -51,7 +50,7 @@ function makeHeaders(conf, payload) {
  * @return {Promise<ApiResponse,ApiError>}         A Promise that will fulfill as the JSON response from the API, or reject with an error as JSON from the API.
  */
 
-module.exports = function(options) {
+module.exports = function(options, transform) {
   var conf = extend({}, options);
   conf.method = (conf.method || 'get').toUpperCase();
   var payload;
@@ -62,9 +61,6 @@ module.exports = function(options) {
     }
   }
   conf.headers = makeHeaders(conf, payload);
-  if (process.env.USE_FIDDLER) {
-    conf = addFiddlerProxy(conf);
-  }
   var uri = url.parse(conf.url);
   var protocolHandler = protocolHandlers[uri.protocol];
   if (!protocolHandler) {
@@ -79,6 +75,9 @@ module.exports = function(options) {
       headers: conf.headers,
       agent: conf.agent
     };
+    if (typeof transform === "function") {
+      requestOptions = transform(requestOptions); 
+    }
     var request = protocolHandler.request(requestOptions, function(response) {
       streamToCallback(response, function(err, body) {
         if (err) return reject(err);

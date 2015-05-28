@@ -2,6 +2,9 @@ var assert = require('assert')
 var enableDestroy = require('server-destroy');
 var when = require('when');
 var SDK = require('../');
+var proxyConf = {
+  plugins: [require('../plugins/fiddler-proxy')]
+};
 
 describe('Mozu Hosted Calls', function() {
 
@@ -58,7 +61,7 @@ describe('Mozu Hosted Calls', function() {
             sdkConfig: sdkConfig
         });
 
-        client = SDK.client();
+        client = SDK.client(null, proxyConf);
 
         client.context[headersConstants.USERCLAIMS] = null;
         client.context[headersConstants.SITE] = 23;

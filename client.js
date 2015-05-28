@@ -3,7 +3,7 @@ var extend = require('node.extend'),
     constants = require('./constants'),
     makeMethod = require('./utils/make-method'),
     getConfig = require('./utils/get-config'),
-    inMemoryAuthCache = require('./security/in-memory-auth-cache'),
+    inMemoryAuthCache = require('./plugins/in-memory-auth-cache'),
     versionKey = constants.headers.VERSION,
     version = constants.version;
 

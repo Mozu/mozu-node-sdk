@@ -42,7 +42,7 @@ module.exports = function(config) {
       delete finalRequestConfig.body;
       // it's outlived its usefulness, we've already made a url with it
     }
-    return request(finalRequestConfig);
+    return request(finalRequestConfig, this.requestTransform);
   }
 
   return function(body, options) {

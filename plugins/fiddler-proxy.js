@@ -61,16 +61,24 @@ function getAgentFactory(targetProtocol, proxyProtocol) {
   return agentFactories[targetProtocol + proxyProtocol].bind(tunnelAgent);
 }
 
-module.exports = function addFiddlerProxy(conf) {
-  var target = url.parse(conf.url);
-  conf.agent = getAgentFactory(target.protocol, proxy.protocol)({
-    proxy: {
-      host: proxy.hostname,
-      port: proxy.port,
-      headers: makeProxyHeaders(conf.headers)
-    },
-    headers: conf.headers,
-    rejectUnauthorized: false
-  });
+function addFiddlerProxy(conf) {
+  if (process.env.USE_FIDDLER) {
+    conf.agent = getAgentFactory(conf.port === 443 ? 'https:' : 'http:', proxy.protocol)({
+      proxy: {
+        host: proxy.hostname,
+        port: proxy.port,
+        headers: makeProxyHeaders(conf.headers)
+      },
+      headers: conf.headers,
+      rejectUnauthorized: false
+    });
+  }
   return conf;
+}
+
+module.exports = function FiddlerProxyPlugin(client) {
+  var previous = client.requestTransform || function identity(x) { return x; };
+  client.requestTransform = function(conf) {
+    return addFiddlerProxy(previous(conf));
+  };
 };
