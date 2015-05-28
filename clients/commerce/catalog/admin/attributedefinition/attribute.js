@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../../constants');
+var Client = require('../../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getAttributes :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getAttribute :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}?responseFields={responseFields}'
-		}),
-		addAttribute :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/?responseFields={responseFields}'
-		}),
-		updateAttribute :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}?responseFields={responseFields}'
-		}),
-		deleteAttribute :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getAttributes: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getAttribute: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}?responseFields={responseFields}'
+	}),
+	addAttribute: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/?responseFields={responseFields}'
+	}),
+	updateAttribute: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}?responseFields={responseFields}'
+	}),
+	deleteAttribute: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}'
+	})
+});

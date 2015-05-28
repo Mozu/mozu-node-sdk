@@ -1,9 +1,8 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"attributeLocalizedContent": require('./attributes/attributeLocalizedContent')(Client),
-		"attributeTypeRule": require('./attributes/attributeTypeRule')(Client),
-		"attributeVocabularyValue": require('./attributes/attributeVocabularyValue')(Client)
-	});
-};
+var Client = require('../../../../../client');
+module.exports = Client.sub({
+	"attributeLocalizedContent": require('./attributes/attributeLocalizedContent'),
+	"attributeTypeRule": require('./attributes/attributeTypeRule'),
+	"attributeVocabularyValue": require('./attributes/attributeVocabularyValue')
+});
 

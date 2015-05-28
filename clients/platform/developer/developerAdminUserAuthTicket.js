@@ -9,21 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var Client = require('../../../Client');
-var constants = Client.constants;
+var Client = require('../../../client'), constants = Client.constants;
 
 
 module.exports = Client.sub({
-	createDeveloperUserAuthTicket :Client.method({
+	createDeveloperUserAuthTicket: Client.method({
 		method: constants.verbs.POST,
 		url: '{+homePod}api/platform/developer/authtickets/?developerAccountId={developerAccountId}&responseFields={responseFields}'
 	}),
-	refreshDeveloperAuthTicket :Client.method({
+	refreshDeveloperAuthTicket: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+homePod}api/platform/developer/authtickets/?developerAccountId={developerAccountId}&responseFields={responseFields}'
 	}),
-	deleteUserAuthTicket :Client.method({
+	deleteUserAuthTicket: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+homePod}api/platform/developer/authtickets/?refreshToken={refreshToken}'
-	})	
+	})
 });

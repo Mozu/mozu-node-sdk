@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getEntityContainer :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entityContainers/{id}?responseFields={responseFields}'
-		}),
-		getEntityContainers :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entityContainers?pageSize={pageSize}&startIndex={startIndex}&filter={filter}&sortBy={sortBy}&responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getEntityContainer: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entityContainers/{id}?responseFields={responseFields}'
+	}),
+	getEntityContainers: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entityContainers?pageSize={pageSize}&startIndex={startIndex}&filter={filter}&sortBy={sortBy}&responseFields={responseFields}'
+	})
+});

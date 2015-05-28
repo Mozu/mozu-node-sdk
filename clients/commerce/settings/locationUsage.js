@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getLocationUsages :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/settings/locationUsages/?responseFields={responseFields}'
-		}),
-		getLocationUsage :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/settings/locationUsages/{code}?responseFields={responseFields}'
-		}),
-		updateLocationUsage :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/settings/locationUsages/{code}?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getLocationUsages: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/locationUsages/?responseFields={responseFields}'
+	}),
+	getLocationUsage: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/locationUsages/{code}?responseFields={responseFields}'
+	}),
+	updateLocationUsage: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/settings/locationUsages/{code}?responseFields={responseFields}'
+	})
+});

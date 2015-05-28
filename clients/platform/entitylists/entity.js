@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getEntity :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities/{id}?responseFields={responseFields}'
-		}),
-		getEntities :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities?pageSize={pageSize}&startIndex={startIndex}&filter={filter}&sortBy={sortBy}&responseFields={responseFields}'
-		}),
-		insertEntity :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities/?responseFields={responseFields}'
-		}),
-		updateEntity :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities/{id}?responseFields={responseFields}'
-		}),
-		deleteEntity :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities/{id}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getEntity: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities/{id}?responseFields={responseFields}'
+	}),
+	getEntities: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities?pageSize={pageSize}&startIndex={startIndex}&filter={filter}&sortBy={sortBy}&responseFields={responseFields}'
+	}),
+	insertEntity: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities/?responseFields={responseFields}'
+	}),
+	updateEntity: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities/{id}?responseFields={responseFields}'
+	}),
+	deleteEntity: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/entities/{id}'
+	})
+});

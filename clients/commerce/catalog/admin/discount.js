@@ -9,42 +9,40 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getDiscounts :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/discounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getDiscountContent :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}/content?responseFields={responseFields}'
-		}),
-		getDiscount :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}?responseFields={responseFields}'
-		}),
-		generateRandomCoupon :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/discounts/generate-random-coupon?responseFields={responseFields}'
-		}),
-		createDiscount :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/discounts/?responseFields={responseFields}'
-		}),
-		updateDiscountContent :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}/content?responseFields={responseFields}'
-		}),
-		updateDiscount :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}?responseFields={responseFields}'
-		}),
-		deleteDiscount :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getDiscounts: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/discounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getDiscountContent: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}/content?responseFields={responseFields}'
+	}),
+	getDiscount: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}?responseFields={responseFields}'
+	}),
+	generateRandomCoupon: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/discounts/generate-random-coupon?responseFields={responseFields}'
+	}),
+	createDiscount: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/discounts/?responseFields={responseFields}'
+	}),
+	updateDiscountContent: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}/content?responseFields={responseFields}'
+	}),
+	updateDiscount: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}?responseFields={responseFields}'
+	}),
+	deleteDiscount: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}'
+	})
+});

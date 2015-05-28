@@ -9,50 +9,48 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getOrderItemViaLineId :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{lineId}?draft={draft}&responseFields={responseFields}'
-		}),
-		getOrderItem :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}?draft={draft}&responseFields={responseFields}'
-		}),
-		getOrderItems :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items?draft={draft}&responseFields={responseFields}'
-		}),
-		createOrderItem :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items?updatemode={updateMode}&version={version}&skipInventoryCheck={skipInventoryCheck}&responseFields={responseFields}'
-		}),
-		updateOrderItemDiscount :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/discounts/{discountId}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
-		}),
-		updateItemDuty :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/dutyAmount/{dutyAmount}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
-		}),
-		updateItemFulfillment :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/fulfillment?updatemode={updateMode}&version={version}&responseFields={responseFields}'
-		}),
-		updateItemProductPrice :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/price/{price}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
-		}),
-		updateItemQuantity :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/quantity/{quantity}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
-		}),
-		deleteOrderItem :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}?updatemode={updateMode}&version={version}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getOrderItemViaLineId: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items/{lineId}?draft={draft}&responseFields={responseFields}'
+	}),
+	getOrderItem: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}?draft={draft}&responseFields={responseFields}'
+	}),
+	getOrderItems: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items?draft={draft}&responseFields={responseFields}'
+	}),
+	createOrderItem: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items?updatemode={updateMode}&version={version}&skipInventoryCheck={skipInventoryCheck}&responseFields={responseFields}'
+	}),
+	updateOrderItemDiscount: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/discounts/{discountId}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
+	updateItemDuty: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/dutyAmount/{dutyAmount}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
+	updateItemFulfillment: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/fulfillment?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
+	updateItemProductPrice: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/price/{price}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
+	updateItemQuantity: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}/quantity/{quantity}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
+	deleteOrderItem: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/items/{orderItemId}?updatemode={updateMode}&version={version}'
+	})
+});

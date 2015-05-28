@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getAvailableDigitalPackageFulfillmentActions :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages/{digitalPackageId}/actions'
-		}),
-		getDigitalPackage :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages/{digitalPackageId}?responseFields={responseFields}'
-		}),
-		createDigitalPackage :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages?responseFields={responseFields}'
-		}),
-		updateDigitalPackage :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages/{digitalPackageId}?responseFields={responseFields}'
-		}),
-		deleteDigitalPackage :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages/{digitalPackageId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getAvailableDigitalPackageFulfillmentActions: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages/{digitalPackageId}/actions'
+	}),
+	getDigitalPackage: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages/{digitalPackageId}?responseFields={responseFields}'
+	}),
+	createDigitalPackage: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages?responseFields={responseFields}'
+	}),
+	updateDigitalPackage: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages/{digitalPackageId}?responseFields={responseFields}'
+	}),
+	deleteDigitalPackage: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/digitalpackages/{digitalPackageId}'
+	})
+});

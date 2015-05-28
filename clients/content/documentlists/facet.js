@@ -9,14 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getFacets :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/facets/{propertyName}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getFacets: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/facets/{propertyName}'
+	})
+});

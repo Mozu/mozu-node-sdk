@@ -1,5 +1,5 @@
-var Client = require('../client');
 
+var Client = require('../client');
 module.exports = Client.sub({
 	"adminuser": require('./platform/adminuser'),
 	"application": require('./platform/application'),
@@ -14,3 +14,4 @@ module.exports = Client.sub({
 	"tenantExtensions": require('./platform/tenantExtensions'),
 	"userData": require('./platform/userData')
 });
+

@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		createRefund :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/refunds?responseFields={responseFields}'
-		}),
-		resendRefundEmail :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/refunds/{refundId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	createRefund: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/refunds?responseFields={responseFields}'
+	}),
+	resendRefundEmail: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/refunds/{refundId}'
+	})
+});

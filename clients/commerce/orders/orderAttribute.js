@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getOrderAttributes :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/attributes'
-		}),
-		createOrderAttributes :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/attributes'
-		}),
-		updateOrderAttributes :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/attributes?removeMissing={removeMissing}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getOrderAttributes: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/attributes'
+	}),
+	createOrderAttributes: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/attributes'
+	}),
+	updateOrderAttributes: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/attributes?removeMissing={removeMissing}'
+	})
+});

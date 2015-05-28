@@ -1,9 +1,8 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"entity": require('./entitylists/entity')(Client),
-		"entityContainer": require('./entitylists/entityContainer')(Client),
-		"listView": require('./entitylists/listView')(Client)
-	});
-};
+var Client = require('../../client');
+module.exports = Client.sub({
+	"entity": require('./entitylists/entity'),
+	"entityContainer": require('./entitylists/entityContainer'),
+	"listView": require('./entitylists/listView')
+});
 

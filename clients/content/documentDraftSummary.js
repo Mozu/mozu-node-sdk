@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		listDocumentDraftSummaries :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/content/documentpublishing/draft?pageSize={pageSize}&startIndex={startIndex}&documentLists={documentLists}&responseFields={responseFields}'
-		}),
-		deleteDocumentDrafts :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/content/documentpublishing/draft?documentLists={documentLists}'
-		}),
-		publishDocuments :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/content/documentpublishing/active?documentLists={documentLists}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	listDocumentDraftSummaries: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documentpublishing/draft?pageSize={pageSize}&startIndex={startIndex}&documentLists={documentLists}&responseFields={responseFields}'
+	}),
+	deleteDocumentDrafts: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/content/documentpublishing/draft?documentLists={documentLists}'
+	}),
+	publishDocuments: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/content/documentpublishing/active?documentLists={documentLists}'
+	})
+});

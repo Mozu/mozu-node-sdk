@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getPayments :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/payments/?responseFields={responseFields}'
-		}),
-		getAvailablePaymentActions :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/payments/{paymentId}/actions'
-		}),
-		getPayment :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/payments/{paymentId}?responseFields={responseFields}'
-		}),
-		performPaymentAction :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/payments/{paymentId}/actions?responseFields={responseFields}'
-		}),
-		createPaymentAction :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/payments/actions?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getPayments: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/payments/?responseFields={responseFields}'
+	}),
+	getAvailablePaymentActions: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/payments/{paymentId}/actions'
+	}),
+	getPayment: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/payments/{paymentId}?responseFields={responseFields}'
+	}),
+	performPaymentAction: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/payments/{paymentId}/actions?responseFields={responseFields}'
+	}),
+	createPaymentAction: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/payments/actions?responseFields={responseFields}'
+	})
+});

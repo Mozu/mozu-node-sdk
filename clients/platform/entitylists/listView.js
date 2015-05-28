@@ -9,46 +9,44 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getViewEntity :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}/entities/{entityId}?responseFields={responseFields}'
-		}),
-		getViewEntities :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}/entities?pageSize={pageSize}&startIndex={startIndex}&filter={filter}&responseFields={responseFields}'
-		}),
-		getViewEntityContainer :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}/entityContainers/{entityId}?responseFields={responseFields}'
-		}),
-		getViewEntityContainers :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}/entityContainers?pageSize={pageSize}&startIndex={startIndex}&filter={filter}&responseFields={responseFields}'
-		}),
-		getEntityListView :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}?responseFields={responseFields}'
-		}),
-		getEntityListViews :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views?responseFields={responseFields}'
-		}),
-		createEntityListView :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/?responseFields={responseFields}'
-		}),
-		updateEntityListView :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}?responseFields={responseFields}'
-		}),
-		deleteEntityListView :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getViewEntity: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}/entities/{entityId}?responseFields={responseFields}'
+	}),
+	getViewEntities: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}/entities?pageSize={pageSize}&startIndex={startIndex}&filter={filter}&responseFields={responseFields}'
+	}),
+	getViewEntityContainer: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}/entityContainers/{entityId}?responseFields={responseFields}'
+	}),
+	getViewEntityContainers: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}/entityContainers?pageSize={pageSize}&startIndex={startIndex}&filter={filter}&responseFields={responseFields}'
+	}),
+	getEntityListView: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}?responseFields={responseFields}'
+	}),
+	getEntityListViews: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views?responseFields={responseFields}'
+	}),
+	createEntityListView: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/?responseFields={responseFields}'
+	}),
+	updateEntityListView: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}?responseFields={responseFields}'
+	}),
+	deleteEntityListView: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/platform/entitylists/{entityListFullName}/views/{viewName}'
+	})
+});

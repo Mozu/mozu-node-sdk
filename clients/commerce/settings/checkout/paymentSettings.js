@@ -9,14 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getThirdPartyPaymentWorkflows :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/settings/checkout/paymentsettings/thirdpartyworkflows'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getThirdPartyPaymentWorkflows: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/checkout/paymentsettings/thirdpartyworkflows'
+	})
+});

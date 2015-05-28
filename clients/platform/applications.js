@@ -1,7 +1,6 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"authTicket": require('./applications/authTicket')(Client)
-	});
-};
+var Client = require('../../client');
+module.exports = Client.sub({
+	"authTicket": require('./applications/authTicket')
+});
 

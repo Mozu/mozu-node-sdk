@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		applyCoupon :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/carts/{cartId}/coupons/{couponCode}?responseFields={responseFields}'
-		}),
-		removeCoupons :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/carts/{cartId}/coupons'
-		}),
-		removeCoupon :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/carts/{cartId}/coupons/{couponcode}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	applyCoupon: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/carts/{cartId}/coupons/{couponCode}?responseFields={responseFields}'
+	}),
+	removeCoupons: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/carts/{cartId}/coupons'
+	}),
+	removeCoupon: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/carts/{cartId}/coupons/{couponcode}'
+	})
+});

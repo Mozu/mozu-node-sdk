@@ -9,14 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getSiteShippingSettings :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/settings/shipping/?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getSiteShippingSettings: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/shipping/?responseFields={responseFields}'
+	})
+});

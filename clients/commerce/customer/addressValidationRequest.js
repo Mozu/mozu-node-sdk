@@ -9,14 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		validateAddress :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/addressvalidation/?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	validateAddress: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/addressvalidation/?responseFields={responseFields}'
+	})
+});

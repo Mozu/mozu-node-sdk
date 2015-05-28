@@ -9,17 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var Client = require('../../client');
-var constants = Client.constants;
+var Client = require('../../client'), constants = Client.constants;
 
 
 module.exports = Client.sub({
-	getExtensions :Client.method({
+	getExtensions: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/platform/extensions/?responseFields={responseFields}'
 	}),
-	updateExtensions :Client.method({
+	updateExtensions: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/platform/extensions/?responseFields={responseFields}'
-	})	
+	})
 });

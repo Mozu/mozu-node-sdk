@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getMessages :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/carts/current/messages?responseFields={responseFields}'
-		}),
-		removeAllMessages :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/carts/current/messages'
-		}),
-		removeMessage :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/carts/current/messages/{messageId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getMessages: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/carts/current/messages?responseFields={responseFields}'
+	}),
+	removeAllMessages: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/carts/current/messages'
+	}),
+	removeMessage: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/carts/current/messages/{messageId}'
+	})
+});

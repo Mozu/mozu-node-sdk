@@ -1,8 +1,7 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"subscription": require('./push/subscription')(Client),
-		"subscriptions": require('./push/subscriptions')(Client)
-	});
-};
+var Client = require('../../client');
+module.exports = Client.sub({
+	"subscription": require('./push/subscription'),
+	"subscriptions": require('./push/subscriptions')
+});
 

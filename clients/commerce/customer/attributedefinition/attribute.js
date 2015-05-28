@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getAttributes :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getAttributeVocabularyValues :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/{attributeFQN}/VocabularyValues'
-		}),
-		getAttribute :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/{attributeFQN}?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getAttributes: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getAttributeVocabularyValues: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/{attributeFQN}/VocabularyValues'
+	}),
+	getAttribute: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/{attributeFQN}?responseFields={responseFields}'
+	})
+});

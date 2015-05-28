@@ -9,38 +9,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getCredits :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/credits/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getCredit :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/credits/{code}?responseFields={responseFields}'
-		}),
-		addCredit :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/credits/?responseFields={responseFields}'
-		}),
-		associateCreditToShopper :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/customer/credits/{code}/associate-to-shopper?responseFields={responseFields}'
-		}),
-		resendCreditCreatedEmail :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/customer/credits/{code}/Resend-Email'
-		}),
-		updateCredit :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/customer/credits/{code}?responseFields={responseFields}'
-		}),
-		deleteCredit :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/customer/credits/{code}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getCredits: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/credits/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getCredit: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/credits/{code}?responseFields={responseFields}'
+	}),
+	addCredit: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/credits/?responseFields={responseFields}'
+	}),
+	associateCreditToShopper: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/credits/{code}/associate-to-shopper?responseFields={responseFields}'
+	}),
+	resendCreditCreatedEmail: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/credits/{code}/Resend-Email'
+	}),
+	updateCredit: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/credits/{code}?responseFields={responseFields}'
+	}),
+	deleteCredit: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/customer/credits/{code}'
+	})
+});

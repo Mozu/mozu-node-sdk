@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getEvents :Client.method({
-			method: constants.verbs.GET,
-			url: '{+homePod}api/event/pull/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getEvent :Client.method({
-			method: constants.verbs.GET,
-			url: '{+homePod}api/event/pull/{eventId}?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getEvents: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/event/pull/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getEvent: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/event/pull/{eventId}?responseFields={responseFields}'
+	})
+});

@@ -9,34 +9,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getExtendedProperties :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties?draft={draft}'
-		}),
-		addExtendedProperties :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties?updatemode={updateMode}&version={version}'
-		}),
-		updateExtendedProperty :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties/{key}?updatemode={updateMode}&version={version}&upsert={upsert}&responseFields={responseFields}'
-		}),
-		updateExtendedProperties :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties?updatemode={updateMode}&version={version}&upsert={upsert}'
-		}),
-		deleteExtendedProperty :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties/{key}?updatemode={updateMode}&version={version}'
-		}),
-		deleteExtendedProperties :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties?updatemode={updateMode}&version={version}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getExtendedProperties: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties?draft={draft}'
+	}),
+	addExtendedProperties: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties?updatemode={updateMode}&version={version}'
+	}),
+	updateExtendedProperty: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties/{key}?updatemode={updateMode}&version={version}&upsert={upsert}&responseFields={responseFields}'
+	}),
+	updateExtendedProperties: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties?updatemode={updateMode}&version={version}&upsert={upsert}'
+	}),
+	deleteExtendedProperty: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties/{key}?updatemode={updateMode}&version={version}'
+	}),
+	deleteExtendedProperties: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/extendedproperties?updatemode={updateMode}&version={version}'
+	})
+});

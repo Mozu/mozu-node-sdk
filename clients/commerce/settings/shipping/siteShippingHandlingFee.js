@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getOrderHandlingFee :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/settings/shipping/orderhandlingfee?responseFields={responseFields}'
-		}),
-		createOrderHandlingFee :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/settings/shipping/orderhandlingfee?responseFields={responseFields}'
-		}),
-		updateOrderHandlingFee :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/settings/shipping/orderhandlingfee?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getOrderHandlingFee: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/shipping/orderhandlingfee?responseFields={responseFields}'
+	}),
+	createOrderHandlingFee: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/settings/shipping/orderhandlingfee?responseFields={responseFields}'
+	}),
+	updateOrderHandlingFee: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/settings/shipping/orderhandlingfee?responseFields={responseFields}'
+	})
+});

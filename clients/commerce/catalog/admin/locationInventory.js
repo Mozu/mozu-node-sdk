@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getLocationInventory :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}/{productCode}?responseFields={responseFields}'
-		}),
-		getLocationInventories :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		addLocationInventory :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}?performUpserts={performUpserts}'
-		}),
-		updateLocationInventory :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}'
-		}),
-		deleteLocationInventory :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}/{productCode}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getLocationInventory: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}/{productCode}?responseFields={responseFields}'
+	}),
+	getLocationInventories: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	addLocationInventory: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}?performUpserts={performUpserts}'
+	}),
+	updateLocationInventory: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}'
+	}),
+	deleteLocationInventory: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}/{productCode}'
+	})
+});

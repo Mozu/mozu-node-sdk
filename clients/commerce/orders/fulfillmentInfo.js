@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getFulfillmentInfo :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillmentinfo?draft={draft}&responseFields={responseFields}'
-		}),
-		setFulFillmentInfo :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillmentinfo?updatemode={updateMode}&version={version}&responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getFulfillmentInfo: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillmentinfo?draft={draft}&responseFields={responseFields}'
+	}),
+	setFulFillmentInfo: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/fulfillmentinfo?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	})
+});

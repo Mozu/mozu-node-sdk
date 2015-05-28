@@ -1,10 +1,9 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"productTypeExtra": require('./producttypes/productTypeExtra')(Client),
-		"productTypeOption": require('./producttypes/productTypeOption')(Client),
-		"productTypeProperty": require('./producttypes/productTypeProperty')(Client),
-		"productTypeVariation": require('./producttypes/productTypeVariation')(Client)
-	});
-};
+var Client = require('../../../../../client');
+module.exports = Client.sub({
+	"productTypeExtra": require('./producttypes/productTypeExtra'),
+	"productTypeOption": require('./producttypes/productTypeOption'),
+	"productTypeProperty": require('./producttypes/productTypeProperty'),
+	"productTypeVariation": require('./producttypes/productTypeVariation')
+});
 

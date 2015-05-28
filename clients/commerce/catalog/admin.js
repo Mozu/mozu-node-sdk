@@ -1,5 +1,5 @@
-var Client = require('../../../client');
 
+var Client = require('../../../client');
 module.exports = Client.sub({
 	"attributedefinition": require('./admin/attributedefinition'),
 	"category": require('./admin/category'),

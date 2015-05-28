@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		thirdPartyGetApplication :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/settings/applications/?responseFields={responseFields}'
-		}),
-		thirdPartyUpdateApplication :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/settings/applications/?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	thirdPartyGetApplication: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/applications/?responseFields={responseFields}'
+	}),
+	thirdPartyUpdateApplication: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/settings/applications/?responseFields={responseFields}'
+	})
+});

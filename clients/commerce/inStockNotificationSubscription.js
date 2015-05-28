@@ -9,26 +9,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getInStockNotificationSubscriptions :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/instocknotifications/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getInStockNotificationSubscription :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/instocknotifications/{id}?responseFields={responseFields}'
-		}),
-		addInStockNotificationSubscription :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/instocknotifications/?responseFields={responseFields}'
-		}),
-		deleteInStockNotificationSubscription :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/instocknotifications/{id}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getInStockNotificationSubscriptions: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/instocknotifications/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getInStockNotificationSubscription: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/instocknotifications/{id}?responseFields={responseFields}'
+	}),
+	addInStockNotificationSubscription: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/instocknotifications/?responseFields={responseFields}'
+	}),
+	deleteInStockNotificationSubscription: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/instocknotifications/{id}'
+	})
+});

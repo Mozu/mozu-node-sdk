@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		discardDrafts :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/publishing/discarddrafts'
-		}),
-		publishDrafts :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/publishing/publishdrafts'
-		})	
-	});
-};
+module.exports = Client.sub({
+	discardDrafts: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/publishing/discarddrafts'
+	}),
+	publishDrafts: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/publishing/publishdrafts'
+	})
+});

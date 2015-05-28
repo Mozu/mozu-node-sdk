@@ -1,7 +1,6 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"siteShippingHandlingFee": require('./shipping/siteShippingHandlingFee')(Client)
-	});
-};
+var Client = require('../../../client');
+module.exports = Client.sub({
+	"siteShippingHandlingFee": require('./shipping/siteShippingHandlingFee')
+});
 

@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../../constants');
+var Client = require('../../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getLocationInventories :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getLocationInventory :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory/{LocationCode}?responseFields={responseFields}'
-		}),
-		addLocationInventory :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory?performUpserts={performUpserts}'
-		}),
-		updateLocationInventory :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory'
-		}),
-		deleteLocationInventory :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory/{LocationCode}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getLocationInventories: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getLocationInventory: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory/{LocationCode}?responseFields={responseFields}'
+	}),
+	addLocationInventory: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory?performUpserts={performUpserts}'
+	}),
+	updateLocationInventory: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory'
+	}),
+	deleteLocationInventory: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{ProductCode}/LocationInventory/{LocationCode}'
+	})
+});

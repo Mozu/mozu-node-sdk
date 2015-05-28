@@ -9,26 +9,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getDBValue :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/userdata/{*dbEntryQuery}?responseFields={responseFields}'
-		}),
-		createDBValue :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/platform/userdata/{*dbEntryQuery}'
-		}),
-		updateDBValue :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/platform/userdata/{*dbEntryQuery}'
-		}),
-		deleteDBValue :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/platform/userdata/{*dbEntryQuery}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getDBValue: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/userdata/{*dbEntryQuery}?responseFields={responseFields}'
+	}),
+	createDBValue: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/platform/userdata/{*dbEntryQuery}'
+	}),
+	updateDBValue: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/platform/userdata/{*dbEntryQuery}'
+	}),
+	deleteDBValue: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/platform/userdata/{*dbEntryQuery}'
+	})
+});

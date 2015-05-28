@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getDeliveryAttemptSummary :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/event/push/subscriptions/{subscriptionId}/deliveryattempts/{id}?responseFields={responseFields}'
-		}),
-		getDeliveryAttemptSummaries :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/event/push/subscriptions/{subscriptionId}/deliveryattempts?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getDeliveryAttemptSummary: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/event/push/subscriptions/{subscriptionId}/deliveryattempts/{id}?responseFields={responseFields}'
+	}),
+	getDeliveryAttemptSummaries: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/event/push/subscriptions/{subscriptionId}/deliveryattempts?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	})
+});

@@ -9,26 +9,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getDocumentTypes :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/content/documenttypes/?pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
-		}),
-		getDocumentType :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/content/documenttypes/{documentTypeName}?responseFields={responseFields}'
-		}),
-		createDocumentType :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/content/documenttypes/?responseFields={responseFields}'
-		}),
-		updateDocumentType :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/content/documenttypes/{documentTypeName}?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getDocumentTypes: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documenttypes/?pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
+	}),
+	getDocumentType: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documenttypes/{documentTypeName}?responseFields={responseFields}'
+	}),
+	createDocumentType: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/content/documenttypes/?responseFields={responseFields}'
+	}),
+	updateDocumentType: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/content/documenttypes/{documentTypeName}?responseFields={responseFields}'
+	})
+});

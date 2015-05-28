@@ -9,34 +9,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getProductReservations :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/productreservations/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getProductReservation :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/productreservations/{productReservationId}?responseFields={responseFields}'
-		}),
-		addProductReservations :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/productreservations/?skipInventoryCheck={skipInventoryCheck}'
-		}),
-		commitReservations :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/productreservations/commit'
-		}),
-		updateProductReservations :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/productreservations/?skipInventoryCheck={skipInventoryCheck}'
-		}),
-		deleteProductReservation :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/productreservations/{productReservationId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getProductReservations: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/productreservations/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getProductReservation: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/productreservations/{productReservationId}?responseFields={responseFields}'
+	}),
+	addProductReservations: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/productreservations/?skipInventoryCheck={skipInventoryCheck}'
+	}),
+	commitReservations: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/productreservations/commit'
+	}),
+	updateProductReservations: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/productreservations/?skipInventoryCheck={skipInventoryCheck}'
+	}),
+	deleteProductReservation: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/productreservations/{productReservationId}'
+	})
+});

@@ -1,7 +1,6 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"discountTarget": require('./discounts/discountTarget')(Client)
-	});
-};
+var Client = require('../../../../client');
+module.exports = Client.sub({
+	"discountTarget": require('./discounts/discountTarget')
+});
 

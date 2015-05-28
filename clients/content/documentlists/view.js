@@ -9,14 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getViewDocuments :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/content/documentlists/{documentListName}/views/{viewName}/documents?filter={filter}&sortBy={sortBy}&pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getViewDocuments: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/views/{viewName}/documents?filter={filter}&sortBy={sortBy}&pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
+	})
+});

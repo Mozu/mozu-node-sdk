@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getAccountNote :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes/{noteId}?responseFields={responseFields}'
-		}),
-		getAccountNotes :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		addAccountNote :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes?responseFields={responseFields}'
-		}),
-		updateAccountNote :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes/{noteId}?responseFields={responseFields}'
-		}),
-		deleteAccountNote :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes/{noteId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getAccountNote: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes/{noteId}?responseFields={responseFields}'
+	}),
+	getAccountNotes: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	addAccountNote: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes?responseFields={responseFields}'
+	}),
+	updateAccountNote: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes/{noteId}?responseFields={responseFields}'
+	}),
+	deleteAccountNote: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/notes/{noteId}'
+	})
+});

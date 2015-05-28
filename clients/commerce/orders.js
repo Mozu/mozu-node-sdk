@@ -1,23 +1,22 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"adjustment": require('./orders/adjustment')(Client),
-		"appliedDiscount": require('./orders/appliedDiscount')(Client),
-		"attributedefinition": require('./orders/attributedefinition')(Client),
-		"billingInfo": require('./orders/billingInfo')(Client),
-		"digitalPackage": require('./orders/digitalPackage')(Client),
-		"extendedProperty": require('./orders/extendedProperty')(Client),
-		"fulfillmentAction": require('./orders/fulfillmentAction')(Client),
-		"fulfillmentInfo": require('./orders/fulfillmentInfo')(Client),
-		"orderAttribute": require('./orders/orderAttribute')(Client),
-		"orderItem": require('./orders/orderItem')(Client),
-		"orderNote": require('./orders/orderNote')(Client),
-		"orderValidationResult": require('./orders/orderValidationResult')(Client),
-		"package": require('./orders/package')(Client),
-		"payment": require('./orders/payment')(Client),
-		"pickup": require('./orders/pickup')(Client),
-		"refund": require('./orders/refund')(Client),
-		"shipment": require('./orders/shipment')(Client)
-	});
-};
+var Client = require('../../client');
+module.exports = Client.sub({
+	"adjustment": require('./orders/adjustment'),
+	"appliedDiscount": require('./orders/appliedDiscount'),
+	"attributedefinition": require('./orders/attributedefinition'),
+	"billingInfo": require('./orders/billingInfo'),
+	"digitalPackage": require('./orders/digitalPackage'),
+	"extendedProperty": require('./orders/extendedProperty'),
+	"fulfillmentAction": require('./orders/fulfillmentAction'),
+	"fulfillmentInfo": require('./orders/fulfillmentInfo'),
+	"orderAttribute": require('./orders/orderAttribute'),
+	"orderItem": require('./orders/orderItem'),
+	"orderNote": require('./orders/orderNote'),
+	"orderValidationResult": require('./orders/orderValidationResult'),
+	"package": require('./orders/package'),
+	"payment": require('./orders/payment'),
+	"pickup": require('./orders/pickup'),
+	"refund": require('./orders/refund'),
+	"shipment": require('./orders/shipment')
+});
 

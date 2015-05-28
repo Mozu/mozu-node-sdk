@@ -9,38 +9,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getSegments :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/segments/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getSegment :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/segments/{id}?responseFields={responseFields}'
-		}),
-		addSegment :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/segments/?responseFields={responseFields}'
-		}),
-		addSegmentAccounts :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/segments/{id}/accounts'
-		}),
-		updateSegment :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/customer/segments/{id}?responseFields={responseFields}'
-		}),
-		deleteSegment :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/customer/segments/{id}'
-		}),
-		removeSegmentAccount :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/customer/segments/{id}/accounts/{accountId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getSegments: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/segments/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getSegment: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/segments/{id}?responseFields={responseFields}'
+	}),
+	addSegment: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/segments/?responseFields={responseFields}'
+	}),
+	addSegmentAccounts: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/segments/{id}/accounts'
+	}),
+	updateSegment: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/segments/{id}?responseFields={responseFields}'
+	}),
+	deleteSegment: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/customer/segments/{id}'
+	}),
+	removeSegmentAccount: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/customer/segments/{id}/accounts/{accountId}'
+	})
+});

@@ -9,54 +9,52 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../../constants');
+var Client = require('../../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getProductVariationLocalizedDeltaPrices :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice'
-		}),
-		getProductVariationLocalizedDeltaPrice :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice/{currencyCode}?responseFields={responseFields}'
-		}),
-		getProductVariation :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}?responseFields={responseFields}'
-		}),
-		getProductVariations :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		addProductVariationLocalizedDeltaPrice :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice?responseFields={responseFields}'
-		}),
-		updateProductVariationLocalizedDeltaPrices :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice'
-		}),
-		updateProductVariationLocalizedDeltaPrice :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice/{currencyCode}?responseFields={responseFields}'
-		}),
-		updateProductVariation :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}?responseFields={responseFields}'
-		}),
-		updateProductVariations :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations?responseFields={responseFields}'
-		}),
-		deleteProductVariation :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}'
-		}),
-		deleteProductVariationLocalizedDeltaPrice :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice/{currencyCode}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getProductVariationLocalizedDeltaPrices: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice'
+	}),
+	getProductVariationLocalizedDeltaPrice: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice/{currencyCode}?responseFields={responseFields}'
+	}),
+	getProductVariation: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}?responseFields={responseFields}'
+	}),
+	getProductVariations: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	addProductVariationLocalizedDeltaPrice: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice?responseFields={responseFields}'
+	}),
+	updateProductVariationLocalizedDeltaPrices: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice'
+	}),
+	updateProductVariationLocalizedDeltaPrice: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice/{currencyCode}?responseFields={responseFields}'
+	}),
+	updateProductVariation: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}?responseFields={responseFields}'
+	}),
+	updateProductVariations: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations?responseFields={responseFields}'
+	}),
+	deleteProductVariation: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}'
+	}),
+	deleteProductVariationLocalizedDeltaPrice: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/variations/{variationKey}/localizedDeltaPrice/{currencyCode}'
+	})
+});

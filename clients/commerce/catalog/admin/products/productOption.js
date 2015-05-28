@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../../constants');
+var Client = require('../../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getOptions :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options'
-		}),
-		getOption :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options/{attributeFQN}?responseFields={responseFields}'
-		}),
-		addOption :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options?responseFields={responseFields}'
-		}),
-		updateOption :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options/{attributeFQN}?responseFields={responseFields}'
-		}),
-		deleteOption :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options/{attributeFQN}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getOptions: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options'
+	}),
+	getOption: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options/{attributeFQN}?responseFields={responseFields}'
+	}),
+	addOption: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options?responseFields={responseFields}'
+	}),
+	updateOption: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options/{attributeFQN}?responseFields={responseFields}'
+	}),
+	deleteOption: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/products/{productCode}/Options/{attributeFQN}'
+	})
+});

@@ -9,38 +9,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getAppPackageNames :Client.method({
-			method: constants.verbs.GET,
-			url: '{+homePod}api/platform/developer/applications/{applicationKey}/packagenames?responseFields={responseFields}'
-		}),
-		getAppVersions :Client.method({
-			method: constants.verbs.GET,
-			url: '{+homePod}api/platform/developer/applications/versions/{nsAndAppId}?responseFields={responseFields}'
-		}),
-		getPackageFileMetadata :Client.method({
-			method: constants.verbs.GET,
-			url: '{+homePod}api/platform/developer/packages/{applicationKey}/filemetadata/{filepath}?responseFields={responseFields}'
-		}),
-		getPackageMetadata :Client.method({
-			method: constants.verbs.GET,
-			url: '{+homePod}api/platform/developer/packages/{applicationKey}/metadata?responseFields={responseFields}'
-		}),
-		upsertPackageFile :Client.method({
-			method: constants.verbs.POST,
-			url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{filepath}?lastModifiedTime={lastModifiedTime}&responseFields={responseFields}'
-		}),
-		renamePackageFile :Client.method({
-			method: constants.verbs.POST,
-			url: '{+homePod}api/platform/developer/packages/{applicationKey}/files_rename?responseFields={responseFields}'
-		}),
-		deletePackageFile :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{filepath}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getAppPackageNames: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/platform/developer/applications/{applicationKey}/packagenames?responseFields={responseFields}'
+	}),
+	getAppVersions: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/platform/developer/applications/versions/{nsAndAppId}?responseFields={responseFields}'
+	}),
+	getPackageFileMetadata: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/platform/developer/packages/{applicationKey}/filemetadata/{filepath}?responseFields={responseFields}'
+	}),
+	getPackageMetadata: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/platform/developer/packages/{applicationKey}/metadata?responseFields={responseFields}'
+	}),
+	upsertPackageFile: Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{filepath}?lastModifiedTime={lastModifiedTime}&responseFields={responseFields}'
+	}),
+	renamePackageFile: Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/developer/packages/{applicationKey}/files_rename?responseFields={responseFields}'
+	}),
+	deletePackageFile: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{filepath}'
+	})
+});

@@ -1,8 +1,7 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"location": require('./admin/location')(Client),
-		"locationType": require('./admin/locationType')(Client)
-	});
-};
+var Client = require('../../client');
+module.exports = Client.sub({
+	"location": require('./admin/location'),
+	"locationType": require('./admin/locationType')
+});
 

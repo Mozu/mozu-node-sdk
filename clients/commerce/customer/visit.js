@@ -9,26 +9,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getVisits :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/visits/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getVisit :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/visits/{visitId}?responseFields={responseFields}'
-		}),
-		addVisit :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/visits/?responseFields={responseFields}'
-		}),
-		updateVisit :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/customer/visits/{visitId}?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getVisits: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/visits/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getVisit: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/visits/{visitId}?responseFields={responseFields}'
+	}),
+	addVisit: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/visits/?responseFields={responseFields}'
+	}),
+	updateVisit: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/visits/{visitId}?responseFields={responseFields}'
+	})
+});

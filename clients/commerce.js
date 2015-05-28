@@ -1,5 +1,5 @@
-var Client = require('../client');
 
+var Client = require('../client');
 module.exports = Client.sub({
 	"admin": require('./commerce/admin'),
 	"cart": require('./commerce/cart'),

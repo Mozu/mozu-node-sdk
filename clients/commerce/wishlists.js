@@ -1,7 +1,6 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"wishlistItem": require('./wishlists/wishlistItem')(Client)
-	});
-};
+var Client = require('../../client');
+module.exports = Client.sub({
+	"wishlistItem": require('./wishlists/wishlistItem')
+});
 

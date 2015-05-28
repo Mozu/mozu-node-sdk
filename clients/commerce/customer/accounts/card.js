@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getAccountCard :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards/{cardId}?responseFields={responseFields}'
-		}),
-		getAccountCards :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards?responseFields={responseFields}'
-		}),
-		addAccountCard :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards?responseFields={responseFields}'
-		}),
-		updateAccountCard :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards/{cardId}?responseFields={responseFields}'
-		}),
-		deleteAccountCard :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards/{cardId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getAccountCard: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards/{cardId}?responseFields={responseFields}'
+	}),
+	getAccountCards: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards?responseFields={responseFields}'
+	}),
+	addAccountCard: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards?responseFields={responseFields}'
+	}),
+	updateAccountCard: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards/{cardId}?responseFields={responseFields}'
+	}),
+	deleteAccountCard: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/cards/{cardId}'
+	})
+});

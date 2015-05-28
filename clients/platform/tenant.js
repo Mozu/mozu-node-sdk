@@ -9,12 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var Client = require('../../client');
-var constants = Client.constants;
+var Client = require('../../client'), constants = Client.constants;
+
 
 module.exports = Client.sub({
-	getTenant :Client.method({
+	getTenant: Client.method({
 		method: constants.verbs.GET,
 		url: '{+homePod}api/platform/tenants/{tenantId}?responseFields={responseFields}'
-	})	
+	})
 });

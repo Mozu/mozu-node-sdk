@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getSettings :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/search/settings?responseFields={responseFields}'
-		}),
-		updateSettings :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/search/settings?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getSettings: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/settings?responseFields={responseFields}'
+	}),
+	updateSettings: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/settings?responseFields={responseFields}'
+	})
+});

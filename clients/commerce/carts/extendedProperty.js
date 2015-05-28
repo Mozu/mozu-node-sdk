@@ -9,34 +9,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getExtendedProperties :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/carts/current/extendedproperties'
-		}),
-		addExtendedProperties :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/carts/current/extendedproperties'
-		}),
-		updateExtendedProperty :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/carts/current/extendedproperties/{key}?upsert={upsert}&responseFields={responseFields}'
-		}),
-		updateExtendedProperties :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/carts/current/extendedproperties?upsert={upsert}'
-		}),
-		deleteExtendedProperties :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/carts/current/extendedproperties'
-		}),
-		deleteExtendedProperty :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/carts/current/extendedproperties/{key}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getExtendedProperties: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/carts/current/extendedproperties'
+	}),
+	addExtendedProperties: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/carts/current/extendedproperties'
+	}),
+	updateExtendedProperty: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/carts/current/extendedproperties/{key}?upsert={upsert}&responseFields={responseFields}'
+	}),
+	updateExtendedProperties: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/carts/current/extendedproperties?upsert={upsert}'
+	}),
+	deleteExtendedProperties: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/carts/current/extendedproperties'
+	}),
+	deleteExtendedProperty: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/carts/current/extendedproperties/{key}'
+	})
+});

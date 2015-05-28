@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getMasterCatalogs :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/mastercatalogs/?responseFields={responseFields}'
-		}),
-		getMasterCatalog :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/catalog/admin/mastercatalogs/{masterCatalogId}?responseFields={responseFields}'
-		}),
-		updateMasterCatalog :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/catalog/admin/mastercatalogs/{masterCatalogId}?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getMasterCatalogs: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/mastercatalogs/?responseFields={responseFields}'
+	}),
+	getMasterCatalog: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/mastercatalogs/{masterCatalogId}?responseFields={responseFields}'
+	}),
+	updateMasterCatalog: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/mastercatalogs/{masterCatalogId}?responseFields={responseFields}'
+	})
+});

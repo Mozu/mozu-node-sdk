@@ -9,22 +9,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		applyCoupon :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/coupons/{couponCode}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
-		}),
-		removeCoupon :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/coupons/{couponcode}?updatemode={updateMode}&version={version}'
-		}),
-		removeCoupons :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/coupons?updatemode={updateMode}&version={version}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	applyCoupon: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/coupons/{couponCode}?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
+	removeCoupon: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/coupons/{couponcode}?updatemode={updateMode}&version={version}'
+	}),
+	removeCoupons: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/coupons?updatemode={updateMode}&version={version}'
+	})
+});

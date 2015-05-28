@@ -9,14 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getRates :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/catalog/storefront/shipping/request-rates?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getRates: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/storefront/shipping/request-rates?responseFields={responseFields}'
+	})
+});

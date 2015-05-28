@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getChannelGroups :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/channelgroups/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		getChannelGroup :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/channelgroups/{code}?responseFields={responseFields}'
-		}),
-		createChannelGroup :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/channelgroups/?responseFields={responseFields}'
-		}),
-		updateChannelGroup :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/channelgroups/{code}?responseFields={responseFields}'
-		}),
-		deleteChannelGroup :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/channelgroups/{code}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getChannelGroups: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/channelgroups/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getChannelGroup: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/channelgroups/{code}?responseFields={responseFields}'
+	}),
+	createChannelGroup: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/channelgroups/?responseFields={responseFields}'
+	}),
+	updateChannelGroup: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/channelgroups/{code}?responseFields={responseFields}'
+	}),
+	deleteChannelGroup: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/channelgroups/{code}'
+	})
+});

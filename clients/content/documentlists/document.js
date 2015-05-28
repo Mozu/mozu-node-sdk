@@ -9,41 +9,40 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var Client = require('../../../client');
-var constants = Client.constants;
+var Client = require('../../../client'), constants = Client.constants;
 
 
 module.exports = Client.sub({
-	getDocumentContent :Client.method({
+	getDocumentContent: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
 	}),
-	getDocument :Client.method({
+	getDocument: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
 	}),
-	getDocuments :Client.method({
+	getDocuments: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents?filter={filter}&sortBy={sortBy}&pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
 	}),
-	createDocument :Client.method({
+	createDocument: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents?responseFields={responseFields}'
 	}),
-	updateDocumentContent :Client.method({
+	updateDocumentContent: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
 	}),
-	updateDocument :Client.method({
+	updateDocument: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
 	}),
-	deleteDocument :Client.method({
+	deleteDocument: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}'
 	}),
-	deleteDocumentContent :Client.method({
+	deleteDocumentContent: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
-	})	
+	})
 });

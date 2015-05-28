@@ -1,7 +1,6 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"publicCard": require('./payments/publicCard')(Client)
-	});
-};
+var Client = require('../../client');
+module.exports = Client.sub({
+	"publicCard": require('./payments/publicCard')
+});
 

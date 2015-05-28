@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getOrderNotes :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/notes'
-		}),
-		getOrderNote :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/notes/{noteId}?responseFields={responseFields}'
-		}),
-		createOrderNote :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/notes?responseFields={responseFields}'
-		}),
-		updateOrderNote :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/notes/{noteId}?responseFields={responseFields}'
-		}),
-		deleteOrderNote :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/orders/{orderId}/notes/{noteId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getOrderNotes: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/notes'
+	}),
+	getOrderNote: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/notes/{noteId}?responseFields={responseFields}'
+	}),
+	createOrderNote: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/notes?responseFields={responseFields}'
+	}),
+	updateOrderNote: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/notes/{noteId}?responseFields={responseFields}'
+	}),
+	deleteOrderNote: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/notes/{noteId}'
+	})
+});

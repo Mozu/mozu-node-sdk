@@ -1,8 +1,7 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"creditAuditEntry": require('./credits/creditAuditEntry')(Client),
-		"creditTransaction": require('./credits/creditTransaction')(Client)
-	});
-};
+var Client = require('../../../client');
+module.exports = Client.sub({
+	"creditAuditEntry": require('./credits/creditAuditEntry'),
+	"creditTransaction": require('./credits/creditTransaction')
+});
 

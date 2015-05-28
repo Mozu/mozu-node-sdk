@@ -1,8 +1,7 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"eventNotification": require('./event/eventNotification')(Client),
-		"push": require('./event/push')(Client)
-	});
-};
+var Client = require('../client');
+module.exports = Client.sub({
+	"eventNotification": require('./event/eventNotification'),
+	"push": require('./event/push')
+});
 

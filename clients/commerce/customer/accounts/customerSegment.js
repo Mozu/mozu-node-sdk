@@ -9,14 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getAccountSegments :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/segments/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getAccountSegments: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/segments/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	})
+});

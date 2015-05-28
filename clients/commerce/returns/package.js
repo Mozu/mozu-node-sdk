@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getPackageLabel :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}/label'
-		}),
-		getPackage :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}?responseFields={responseFields}'
-		}),
-		createPackage :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/returns/{returnId}/packages?responseFields={responseFields}'
-		}),
-		updatePackage :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}?responseFields={responseFields}'
-		}),
-		deletePackage :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getPackageLabel: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}/label'
+	}),
+	getPackage: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}?responseFields={responseFields}'
+	}),
+	createPackage: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/returns/{returnId}/packages?responseFields={responseFields}'
+	}),
+	updatePackage: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}?responseFields={responseFields}'
+	}),
+	deletePackage: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}'
+	})
+});

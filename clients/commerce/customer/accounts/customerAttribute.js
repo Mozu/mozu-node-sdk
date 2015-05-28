@@ -9,30 +9,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getAccountAttribute :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?responseFields={responseFields}'
-		}),
-		getAccountAttributes :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-		}),
-		addAccountAttribute :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes?responseFields={responseFields}'
-		}),
-		updateAccountAttribute :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?responseFields={responseFields}'
-		}),
-		deleteAccountAttribute :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getAccountAttribute: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?responseFields={responseFields}'
+	}),
+	getAccountAttributes: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	addAccountAttribute: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes?responseFields={responseFields}'
+	}),
+	updateAccountAttribute: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?responseFields={responseFields}'
+	}),
+	deleteAccountAttribute: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}'
+	})
+});

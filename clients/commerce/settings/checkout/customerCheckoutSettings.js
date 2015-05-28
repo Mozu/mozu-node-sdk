@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../../constants');
+var Client = require('../../../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getCustomerCheckoutSettings :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/commerce/settings/checkout/customercheckoutsettings?responseFields={responseFields}'
-		}),
-		updateCustomerCheckoutSettings :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/commerce/settings/checkout/customercheckoutsettings?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getCustomerCheckoutSettings: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/checkout/customercheckoutsettings?responseFields={responseFields}'
+	}),
+	updateCustomerCheckoutSettings: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/settings/checkout/customercheckoutsettings?responseFields={responseFields}'
+	})
+});

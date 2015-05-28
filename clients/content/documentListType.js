@@ -9,18 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client'), constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		createDocumentListType :Client.method({
-			method: constants.verbs.POST,
-			url: '{+tenantPod}api/content/documentlistTypes/?responseFields={responseFields}'
-		}),
-		updateDocumentListType :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/content/documentlistTypes/{documentListTypeFQN}?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	createDocumentListType: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/content/documentlistTypes/?responseFields={responseFields}'
+	}),
+	updateDocumentListType: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/content/documentlistTypes/{documentListTypeFQN}?responseFields={responseFields}'
+	})
+});

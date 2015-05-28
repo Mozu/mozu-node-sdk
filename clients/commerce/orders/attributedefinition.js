@@ -1,7 +1,6 @@
 
-module.exports = function(Client){
-	return Client.sub({
-		"attribute": require('./attributedefinition/attribute')(Client)
-	});
-};
+var Client = require('../../../client');
+module.exports = Client.sub({
+	"attribute": require('./attributedefinition/attribute')
+});
 
