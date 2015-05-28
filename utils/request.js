@@ -75,7 +75,7 @@ module.exports = function(options) {
   return when.promise(function(resolve, reject) {
     var requestOptions = {
       hostname: uri.hostname,
-      port: uri.port,
+      port: uri.port || (uri.protocol === 'https:' ? 443 : 80),
       method: conf.method,
       path: uri.path,
       headers: conf.headers,
