@@ -10,9 +10,11 @@ module.exports = {
   setDefaultRequestOptions: function(options) {
     Client.defaultRequestOptions = options;
   },
-  client: function(ctx) {
+  client: function(ctx, config) {
     // to support the old lookup: client.platform().adminUser().tenantAdminUserAuthTicket() etc.
-    var client = new Client(ctx);
+    config = config || {};
+    if (ctx) config.context = ctx; 
+    var client = new Client(config);
     // instance
     return extend(client, {
       root: function(cfg) {
