@@ -1,4 +1,8 @@
+'use strict';
+var url = require('url');
 var tunnelAgent = require('tunnel-agent');
+
+var FIDDLER_URL = 'http://127.0.0.1:8888';
 
 var allowedHeaders = [
   'accept',
@@ -33,6 +37,8 @@ var onlyHeaders = [
   'proxy-authorization'
 ];
 
+var proxy = url.parse(FIDDLER_URL)
+
 function makeProxyHeaders(headers) {
   return Object.keys(headers)
     .filter(function(header) {
@@ -55,17 +61,16 @@ function getAgentFactory(targetProtocol, proxyProtocol) {
   return agentFactories[targetProtocol + proxyProtocol].bind(tunnelAgent);
 }
 
-module.exports =  function(agentConfig) {
-  var headers = agentConfig.headers,
-      target = agentConfig.target,
-      proxy = agentConfig.proxy;
-  return getAgentFactory(target.protocol, proxy.protocol)({
+module.exports = function addFiddlerProxy(conf) {
+  var target = url.parse(conf.url);
+  conf.agent = getAgentFactory(target.protocol, proxy.protocol)({
     proxy: {
       host: proxy.hostname,
       port: proxy.port,
-      headers: makeProxyHeaders(headers)
+      headers: makeProxyHeaders(conf.headers)
     },
-    headers: headers,
+    headers: conf.headers,
     rejectUnauthorized: false
   });
+  return conf;
 }

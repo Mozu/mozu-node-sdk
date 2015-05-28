@@ -2,6 +2,7 @@ var extend = require('node.extend'),
     sub = require('./utils/sub'),
     constants = require('./constants'),
     makeMethod = require('./utils/make-method'),
+    getConfig = require('./utils/get-config'),
     inMemoryAuthCache = require('./security/in-memory-auth-cache'),
     versionKey = constants.headers.VERSION,
     version = constants.version;
@@ -25,9 +26,17 @@ function cloneContext(ctx) {
   return newCtx;
 }
 
+function isContextSufficient(context) {
+  return context && context.appKey && context.sharedSecret && context.baseUrl;
+}
+
 function Client(cfg) {
   cfg = cfg || {};
-  this.context = cloneContext(cfg.context);
+  var context = cfg.context;
+  if (!isContextSufficient(context)) {
+    context = context ? extend(getConfig(), context) : getConfig();
+  }
+  this.context = cloneContext(context);
   this.defaultRequestOptions = extend({}, Client.defaultRequestOptions, cfg.defaultRequestOptions);
   if (cfg.plugins) {
     this.plugins = cfg.plugins.slice();

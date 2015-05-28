@@ -1,18 +1,16 @@
+var Client = require('../client');
 
-module.exports = function(Client){
-	return Client.sub({
-		"adminuser": require('./platform/adminuser')(Client),
-		"application": require('./platform/application')(Client),
-		"applications": require('./platform/applications')(Client),
-		"developer": require('./platform/developer')(Client),
-		"entityList": require('./platform/entityList')(Client),
-		"entitylists": require('./platform/entitylists')(Client),
-		"referenceData": require('./platform/referenceData')(Client),
-		"siteData": require('./platform/siteData')(Client),
-		"tenant": require('./platform/tenant')(Client),
-		"tenantData": require('./platform/tenantData')(Client),
-		"tenantExtensions": require('./platform/tenantExtensions')(Client),
-		"userData": require('./platform/userData')(Client)
-	});
-};
-
+module.exports = Client.sub({
+	"adminuser": require('./platform/adminuser'),
+	"application": require('./platform/application'),
+	"applications": require('./platform/applications'),
+	"developer": require('./platform/developer'),
+	"entityList": require('./platform/entityList'),
+	"entitylists": require('./platform/entitylists'),
+	"referenceData": require('./platform/referenceData'),
+	"siteData": require('./platform/siteData'),
+	"tenant": require('./platform/tenant'),
+	"tenantData": require('./platform/tenantData'),
+	"tenantExtensions": require('./platform/tenantExtensions'),
+	"userData": require('./platform/userData')
+});

@@ -9,22 +9,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client');
+var constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		createUserAuthTicket :Client.method({
-			method: constants.verbs.POST,
-			url: '{+homePod}api/platform/adminuser/authtickets/tenants?tenantId={tenantId}&responseFields={responseFields}'
-		}),
-		refreshAuthTicket :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+homePod}api/platform/adminuser/authtickets/tenants?tenantId={tenantId}&responseFields={responseFields}'
-		}),
-		deleteUserAuthTicket :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+homePod}api/platform/adminuser/authtickets/?refreshToken={refreshToken}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	createUserAuthTicket :Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/adminuser/authtickets/tenants?tenantId={tenantId}&responseFields={responseFields}'
+	}),
+	refreshAuthTicket :Client.method({
+		method: constants.verbs.PUT,
+		url: '{+homePod}api/platform/adminuser/authtickets/tenants?tenantId={tenantId}&responseFields={responseFields}'
+	}),
+	deleteUserAuthTicket :Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+homePod}api/platform/adminuser/authtickets/?refreshToken={refreshToken}'
+	})	
+});

@@ -9,18 +9,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client');
+var constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		getExtensions :Client.method({
-			method: constants.verbs.GET,
-			url: '{+tenantPod}api/platform/extensions/?responseFields={responseFields}'
-		}),
-		updateExtensions :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+tenantPod}api/platform/extensions/?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getExtensions :Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/platform/extensions/?responseFields={responseFields}'
+	}),
+	updateExtensions :Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/platform/extensions/?responseFields={responseFields}'
+	})	
+});

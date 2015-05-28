@@ -1,8 +1,8 @@
-var setup = require('./utils/config');
+var setupChai = require('./utils/setup-assertion-library');
 
 describe('Content service', function() {
 
-  before(setup);
+  before(setupChai);
   
   this.timeout(20000);
   var opts = {

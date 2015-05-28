@@ -9,22 +9,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../client');
+var constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		authenticateApp :Client.method({
-			method: constants.verbs.POST,
-			url: '{+homePod}api/platform/applications/authtickets/?responseFields={responseFields}'
-		}),
-		refreshAppAuthTicket :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+homePod}api/platform/applications/authtickets/refresh-ticket?responseFields={responseFields}'
-		}),
-		deleteAppAuthTicket :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+homePod}api/platform/applications/authtickets/{refreshToken}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	authenticateApp :Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/applications/authtickets/?responseFields={responseFields}'
+	}),
+	refreshAppAuthTicket :Client.method({
+		method: constants.verbs.PUT,
+		url: '{+homePod}api/platform/applications/authtickets/refresh-ticket?responseFields={responseFields}'
+	}),
+	deleteAppAuthTicket :Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+homePod}api/platform/applications/authtickets/{refreshToken}'
+	})	
+});

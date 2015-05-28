@@ -1,5 +1,4 @@
 var assert = require('assert')
-var setup = require('./utils/config');
 var enableDestroy = require('server-destroy');
 var when = require('when');
 var SDK = require('../');

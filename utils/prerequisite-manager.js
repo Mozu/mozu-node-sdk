@@ -3,6 +3,12 @@ var AuthProvider = require('../security/auth-provider'),
 
 var tenantsCache = {};
 
+var makeTenantClient = (function() {
+  var c;
+  return function() {
+    return (c || (c = require('../clients/platform/tenant'))).apply(this, arguments);
+  };
+}());
 
 function urlRequiresTenantPod(template) {
   return template.indexOf('{+tenantPod}') !== -1;
@@ -82,7 +88,7 @@ function getTenantInfo(id) {
       client.context.tenantPod = 'https://' + currentTenant.domain + '/';
     } else {
       tasks.push(function() {
-        return client.root().platform().tenant().getTenant().then(function(tenant) {
+        return makeTenantClient(client).getTenant().then(function(tenant) {
           tenantsCache[tenant.id] = tenant;
           client.context.tenantPod = 'https://' + tenant.domain + '/';
         });

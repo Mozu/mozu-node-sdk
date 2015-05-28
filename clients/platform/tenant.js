@@ -9,14 +9,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../constants');
+var Client = require('../../client');
+var constants = Client.constants;
 
-
-module.exports = function(Client){
-	return Client.sub({
-		getTenant :Client.method({
-			method: constants.verbs.GET,
-			url: '{+homePod}api/platform/tenants/{tenantId}?responseFields={responseFields}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	getTenant :Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/platform/tenants/{tenantId}?responseFields={responseFields}'
+	})	
+});

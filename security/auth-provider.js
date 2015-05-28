@@ -3,8 +3,30 @@ var constants = require('../constants'),
     AuthTicket = require('./auth-ticket'),
     scopes = constants.scopes;
 
+
+var makeAppAuthClient = (function() {
+  var c;
+  return function() {
+    return (c || (c = require('../clients/platform/applications/authTicket'))).apply(this, arguments);
+  };
+}());
+
+var makeDeveloperAuthClient = (function() {
+  var c;
+  return function() {
+    return (c || (c = require('../clients/platform/developer/developerAdminUserAuthTicket'))).apply(this, arguments);
+  };
+}());
+
+var makeAdminUserAuthClient = (function() {
+  var c;
+  return function() {
+    return (c || (c = require('../clients/platform/adminuser/tenantAdminUserAuthTicket'))).apply(this, arguments);
+  };
+}());
+
 function getPlatformAuthTicket(client) {
-  return client.platform().applications().authTicket().authenticateApp({
+  return makeAppAuthClient(client).authenticateApp({
     applicationId: client.context.appKey,
     sharedSecret: client.context.sharedSecret
   }, {
@@ -13,7 +35,7 @@ function getPlatformAuthTicket(client) {
 }
 
 function refreshPlatformAuthTicket(client, ticket) {
-  return client.platform().applications().authTicket().refreshAppAuthTicket({
+  return makeAppAuthClient(client).refreshAppAuthTicket({
     refreshToken: ticket.refreshToken
   }, {
     scope: scopes.NONE
@@ -21,17 +43,17 @@ function refreshPlatformAuthTicket(client, ticket) {
 }
 
 function getDeveloperAuthTicket(client) {
-  return client.root().platform().developer().developerAdminUserAuthTicket().createDeveloperUserAuthTicket(client.context.developerAccount).then(function(json) {
+  return makeDeveloperAuthClient(client).createDeveloperUserAuthTicket(client.context.developerAccount).then(function(json) {
     return AuthTicket(json);
   });
 }
 
 function refreshDeveloperAuthTicket(client, ticket) {
-  return client.root().platform().developer().developerAdminUserAuthTicket().refreshDeveloperAuthTicket(ticket).then(AuthTicket);
+  return makeDeveloperAuthClient(client).refreshDeveloperAuthTicket(ticket).then(AuthTicket);
 }
 
 function getAdminUserAuthTicket(client) {
-  return client.root().platform().adminuser().tenantAdminUserAuthTicket().createUserAuthTicket({ tenantId: client.context.tenant }, { 
+  return makeAdminUserAuthClient(client).createUserAuthTicket({ tenantId: client.context.tenant }, { 
     body: client.context.adminUser,
     scope: constants.scopes.APP_ONLY
   }).then(function(json) {
@@ -41,7 +63,7 @@ function getAdminUserAuthTicket(client) {
 }
 
 function refreshAdminUserAuthTicket(client, ticket) {
-  return client.root().platform().adminuser().tenantAdminUserAuthTicket().refreshAuthTicket(ticket, {
+  return makeAdminUserAuthClient(client).refreshAuthTicket(ticket, {
     scope: constants.scopes.APP_ONLY
   }).then(AuthTicket);
 }

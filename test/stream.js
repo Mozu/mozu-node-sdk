@@ -1,10 +1,10 @@
-var setup = require('./utils/config');
+var setupChai = require('./utils/setup-assertion-library');
 var concatStream = require('concat-stream');
 var when = require('when');
 
 xdescribe('Stream instead of promise mode', function() {
 
-  before(setup);
+  before(setupChai);
   
   this.timeout(20000);
 

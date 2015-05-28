@@ -1,3 +1,4 @@
+'use strict';
 var extend = require('node.extend'),
     request = require('./request'),
     makeUrl = require('./make-url'),
@@ -12,12 +13,35 @@ var extend = require('node.extend'),
 module.exports = function(config) {
 
   function doRequest(body, options) {
-    return request(extend({}, config, this.defaultRequestOptions, {
-        url: makeUrl(this, config.url, body || {}),
-        context: this.context,
-        body: body,
-        json: true
-      }, options));
+    var urlSpec = makeUrl(this, config.url, body);
+    var finalRequestConfig = extend({}, config, this.defaultRequestOptions, {
+      url: urlSpec.url,
+      context: this.context,
+      body: body
+    }, options);
+    var finalMethod = finalRequestConfig.method && finalRequestConfig.method.toUpperCase();
+    var finalBody;
+    if (body && 
+        typeof body === "object" &&
+        !Array.isArray(body) &&
+        !options.body && 
+        !options.includeUrlVariablesInPostBody && 
+        (finalMethod === "POST" || finalMethod === "PUT")) {
+      finalRequestConfig.body = Object.keys(body).reduce(function(m, k) {
+        if (!urlSpec.keysUsed[k]) {
+          m[k] = body[k];
+        }
+        return m;
+      }, {});
+      if (Object.keys(finalRequestConfig.body).length === 0) {
+        delete finalRequestConfig.body;
+      }
+    }
+    if (finalMethod === "GET" || finalMethod === "DELETE" && !options.body) {
+      delete finalRequestConfig.body;
+      // it's outlived its usefulness, we've already made a url with it
+    }
+    return request(finalRequestConfig);
   }
 
   return function(body, options) {
@@ -33,7 +57,7 @@ module.exports = function(config) {
       // return pipeline((PrerequisiteManager.getTasks(this, options, config) || []).concat([doRequest.bind(this, body, options)]));
       // and no slower really
     }
-  }
+  };
 
 };
 

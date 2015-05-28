@@ -1,10 +1,16 @@
+'use strict';
 var uritemplate = require('uritemplate'),
 extend = require('node.extend');
 
 var templateCache = {};
 
+function toKeysUsed(memo, expr) {
+  if (expr.templateText) memo[expr.templateText] = true;
+  return memo;
+}
+
 function ensureTrailingSlash(url) {
-  return (url.charAt(url.length-1) === "/") ? url : (url + "/");
+  return (url.charAt(url.length-1) === '/') ? url : (url + '/');
 }
 
 /**
@@ -16,12 +22,19 @@ function ensureTrailingSlash(url) {
  */
 module.exports = function makeUrl(client, tpt, body) {
   var context = client.context,
-    template = templateCache[tpt] || (templateCache[tpt] = uritemplate.parse(tpt)),
-    ctx = extend({
+    template = templateCache[tpt] && templateCache[tpt].template;
+    if (!template) {
+      template = uritemplate.parse(tpt);
+      templateCache[tpt] = {
+        template: template,
+        keysUsed: template.expressions.reduce(toKeysUsed, {})
+      };
+    }
+    var ctx = extend({
       homePod: context.baseUrl && ensureTrailingSlash(context.baseUrl),
       tenantId: context.tenant, // URI templates expect tenantId
       pciPod: context.basePciUrl && ensureTrailingSlash(context.basePciUrl)
-    }, context, body);
+    }, context, body || {});
 
   if (ctx.tenantPod) ctx.tenantPod = ensureTrailingSlash(ctx.tenantPod);
 
@@ -31,5 +44,8 @@ module.exports = function makeUrl(client, tpt, body) {
     throw new Error('Could not make URL from template ' + tpt + '. Your context is missing a ' + baseVar.varspecs[0].varname + '.');
   } 
 
-  return template.expand(ctx);
-}
+  return {
+    url: template.expand(ctx),
+    keysUsed: templateCache[tpt].keysUsed
+  };
+};

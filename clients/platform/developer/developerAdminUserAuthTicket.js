@@ -9,22 +9,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var constants = require('../../../constants');
+var Client = require('../../../Client');
+var constants = Client.constants;
 
 
-module.exports = function(Client){
-	return Client.sub({
-		createDeveloperUserAuthTicket :Client.method({
-			method: constants.verbs.POST,
-			url: '{+homePod}api/platform/developer/authtickets/?developerAccountId={developerAccountId}&responseFields={responseFields}'
-		}),
-		refreshDeveloperAuthTicket :Client.method({
-			method: constants.verbs.PUT,
-			url: '{+homePod}api/platform/developer/authtickets/?developerAccountId={developerAccountId}&responseFields={responseFields}'
-		}),
-		deleteUserAuthTicket :Client.method({
-			method: constants.verbs.DELETE,
-			url: '{+homePod}api/platform/developer/authtickets/?refreshToken={refreshToken}'
-		})	
-	});
-};
+module.exports = Client.sub({
+	createDeveloperUserAuthTicket :Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/developer/authtickets/?developerAccountId={developerAccountId}&responseFields={responseFields}'
+	}),
+	refreshDeveloperAuthTicket :Client.method({
+		method: constants.verbs.PUT,
+		url: '{+homePod}api/platform/developer/authtickets/?developerAccountId={developerAccountId}&responseFields={responseFields}'
+	}),
+	deleteUserAuthTicket :Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+homePod}api/platform/developer/authtickets/?refreshToken={refreshToken}'
+	})	
+});

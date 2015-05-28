@@ -11,7 +11,6 @@ describe('Catalog service', function() {
 
   it('returns Products from ProductAdmin.GetProducts()', function(done) {
     var client = require('../clients/commerce/catalog/admin/product')();
-    console.log(client);
     client.getProducts(opts)
       .should.eventually.have.property('items')
       .of.length(opts.pageSize)

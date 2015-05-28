@@ -1,9 +1,9 @@
-var setup = require('./utils/config');
+var setupChai = require('./utils/setup-assertion-library');
 var when = require('when');
 
 describe('Platform service', function() {
 
-  before(setup);
+  before(setupChai);
   
   this.timeout(20000);
 

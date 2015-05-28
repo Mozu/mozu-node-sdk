@@ -1,99 +1,57 @@
-var needle = require('needle'),
-    util = require('util'),
-    constants = require('../constants'),
-    makeLocalProxyAgent = require('./make-local-proxy-agent'),
-    when = require('when'),
-    extend = require('node.extend');
-    var url = require('url');
+var constants = require('../constants');
+var when = require('when');
+var extend = require('node.extend');
+var path = require('path');
+var url = require('url');
+var protocolHandlers = {
+  'http:': require('http'),
+  'https:': require('https')
+};
+var streamToCallback = require('./stream-to-callback');
+var addFiddlerProxy = require('./add-fiddler-proxy');
+var parseJsonDates = require('./parse-json-dates');
+var errorify = require('./errorify');
+
+var USER_AGENT = 'Mozu Node SDK v' + constants.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ')';
 
 
-function errorify(res) {
-  if (typeof res === "string") {
-    return new Error(res);
-  }
-  var message = res.message || res.body && res.body.message;
-  var err;
-  var stringBody = typeof res.body === "string" ? res.body : (Buffer.isBuffer(res.body) ? res.body.toString() : null);
-  var parsedBody;
+// needle.defaults({
+//   compressed: true,
+//   //follow: 10,
+//   //accept: 'application/json',
+//   //parse_response: false,
+//   //user_agent: 
+// });
 
-  if (!message && stringBody) {
-    try {
-      parsedBody = JSON.parse(stringBody);
-      message = parsedBody.message || stringBody;
-    } catch(e) {
-      message = stringBody;
-    }
-  }
-
-  err = new Error(message || "Unknown error!");
-  err.originalError = parsedBody || stringBody || res.body;
-  return err;
-}
-
-needle.defaults({
-  compressed: true,
-  follow: 10,
-  timeout: 20000,
-  accept: 'application/json',
-  parse_response: false,
-  user_agent: 'Mozu Node SDK v' + constants.version
-});
-
+/**
+ * Handle headers
+ */ 
 function makeHeaders(conf) {
-
+  var headers;
   function iterateHeaders(memo, key) {
     if (conf.context[constants.headers[key]]) {
       memo[constants.headerPrefix + constants.headers[key]] = conf.context[constants.headers[key]];
     }
     return memo;
   }
-
   if (conf.scope && conf.scope & constants.scopes.NONE) {
-    return {};
+    headers = {};
   } else if (conf.scope && conf.scope & constants.scopes.APP_ONLY) {
-    return ['APPCLAIMS'].reduce(iterateHeaders, {});
+    headers = ['APPCLAIMS'].reduce(iterateHeaders, {});
   } else {
-    return Object.keys(constants.headers).reduce(iterateHeaders, {});
+    headers = Object.keys(constants.headers).reduce(iterateHeaders, {});
   }
 
-  // 
-  // until scopes can reflect accurately out of the service classes, we'll just push all the context we have
-  // 
-  // if (context[APPCLAIMS]) headers[APPCLAIMS] = context[APPCLAIMS];
-  // if (context[DATAVIEWMODE]) {
-  //   headers[DATAVIEWMODE] = context[DATAVIEWMODE];
-  // } 
-  // if (conf.scope & (scopes.DEVELOPER | scopes.ADMINUSER | scopes.SHOPPER)) {
-  //   headers[USERCLAIMS] = context[USERCLAIMS];
-  // }
-  // if (((conf.scope & scopes.TENANT) == scopes.TENANT) && context[TENANT]) {
-  //   headers[TENANT] = context[TENANT];
-  // }
-  // if (((conf.scope & scopes.SITE) == scopes.SITE) && context[SITE]) {
-  //   headers[SITE] = context[SITE];
-  // }
-  // if (((conf.scope & scopes.MASTERCATALOG) == scopes.MASTERCATALOG) && context[MASTERCATALOG]) {
-  //   headers[MASTERCATALOG] = context[MASTERCATALOG];
-  // }
-  // if (((conf.scope & scopes.CATALOG) == scopes.CATALOG) && context[CATALOG]) {
-  //   headers[CATALOG] = context[CATALOG];
-  // }
-  // return headers;
-}
+  if (conf.body) {
+    headers['Transfer-Encoding'] = 'chunked';
+  }
 
-var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-function parseDate(key, value) {
-  return (typeof value === 'string' && reISO.exec(value)) ? new Date(value) : value;
-}
-
-var fiddlerUrl = 'http://127.0.0.1:8888';
-function addFiddlerProxy(conf) {
-  conf.agent = makeLocalProxyAgent({
-    target: url.parse(conf.url), 
-    proxy: url.parse(fiddlerUrl),
-    headers: conf.headers
-  });
-  return conf;
+  return extend({
+    'accept': 'application/json',
+    'connection': 'close',
+    'content-type': 'text/json; charset=UTF-8',
+    'user-agent': USER_AGENT,
+  }, headers, conf.headers || {});
 }
 
 /**
@@ -104,20 +62,46 @@ function addFiddlerProxy(conf) {
 
 module.exports = function(options) {
   var conf = extend({}, options);
+  conf.method = (conf.method || 'get').toUpperCase();
   conf.headers = makeHeaders(conf);
   if (process.env.USE_FIDDLER) {
     conf = addFiddlerProxy(conf);
   }
+  var uri = url.parse(conf.url);
+  var protocolHandler = protocolHandlers[uri.protocol];
+  if (!protocolHandler) {
+    throw new Error('Protocol ' + uri.protocol + ' not supported.');
+  }
   return when.promise(function(resolve, reject) {
-    needle.request(conf.method, conf.url, conf.body, conf, function(err, response, body) {
-      if (err) return reject(err);
-      try {
-        body = JSON.parse(body, (conf.parseDates !== false) && parseDate);
-      } catch(e) { 
-        return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
-      }
-      if (response && response.statusCode >= 400 && response.statusCode < 600) return reject(errorify(response));
-      return resolve(body);
+    var requestOptions = {
+      hostname: uri.hostname,
+      port: uri.port,
+      method: conf.method,
+      path: uri.path,
+      headers: conf.headers,
+      agent: conf.agent
+    };
+    var request = protocolHandler.request(requestOptions, function(response) {
+      streamToCallback(response, function(err, body) {
+        if (err) return reject(err);
+        try {
+          body = JSON.parse(body, (conf.parseDates !== false) && parseJsonDates);
+        } catch(e) { 
+          return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
+        }
+        if (response && response.statusCode >= 400 && response.statusCode < 600) return reject(errorify(response));
+        return resolve(body);
+      })
     });
+    request.setTimeout(options.timeout || 20000, reject)
+    request.on('error', reject);
+    if (conf.body) {
+      var payload = conf.body;
+      if (typeof payload !== "string") {
+        payload = JSON.stringify(payload);
+      }
+      request.write(payload);
+    }
+    request.end();
   });
 };
