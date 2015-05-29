@@ -58,7 +58,7 @@ module.exports = function(options, transform) {
   var payload;
   if (conf.body) {
     payload = conf.body;
-    if (typeof payload !== "string") {
+    if (typeof payload !== "string" && !Buffer.isBuffer(payload)) {
       payload = JSON.stringify(payload);
     }
   }
