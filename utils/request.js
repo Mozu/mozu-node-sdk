@@ -69,14 +69,14 @@ module.exports = function(options, transform) {
     throw new Error('Protocol ' + uri.protocol + ' not supported.');
   }
   return new Promise(function(resolve, reject) {
-    var requestOptions = {
+    var requestOptions = extend({
       hostname: uri.hostname,
       port: uri.port || (uri.protocol === 'https:' ? 443 : 80),
       method: conf.method,
       path: uri.path,
       headers: conf.headers,
       agent: conf.agent
-    };
+    }, options);
     if (typeof transform === "function") {
       requestOptions = transform(requestOptions); 
     }
