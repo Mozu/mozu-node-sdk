@@ -116,8 +116,7 @@ require('mozu-node-sdk/clients/content/documentlists/document')().getDocuments({
     pageSize: 5,
     documentListName: 'files@mozu'
 }, {
-    timeout: 60000,
-    multipart: true
+    timeout: 60000
 });
 ```
 
@@ -131,18 +130,15 @@ require('mozu-node-sdk/clients/content/documentlists/document')().getDocuments({
        pageSize: 5,
        documentListName: 'files@mozu'
    }, {
-       timeout: 60000,
-       multipart: true,
        context: {
            site: 6789
        }
    });
    ```
 
-You can set the `defaultRequestOptions` property of your client object for certain options to be passed in to every request:
+You can set the `defaultRequestOptions` property of your client object for certain options to be passed in to every request.
 ```js
 client.defaultRequestOptions = {
-  proxy: "http://127.0.0.1:8888",
   rejectUnauthorized: false
 };
 ```
@@ -150,14 +146,13 @@ client.defaultRequestOptions = {
 You can set these defaults for all client objects by calling the `setDefaultRequestOptions()` method on the SDK itself.
 ```js
 require('mozu-node-sdk').setDefaultRequestOptions({
-    proxy: "http://127.0.0.1:8888",
     rejectUnauthorized: true
 });
 ```
 
 ### Handling Responses
 
-All API calls return a Promise, specifically a [when](https://github.com/cujojs/when) promise. Promises are one of the most standard and popular ways of handling asynchronous code in JavaScript. The Promise represents an "eventual value". It's an object which is either pending, resolved (success) or rejected (failure). You can attach handlers to it using the standard `.then(onResolved, onRejected)` method.
+All API calls return a Promise, specifically either a native Promise where available, or a [When](https://github.com/cujojs/when) Promise. Promises are one of the most standard and popular ways of handling asynchronous code in JavaScript. The Promise represents an "eventual value". It's an object which is either pending, resolved (success) or rejected (failure). You can attach handlers to it using the standard `.then(onResolved, onRejected)` method.
 
 Crucially, promises can be chained. Inside a promise handler, you can return a promise in order to produce a promise that will only resolve once both the inner and outer promise have.
 
@@ -173,24 +168,25 @@ orderClient.getOrder({ orderId: 'ab96c79e59b79a76' }).then(function(order) {
 });
 ```
 
-Including [when](https://github.com/cujojs/when) in your project gives you access to static methods which can manipulate when-generated promises. This can be useful for higher-order promise tasks, such as joining multiple promises together into a single result.
+The Mozu Node SDK will use native Promises when available, and will use the [When ES6 shim](https://github.com/cujojs/when/blob/master/docs/es6-promise-shim.md) otherwise.
+This guarantees that the global `Promise` constructor will be available. That constructor has static methods which can manipulate promises. This can be useful for higher-order promise tasks, such as joining multiple promises together into a single result.
 
 ```js
 // get a fully-hydrated customer from an order and add all orders for that customer
-var when = require('when');
 var customerAccountClient = require('mozu-node-sdk/clients/commerce/customer/customerAccount')(orderClient);
 function joinCustomerAndOrdersFromOrder(order) {
-   return when.join(
+   return Promise.all([
     orderClient.getOrders({
       filter: "CustomerId eq " + order.customerAccountId
    }),
     customerAccountClient.getAccount({
       accountId: order.customerAccountId
-   }));
+   })]);
 }
 
 orderClient.getOrder({ orderId: 'ab96c79e59b79a76' })
-  .then(joinCustomerAndOrdersFromOrder).spread(function(orders, customer) {
+  .then(joinCustomerAndOrdersFromOrder).then(function(results) {
+    var orders = results[0], customer = results[1];
     // orders will be a list of orders for the customer,
     // customer will be the full customer object
     console.log("Customer:", customer)
@@ -200,16 +196,16 @@ orderClient.getOrder({ orderId: 'ab96c79e59b79a76' })
 });
 ```
 
-### Extras
+### Plugins
 
 #### Authentication Storage
 
-The `require('mozu-node-sdk').client()` factory actually takes two arguments: a context, and a `plugins` array. Currently, the only supported plugin type is `AuthenticationStorage`. You can supply an AuthenticationStorage plugin by putting it in an array you send to the second argument to the client factory:
+Client factory methods can accept other configurations besides `context`. One such configuration property is `plugins`, which must be an array of functions that transform a client. One supported plugin type is `AuthenticationStorage`. An AuthenticationStorage plugin must supply an `authenticationStorage` property to an SDK client.
 
 ```js
 // `null` to fetch context from a local config file
-var persistentAuthClient = require('mozu-node-sdk').client(null, {
-    plugins: [customAuthStorageObject]
+var persistentAuthClient = require('mozu-node-sdk/clients/platform/applications')({
+  plugins: [customAuthStorageObject]
 });
 ```
 
@@ -225,8 +221,6 @@ Retrieve a stored auth ticket. Should never return tickets whose refresh tokens 
  - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
  - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument first that should be null, and a `ticket` argument second, that will be either `undefined` if no ticket exists, or an Auth Ticket a qualifying one exists.
 
-
-
 ##### `AuthenticationStorage.set(claimType, context, ticket, callback)`
 Store an auth ticket. Invoke an asynchronous callback to indicate that the ticket was successfully stored.
 **Arguments:**
@@ -237,7 +231,56 @@ Store an auth ticket. Invoke an asynchronous callback to indicate that the ticke
  - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
  - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument that should be null. There is no result sent to this callback; as long as the error is null, the operation succeeded.
 
-The only plugin that exists so far is [Multipass](https://github.com/zetlen/mozu-multipass) for AuthenticationStorage.
+If you need auth persistence, consider using the [Multipass](https://github.com/zetlen/mozu-multipass) plugin for AuthenticationStorage.
+
+#### Request Transforms
+
+Another plugin type is `RequestTransform`. A request transform is a function which adjusts the configuration for HTTP requests at a low level. A RequestTransform plugin must attach this function to clients as a `.requestTransform` property.
+
+The SDK comes packaged with on such plugin: FiddlerProxy, which is useful for development. You can use a local HTTP request monitor proxy like Fiddler or Charles to monitor SDK requests; just use the `FiddlerProxy` plugin and export the environment variable `USE_FIDDLER` to turn it on.
+
+```js
+//gin up clients you can monitor with a proxy
+var FiddlerProxy = require('mozu-node-sdk/plugins/fiddler-proxy');
+var productClient = require('mozu-node-sdk/clients/commerce/catalog/admin/product')({
+  plugins: [FiddlerProxy]
+});
+```
+
+When the `USE_FIDDLER` environment is nonempty, the above client will route all requests through the proxy at `http://127.0.0.1:8888`.
+
+The `.requestTransform` receives as its argument, and must return, an object of configuration that could be supplied to the builtin Node `http.request` method.
+
+#### Setting Environment Variables
+
+OSX, any Unix, or Cygwin:
+```
+# for the duration of one command, usually npm test
+USE_FIDDLER=1 npm test
+# permanent on
+export USE_FIDDLER=1
+# off
+export USE_FIDDLER=
+```
+
+PowerShell:
+```
+# on
+$env:USE_FIDDLER=$true;
+# off
+$env:USE_FIDDLER=$null;
+```
+
+cmd.exe, the Windows Command Prompt:
+```
+# on
+set USE_FIDDLER=1
+# off
+set USE_FIDDLER=
+```
+
+
+### Extras
 
 #### Validate Hashes
 
@@ -272,13 +315,15 @@ isRequestValid(client.context, req, function(valid) {
 });
 ```
 
-## Development requirements
+## Development 
 
-*   NodeJS >= 0.10
+### Requirements
 
-## Test
+*   NodeJS >= 0.12
 
-The tests use the [Mocha](http://mochajs.org/) framework and the [Chai](http://chaijs.com/) assertion library, with the [Chai as Promises](http://chaijs.com/plugins/chai-as-promised) extensions for native Promises support in assertions.
+### Testing
+
+The tests use the [Mocha](http://mochajs.org/) framework and the [Chai](http://chaijs.com/) assertion library, with the [Chai as Promised](http://chaijs.com/plugins/chai-as-promised) extensions for native Promise support in assertions.
 
 Run the tests with:
 ```
@@ -287,34 +332,6 @@ npm test
 
 Mocha will run all .js file in the `test` directory. To add a test, simply copy one of the existing test files to use its setup boilerplate, and then modify the `it()` function.
 
-The tests are set up to run against a live Mozu sandbox. Configure which sandbox is used by modifying the `contextConfig` object in `test/utils/config.js`.
+The tests are set up to run against a live Mozu sandbox. Configure which sandbox is used by adding a `mozu.config.json` file in the root SDK directory. Without this file, the tests will all fail.
 
-
-### Monitoring with Fiddler
-
-You can use a local HTTP request monitor proxy like Fiddler or Charles; just export the environment variable `USE_FIDDLER`.
-
-
-Doing that on OSX, any Unix, or Cygwin:
-```
-# on
-export USE_FIDDLER=1;
-# off
-export USE_FIDDLER=;
-```
-
-Doing that in PowerShell:
-```
-# on
-$env:USE_FIDDLER=$true;
-# off
-$env:USE_FIDDLER=$null;
-```
-
-Doing that in cmd.exe, the Windows Command Prompt:
-```
-# on
-set USE_FIDDLER=1
-# off
-set USE_FIDDLER=
-```
+The clients in the unit tests are all configured to use the FiddlerProxy plugin, so export the `USE_FIDDLER` environment variable as described above in order to monitor the test network traffic.
