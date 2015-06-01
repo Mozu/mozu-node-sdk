@@ -83,12 +83,17 @@ module.exports = function(options, transform) {
     var request = protocolHandler.request(requestOptions, function(response) {
       streamToCallback(response, function(err, body) {
         if (err) return reject(err);
-        try {
-          body = JSON.parse(body, (conf.parseDates !== false) && parseJsonDates);
-        } catch(e) { 
-          return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
+        if (body) {
+          try {
+            body = JSON.parse(body, (conf.parseDates !== false) && parseJsonDates);
+          } catch(e) { 
+            return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
+          }
         }
-        if (response && response.statusCode >= 400 && response.statusCode < 600) return reject(errorify(response));
+        if (response && response.statusCode >= 400 && response.statusCode < 600) {
+          response.body = body;
+          return reject(errorify(response));
+        }
         return resolve(body);
       });
     });
