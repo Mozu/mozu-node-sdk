@@ -6,7 +6,7 @@ process.env.mozuHosted = {
 };
 
 console.log(typeof process.env.mozuHosted);
-process.exit(1)
+process.exit(1);
 
 var client = require('mozu-node-sdk').client();
 

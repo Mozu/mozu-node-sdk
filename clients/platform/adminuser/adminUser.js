@@ -9,8 +9,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var Client = require('../../../client'), constants = Client.constants
-	,AuthProvider;
+var Client = require('../../../client'), constants = Client.constants,
+		AuthProvider;
 
 
 module.exports = Client.sub({
@@ -22,7 +22,7 @@ module.exports = Client.sub({
 			 return AuthProvider.addAdminUserClaims(this).then(function() {
 				return getTenantScopes.call(this, { userId: this.context.user.userId });
 		}.bind(this));
-			}
+			};
 		})(Client.method({
 			scope: constants.scopes.ADMINUSER,
 			method: constants.verbs.GET,

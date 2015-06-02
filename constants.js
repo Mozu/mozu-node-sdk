@@ -7,7 +7,7 @@ var version = require('./version'),
     MASTERCATALOG = 32,
     CATALOG = 64,
     APP_ONLY = 128,
-    NONE = 256
+    NONE = 256;
 
 // scopes are not yet in use, but when the services can reflect
 // their required scope, here will be all the bitmask constants

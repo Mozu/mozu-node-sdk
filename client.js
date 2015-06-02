@@ -12,7 +12,7 @@ function makeClient(clientCls) {
   return function(cfg) {
     return new clientCls(extend({}, this, cfg));
   };
-};
+}
 
 function cloneContext(ctx) {
   var newCtx;

@@ -29,6 +29,6 @@
     "server-destroy": "^1.0.0"
   },
   "scripts": {
-    "test": "jshint ./**/*.js && mocha"
+    "test": "jshint . && mocha"
   }
 }
