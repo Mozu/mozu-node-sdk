@@ -13,7 +13,7 @@ var allowedHeaders = [
   'cache-control',
   'content-encoding',
   'content-language',
-  'content-length',
+  // 'content-length',
   'content-location',
   'content-md5',
   'content-range',
