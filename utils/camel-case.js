@@ -5,5 +5,5 @@ function cccb (match, l) {
 var rdashAlpha = /-([\da-z])/gi;
 
 module.exports = function camelCase (str) {
-  return (str.charAt(0).toUpperCase() + str.substring(1)).replace(rdashAlpha, cccb);
+  return (str.charAt(0) + str.substring(1)).replace(rdashAlpha, cccb);
 };
