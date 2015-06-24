@@ -3,7 +3,7 @@ var extend = require('./utils/tiny-extend'),
     constants = require('./constants'),
     makeMethod = require('./utils/make-method'),
     getConfig = require('./utils/get-config'),
-    camelCase = require('./utils/camel-case'),
+    normalizeContext = require('./utils/normalize-context'),
     inMemoryAuthCache = require('./plugins/in-memory-auth-cache'),
     versionKey = constants.headers.VERSION,
     version = constants.version;
@@ -13,24 +13,6 @@ function makeClient(clientCls) {
   return function(cfg) {
     return new clientCls(extend({}, this, cfg));
   };
-}
-
-var camelToDash = Object.keys(constants.headers).reduce(function(t, k) {
-  var dashed = constants.headers[k];
-  t[camelCase(dashed)] = dashed;
-  return t;
-}, {});
-
-function normalizeContext(context) {
-  return Object.keys(context).reduce(function(m, k) {
-    var dashed = camelToDash[k];
-    if (dashed && !(dashed in context)) {
-      m[dashed] = context[k];
-    } else {
-      m[k] = context[k];
-    }
-    return m;
-  }, {});
 }
 
 function cloneContext(ctx) {
