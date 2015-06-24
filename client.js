@@ -24,12 +24,13 @@ var camelToDash = Object.keys(constants.headers).reduce(function(t, k) {
 function normalizeContext(context) {
   return Object.keys(context).reduce(function(m, k) {
     var dashed = camelToDash[k];
-    if (dashed && !(dashed in m)) {
-      m[dashed] = m[k];
-      delete m[k];
+    if (dashed && !(dashed in context)) {
+      m[dashed] = context[k];
+    } else {
+      m[k] = context[k];
     }
     return m;
-  }, context);
+  }, {});
 }
 
 function cloneContext(ctx) {
