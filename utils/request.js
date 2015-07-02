@@ -91,8 +91,7 @@ module.exports = function(options, transform) {
           }
         }
         if (response && response.statusCode >= 400 && response.statusCode < 600) {
-          response.body = body;
-          return reject(errorify(response));
+          return reject(errorify(body || response, response.headers));
         }
         return resolve(body);
       });

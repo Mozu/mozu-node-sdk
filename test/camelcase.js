@@ -13,7 +13,6 @@ describe('Client context headers', function() {
       'app-claims': 'dash-claims',
       'user-claims': 'dash-claims',
       userClaims: 'camelClaims',
-      tenantId: 'camelId',
       siteId: 'camelId',
       catalogId: 'camelId',
       masterCatalogId: 'camelId',
@@ -34,7 +33,7 @@ describe('Client context headers', function() {
   });
 
   it('prefers the special use cases tenantId, siteId, catalogId, masterCatalogId', function() {
-    client.context['tenant'].should.equal('camelId');
+    client.context['tenant'].should.equal('lower-tenant');
     client.context['site'].should.equal('camelId');
     client.context['catalog'].should.equal('camelId');
     client.context['master-catalog'].should.equal('camelId');

@@ -1,23 +1,40 @@
-module.exports = function errorify(res) {
+var extend = require('./tiny-extend');
+var util = require('util');
+module.exports = function errorify(res, additions) {
   "use strict";
   if (typeof res === "string") {
     return new Error(res);
   }
-  var message = res.message || res.body && res.body.message;
+  
   var err;
+  var message = res.message || res.body && res.body.message;
   var stringBody = typeof res.body === "string" ? res.body : (Buffer.isBuffer(res.body) ? res.body.toString() : null);
-  var parsedBody;
+  var details = typeof res.body === "object" ? res.body : (typeof res === "object" ? res : {});
 
   if (!message && stringBody) {
     try {
-      parsedBody = JSON.parse(stringBody);
-      message = parsedBody.message || stringBody;
+      details = JSON.parse(stringBody);
+      message = details.message || stringBody;
     } catch(e) {
       message = stringBody;
     }
   }
 
-  err = new Error(message || "Unknown error!");
-  err.originalError = parsedBody || stringBody || res.body;
+  if (additions) {
+    extend(details, additions);
+  }
+
+  message = (message || "Unknown error!") + formatDetails(details);
+
+  err = new Error(message);
+  err.originalError = details;
   return err;
 };
+
+function formatDetails(deets) {
+  return "\n\nDetails:\n" + Object.keys(deets).map(function(label) {
+    var deet = deets[label];
+    if (typeof deet === "object") deet = util.inspect(deet);
+    return " " + label + ": " + deet;
+  }).join('\n') + '\n';
+}
