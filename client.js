@@ -33,7 +33,7 @@ function isContextSufficient(context) {
 
 function Client(cfg) {
   cfg = cfg || {};
-  var context = normalizeContext(cfg.context || {});
+  var context = normalizeContext(cfg.apiContext || cfg.context || {});
   if (!isContextSufficient(context)) {
     context = context ? extend(getConfig(), context) : getConfig();
   }
