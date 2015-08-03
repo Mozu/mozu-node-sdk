@@ -82,7 +82,7 @@ module.exports = function(options, transform) {
     }
     var request = protocolHandler.request(requestOptions, function(response) {
       streamToCallback(response, function(err, body) {
-        if (err) return reject(err);
+        if (err) return reject(errorify(err, response.headers));
         if (body) {
           try {
             body = JSON.parse(body, (conf.parseDates !== false) && parseJsonDates);
@@ -96,8 +96,11 @@ module.exports = function(options, transform) {
         return resolve(body);
       });
     });
-    request.setTimeout(options.timeout || 20000, reject);
-    request.on('error', reject);
+    var timeout = options.timeout || 20000;
+    request.setTimeout(timeout, reject.bind(null, errorify("Timeout occurred: request to " + url + " took more than " + timeout / 1000 + " seconds to complete.")));
+    request.on('error', function(err) {
+      reject(errorify(err, request));
+    });
     if (payload) request.write(payload);
     request.end();
   });
