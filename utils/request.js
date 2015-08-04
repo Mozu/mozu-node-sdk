@@ -80,8 +80,10 @@ module.exports = function(options, transform) {
     if (typeof transform === "function") {
       requestOptions = transform(requestOptions); 
     }
+    var complete = false;
     var request = protocolHandler.request(requestOptions, function(response) {
       streamToCallback(response, function(err, body) {
+        complete = true;
         if (err) return reject(errorify(err, extend({ statusCode: response.statusCode}, response.headers)));
         if (body) {
           try {
@@ -97,7 +99,11 @@ module.exports = function(options, transform) {
       });
     });
     var timeout = options.timeout || 20000;
-    request.setTimeout(timeout, reject.bind(null, errorify("Timeout occurred: request to " + url + " took more than " + timeout / 1000 + " seconds to complete.")));
+    request.setTimeout(timeout, function() {
+      if (!complete) {
+        reject(errorify("Timeout occurred: request to " + conf.url + " took more than " + timeout / 1000 + " seconds to complete."));
+      }
+    });
     request.on('error', function(err) {
       reject(errorify(err, request));
     });
