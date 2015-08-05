@@ -56,14 +56,24 @@ productClient.getProducts({
 
 A full context is necessary before making calls. The Mozu API needs requests to have a full collection of context headers before it will respond to requests. You can load context initially when creating a client, but you can also modify context on an existing client by simply updating the values in the `client.context` object.
 
+Some of the context is necessary in order to bootstrap your Mozu authentication:
+ - `client.context['appKey']`: The key for the Mozu application that the client will use for auth when it sends API requests. The default authentication provider will use this application key when it's trying to get its initial set of app claims. A new client will do this silently, prior to its first API call, and then it manages, reuses, and refreshes those app claims as necessary for ensuing calls.
+ - `client.context['sharedSecret']`: The shared secret for the Mozu application that the client will use for auth when it sends API requests. The default authentication provider will use this shared secret when it's trying to get its initial set of app claims. A new client will do this silently, prior to its first API call, and then it manages, reuses, and refreshes those app claims as necessary for ensuing calls.
+ - `client.context['baseUrl']`: The base URL (usually just a domain name) representing the "home pod" for the Mozu API. **For all production and sandbox uses, this will be https://home.mozu.com/. ** For different Mozu environments (such as internal integration and staging environments), this domain will differ. This is the "bootstrap" domain; the SDK knows how to retrieve the domains for your tenants by calling the services on this domain.
+ - `client.context['basePciUrl']`: To comply with Payment Card Industry (PCI) rules, Mozu hosts its PaymentService, which stores credit card data, on separate hardware from the rest of its systems. If your client will need to talk directly to the PaymentService (which is rare unless you're doing actual transaction processing) then you will need to add this domain to your context configuration. It may differ based on your individual tenant configuration; Mozu Support will provide you with yours.
+ - `client.context['tenantPod']`: The base domain for tenant-related API calls (that is, all calls that access actual tenant data). Normally, the client will call the TenantService on the home pod to find this URL, before placing tenant calls, so all you need to specify in the context is the `tenantId`. If you know ahead of time what tenant your code will need to access, then you can hardcode the tenant pod URL in your context.
+ - `client.context['developerAccount']`: An object with an `emailAddress` property and a `password` property, that the client will use when trying to authenticate to services that require developer login, such as the AppDev file sync services. **Do not hardcode your password in a file!** If you need persistent authentication, we recommend using an AuthenticationStorage plugin such as [Multipass][1].
+ - `client.context['developerAccountId']`: A unique ID for the particular Developer Account context that your developer user should use when contacting App Dev. Unless you are talking to the App Dev services it should not be necessary; you can look it up by examining the numbers next to your developer account link in the Mozu Launchpad immediately after login.
+ - `client.context['adminUser']`: An object with an `emailAddress` property and a `password` property, that the client will use when trying to authenticate to services that require an admin user, such as SiteSettings. **Do not hardcode your password in a file!** If you need persistent authentication, we recommend using an AuthenticationStorage plugin such as [Multipass][1].
+
 The following context values will be sent as HTTP request headers when they are present. 
- - `client.context['app-claims']`: The claims header for your associated Application. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for all calls.
- - `client.context['user-claims']`: The claims header for your associated user. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for many calls.
- - `client.context['tenant']`: The tenant ID, for scoping calls to a tenant. Required at minimum for all calls to services outside the Home Pod; `tenant` is the outermost scope.
- - `client.context['site']`: The site ID, for scoping calls to a site.
- - `client.context['master-catalog']`: The master catalog ID, for scoping calls to a master catalog.
- - `client.context['catalog']`: The catalog ID, for scoping calls to a catalog..
- - `client.context['dataview-mode']`: The data view mode for a call. This can be either `LIVE` (default) or `PENDING`. A data view mode of `PENDING` will show staged changes as if they are live. 
+ - `client.context['app-claims']`: The claims header for your associated Application. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for all calls. You can initialize a client with app claims by passing `appClaims` in the context.
+ - `client.context['user-claims']`: The claims header for your associated user. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for many calls. You can initialize a client with user claims by passing `userClaims` in the context.
+ - `client.context['tenant']`: The tenant ID, for scoping calls to a tenant. Required at minimum for all calls to services outside the Home Pod; `tenant` is the outermost scope. You can initialize a client with a tenant ID by passing `tenantId` in the context.
+ - `client.context['site']`: The site ID, for scoping calls to a site. You can initialize a client with a site ID by passing `siteId` in the context.
+ - `client.context['master-catalog']`: The master catalog ID, for scoping calls to a master catalog. You can initialize a client with a master catalog ID by passing `masterCatalogId` in the context.
+ - `client.context['catalog']`: The catalog ID, for scoping calls to a catalog. You can initialize a client with a catalog ID by passing `catalogId` in the context.
+ - `client.context['dataview-mode']`: The data view mode for a call. This can be either `LIVE` (default) or `PENDING`. A data view mode of `PENDING` will show staged changes as if they are live. You can initialize a client with a data view mode by passing `dataviewMode` in the context.
 
 You can also store arbitrary data on the context, and it will be passed around to the various clients you create. This can be useful for login information, common state, or secret keys.
 
@@ -231,7 +241,7 @@ Store an auth ticket. Invoke an asynchronous callback to indicate that the ticke
  - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
  - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument that should be null. There is no result sent to this callback; as long as the error is null, the operation succeeded.
 
-If you need auth persistence, consider using the [Multipass](https://github.com/zetlen/mozu-multipass) plugin for AuthenticationStorage.
+If you need auth persistence, consider using the [Multipass][1] plugin for AuthenticationStorage.
 
 #### Request Transforms
 
@@ -335,3 +345,5 @@ Mocha will run all .js file in the `test` directory. To add a test, simply copy 
 The tests are set up to run against a live Mozu sandbox. Configure which sandbox is used by adding a `mozu.config.json` file in the root SDK directory. Without this file, the tests will all fail.
 
 The clients in the unit tests are all configured to use the FiddlerProxy plugin, so export the `USE_FIDDLER` environment variable as described above in order to monitor the test network traffic.
+
+[1]: https://github.com/zetlen/mozu-multipass "Multipass Authentication Storage Plugin"
