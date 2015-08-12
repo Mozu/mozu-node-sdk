@@ -2,6 +2,7 @@
 var Client = require('../client');
 module.exports = Client.sub({
 	"adminuser": require('./platform/adminuser'),
+	"appdev": require('./platform/appdev'),
 	"application": require('./platform/application'),
 	"applications": require('./platform/applications'),
 	"developer": require('./platform/developer'),

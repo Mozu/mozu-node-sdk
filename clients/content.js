@@ -6,6 +6,7 @@ module.exports = Client.sub({
 	"documentlists": require('./content/documentlists'),
 	"documentListType": require('./content/documentListType'),
 	"documentType": require('./content/documentType'),
-	"propertyType": require('./content/propertyType')
+	"propertyType": require('./content/propertyType'),
+	"publishSetSummary": require('./content/publishSetSummary')
 });
 

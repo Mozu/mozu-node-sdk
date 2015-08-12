@@ -11,7 +11,6 @@
 
 var Client = require('../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
 	getOrders: Client.method({
 		method: constants.verbs.GET,
@@ -40,6 +39,10 @@ module.exports = Client.sub({
 	performOrderAction: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/actions?responseFields={responseFields}'
+	}),
+	processDigitalWallet: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/digitalWallet/{digitalWalletType}?responseFields={responseFields}'
 	}),
 	updateOrderDiscount: Client.method({
 		method: constants.verbs.PUT,

@@ -11,7 +11,6 @@
 
 var Client = require('../../../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
 	getCategories: Client.method({
 		method: constants.verbs.GET,
@@ -28,6 +27,14 @@ module.exports = Client.sub({
 	addCategory: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/categories/?incrementSequence={incrementSequence}&responseFields={responseFields}'
+	}),
+	validateDynamicExpression: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/categories/ValidateDynamicExpression?responseFields={responseFields}'
+	}),
+	validateRealTimeDynamicExpression: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/categories/ValidateRealTimeDynamicExpression?responseFields={responseFields}'
 	}),
 	updateCategory: Client.method({
 		method: constants.verbs.PUT,

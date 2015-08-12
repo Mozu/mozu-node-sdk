@@ -11,8 +11,15 @@
 
 var Client = require('../../../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
+	getPublishSet: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/publishing/publishsets/{publishSetCode}?responseFields={responseFields}'
+	}),
+	getPublishSets: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/publishing/publishsets?responseFields={responseFields}'
+	}),
 	discardDrafts: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/publishing/discarddrafts'
@@ -20,5 +27,13 @@ module.exports = Client.sub({
 	publishDrafts: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/publishing/publishdrafts'
+	}),
+	assignProductsToPublishSet: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/publishing/publishsets?responseFields={responseFields}'
+	}),
+	deletePublishSet: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/publishing/publishsets/{publishSetCode}?discardDrafts={discardDrafts}'
 	})
 });

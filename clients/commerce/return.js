@@ -11,7 +11,6 @@
 
 var Client = require('../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
 	getReturns: Client.method({
 		method: constants.verbs.GET,
@@ -44,6 +43,10 @@ module.exports = Client.sub({
 	getReturn: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/returns/{returnId}?responseFields={responseFields}'
+	}),
+	getReasons: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/returns/reasons?responseFields={responseFields}'
 	}),
 	createReturn: Client.method({
 		method: constants.verbs.POST,
