@@ -11,7 +11,6 @@
 
 var Client = require('../../../../../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
 	generateProductVariations: Client.method({
 		method: constants.verbs.POST,

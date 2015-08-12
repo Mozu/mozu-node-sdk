@@ -11,7 +11,6 @@
 
 var Client = require('../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
 	createDocumentListType: Client.method({
 		method: constants.verbs.POST,

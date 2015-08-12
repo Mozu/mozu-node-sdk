@@ -3,6 +3,8 @@ var Client = require('../../../client');
 module.exports = Client.sub({
 	"attributedefinition": require('./admin/attributedefinition'),
 	"category": require('./admin/category'),
+	"couponSet": require('./admin/couponSet'),
+	"couponsets": require('./admin/couponsets'),
 	"discount": require('./admin/discount'),
 	"discounts": require('./admin/discounts'),
 	"facet": require('./admin/facet'),

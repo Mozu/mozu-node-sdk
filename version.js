@@ -1,3 +1,3 @@
 module.exports = {
-  current: "1.17.15154.0"
+  current: "1.18.15223.0"
 };

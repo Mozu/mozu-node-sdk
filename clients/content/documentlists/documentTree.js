@@ -11,15 +11,18 @@
 
 var Client = require('../../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
 	getTreeDocumentContent: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documentTree/{documentName}/content'
 	}),
+	transformTreeDocumentContent: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documentTree/{documentName}/transform?width={width}&height={height}&maxWidth={maxWidth}&maxHeight={maxHeight}&crop={crop}&quality={quality}'
+	}),
 	getTreeDocument: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/content/documentlists/{documentListName}/documentTree/{documentName}?responseFields={responseFields}'
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documentTree/{documentName}?includeInactive={includeInactive}&responseFields={responseFields}'
 	}),
 	updateTreeDocumentContent: Client.method({
 		method: constants.verbs.PUT,

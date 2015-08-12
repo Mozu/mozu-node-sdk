@@ -11,19 +11,22 @@
 
 var Client = require('../../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
 	getDocumentContent: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/content'
 	}),
+	transformDocumentContent: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}/transform?width={width}&height={height}&maxWidth={maxWidth}&maxHeight={maxHeight}&crop={crop}&quality={quality}'
+	}),
 	getDocument: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?includeInactive={includeInactive}&responseFields={responseFields}'
 	}),
 	getDocuments: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents?filter={filter}&sortBy={sortBy}&pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents?filter={filter}&sortBy={sortBy}&pageSize={pageSize}&startIndex={startIndex}&includeInactive={includeInactive}&responseFields={responseFields}'
 	}),
 	createDocument: Client.method({
 		method: constants.verbs.POST,

@@ -11,14 +11,41 @@
 
 var Client = require('../../../../client'), constants = Client.constants;
 
-
 module.exports = Client.sub({
+	getSearchTuningRule: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrule/{searchTuningRuleCode}?responseFields={responseFields}'
+	}),
+	getSearchTuningRules: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrule?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getSearchTuningSortRelevance: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningsortrelevance'
+	}),
 	getSettings: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/settings?responseFields={responseFields}'
 	}),
+	addSearchTuningRule: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrule?responseFields={responseFields}'
+	}),
+	updateSearchTuningSortRelevance: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningsortrelevance'
+	}),
+	updateSearchTuningRule: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrule/{searchTuningRuleCode}?responseFields={responseFields}'
+	}),
 	updateSettings: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/settings?responseFields={responseFields}'
+	}),
+	deleteSearchTuningRule: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrule/{searchTuningRuleCode}'
 	})
 });
