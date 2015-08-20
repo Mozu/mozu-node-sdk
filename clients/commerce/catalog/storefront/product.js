@@ -24,6 +24,10 @@ module.exports = Client.sub({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&supressOutOfStock404={supressOutOfStock404}&responseFields={responseFields}'
 	}),
+	getProductForIndexing: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/indexing/{productCode}?responseFields={responseFields}'
+	}),
 	configuredProduct: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}/configure?includeOptionDetails={includeOptionDetails}&skipInventoryCheck={skipInventoryCheck}&responseFields={responseFields}'

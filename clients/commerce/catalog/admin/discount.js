@@ -32,10 +32,6 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/discounts/?responseFields={responseFields}'
 	}),
-	associateCouponSet: Client.method({
-		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}/couponsets/'
-	}),
 	updateDiscountContent: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}/content?responseFields={responseFields}'
@@ -47,9 +43,5 @@ module.exports = Client.sub({
 	deleteDiscount: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}'
-	}),
-	disassociateCouponSet: Client.method({
-		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/catalog/admin/discounts/{discountId}/couponsets/'
 	})
 });
