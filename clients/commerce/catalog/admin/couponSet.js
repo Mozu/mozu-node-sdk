@@ -18,7 +18,7 @@ module.exports = Client.sub({
 	}),
 	getUniqueCouponSetCode: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/uniquecode?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/unique-code?responseFields={responseFields}'
 	}),
 	addCouponSet: Client.method({
 		method: constants.verbs.POST,
@@ -26,6 +26,6 @@ module.exports = Client.sub({
 	}),
 	validateUniqueCouponSetCode: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/validateuniquecode'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/validate-unique-code'
 	})
 });
