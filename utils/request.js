@@ -101,6 +101,7 @@ module.exports = function(options, transform) {
     var timeout = options.timeout || 20000;
     request.setTimeout(timeout, function() {
       if (!complete) {
+        request.abort();
         reject(errorify("Timeout occurred: request to " + conf.url + " took more than " + timeout / 1000 + " seconds to complete."));
       }
     });
