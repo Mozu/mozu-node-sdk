@@ -4,28 +4,18 @@ var constants = require('../constants'),
     AuthTicket = require('./auth-ticket'),
     scopes = constants.scopes;
 
-require('when/es6-shim/Promise.browserify-es6');
+if (typeof Promise !== "function") require('when/es6-shim/Promise.browserify-es6');
 
-var makeAppAuthClient = (function() {
+function createMemoizedClientFactory(clientPath) {
   var c;
   return function() {
-    return (c || (c = require('../clients/platform/applications/authTicket'))).apply(this, arguments);
+    return (c || (c = require(clientPath))).apply(this, arguments);
   };
-}());
+}
 
-var makeDeveloperAuthClient = (function() {
-  var c;
-  return function() {
-    return (c || (c = require('../clients/platform/developer/developerAdminUserAuthTicket'))).apply(this, arguments);
-  };
-}());
-
-var makeAdminUserAuthClient = (function() {
-  var c;
-  return function() {
-    return (c || (c = require('../clients/platform/adminuser/tenantAdminUserAuthTicket'))).apply(this, arguments);
-  };
-}());
+var makeAppAuthClient = createMemoizedClientFactory('../clients/platform/applications/authTicket');
+var makeDeveloperAuthClient = createMemoizedClientFactory('../clients/platform/developer/developerAdminUserAuthTicket');
+var makeAdminUserAuthClient = createMemoizedClientFactory('../clients/platform/adminuser/tenantAdminUserAuthTicket');
 
 function getPlatformAuthTicket(client) {
   return makeAppAuthClient(client).authenticateApp({
