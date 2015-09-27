@@ -38,6 +38,8 @@ module.exports = function makeUrl(client, tpt, body) {
 
   if (ctx.tenantPod) ctx.tenantPod = ensureTrailingSlash(ctx.tenantPod);
 
+  if (!body || !body.hasOwnProperty("version")) delete ctx.version; // don't pass the API version!
+
   // ensure the correct base url is present
   var baseVar = template.expressions[0];
   if (baseVar.operator && baseVar.operator.symbol === '+' && baseVar.varspecs && !ctx[baseVar.varspecs[0].varname]) {
