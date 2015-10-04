@@ -35,13 +35,22 @@ function refreshPlatformAuthTicket(client, ticket) {
 }
 
 function getDeveloperAuthTicket(client) {
-  return makeDeveloperAuthClient(client).createDeveloperUserAuthTicket(client.context.developerAccount).then(function(json) {
+  return makeDeveloperAuthClient(client)
+    .createDeveloperUserAuthTicket(
+      client.context.developerAccount,
+      {
+        scope: scopes.NONE
+      }).then(function(json) {
     return new AuthTicket(json);
   });
 }
 
 function refreshDeveloperAuthTicket(client, ticket) {
-  return makeDeveloperAuthClient(client).refreshDeveloperAuthTicket(ticket).then(AuthTicket);
+  return makeDeveloperAuthClient(client).refreshDeveloperAuthTicket(
+    ticket,
+    {
+      scope: scopes.NONE
+    }).then(AuthTicket);
 }
 
 function getAdminUserAuthTicket(client) {

@@ -7,5 +7,6 @@ bower_components/
 bower_components/*
 *.tmp
 mozu.config.json
+mozu.test.config.json
 mozu.config
 test/fixtures/*.js

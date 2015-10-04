@@ -18,13 +18,14 @@
     "node.extend": "~1",
     "tunnel-agent": "^0.4.0",
     "uritemplate": "~0",
-    "when": "~3"
+    "when": "^3.7.3"
   },
   "devDependencies": {
     "body-parser": "^1.13.3",
     "chai": "^1.9.2",
     "chai-as-promised": "^4.1.1",
     "express": "^4.13.3",
+    "jort": "^1.1.0",
     "jshint": "^2.7.0",
     "mocha": "^1.21.4",
     "mozu-multipass": "^0.1.3",

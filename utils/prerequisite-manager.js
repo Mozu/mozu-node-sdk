@@ -96,7 +96,7 @@ function getTenantInfo(id) {
     }
   } 
 
-  if (!(scope & scopes.NONE)) {
+  if (!((scope & scopes.NONE) || (scope & scopes.DEVELOPER))) {
     tasks.push(function() {
       return AuthProvider.addPlatformAppClaims(client);
     });
