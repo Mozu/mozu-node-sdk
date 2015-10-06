@@ -28,7 +28,7 @@ function cloneContext(ctx) {
 }
 
 function isContextSufficient(context) {
-  return context && context.appKey && context.sharedSecret && context.baseUrl;
+  return context && context.baseUrl;
 }
 
 function Client(cfg) {
