@@ -4,7 +4,7 @@ The Mozu Node SDK provides a NodeJS API for connecting to Mozu web services.
 
 ## Usage
 
-Full reference documentation is available in the form of the [REST Resources](http://developer.mozu.com/resources/) section in the Mozu Developer Center. The Node SDK has methods for each one of the resources listed here. Below is a quick getting-started guide.
+Full reference documentation is available in the form of the [REST API](http://developer.mozu.com/content/api/APIResources/Resource_Overview.htm) section in the Mozu Developer Center. The Node SDK has methods for each one of the resources listed here. Below is a quick getting-started guide.
 
 ### Getting an API Client
 
