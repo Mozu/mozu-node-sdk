@@ -1,57 +1,50 @@
-var setupChai = require('./utils/setup-assertion-library');
-var proxyConf = {
-  plugins: [require('../plugins/fiddler-proxy')]
-};
-var express = require('express');
+var test = require('tape');
+var jort = require('jort');
 var bodyParser = require('body-parser');
 
+var PublicCardClient = require('../clients/commerce/payments/publicCard');
 
-describe('Payment Card Service', function() {
+var FiddlerProxy = require('../plugins/fiddler-proxy');
 
-  var opts;
-  var client;
-  var mock;
+var testContext = {};
+try {
+  testContext = require('mozu.test.config.json');
+} catch(e) {}
 
-  before(function() {
-    setupChai();
-    this.timeout(20000);
-    opts = {
-      cvv: "123",
-      cardType: "visa",
-      expireMonth: "11",
-      expireYear: "2019",
-      cardHolderName: "Demo User",
-      cardNumber: "4111111111111111",
-      cardIssueMonth: "01",
-      cardIssueYear: "14"
-    };
+var cardPayload = {
+  cvv: "123",
+  cardType: "visa",
+  expireMonth: "11",
+  expireYear: "2019",
+  cardHolderName: "Demo User",
+  cardNumber: "4111111111111111",
+  cardIssueMonth: "01",
+  cardIssueYear: "14"
+};
 
-    client = require('../clients/commerce/payments/publicCard')(proxyConf);
-    client.context.basePciUrl = "http://localhost:8009/"
-
-  });
-
-
-  
-
-  it('sends card data to Commerce.Payments.publicCard.Cards via basePCIUrl', function(done) {
-
-    mock = express();
-
-    mock.use(bodyParser.json());
-
-    mock.post('/payments/commerce/payments/cards/', function(req, res) {
-      req.body.should.have.property('cardNumber').that.equals('4111111111111111');
-      res.json({
-        id: '123456'
+test(
+  'payments/publicCard sends card data via basePCIUrl',
+  { timeout: 20000 },
+  function(assert) {
+    assert.plan(2);
+    jort({
+      id: '123456'
+    }, {
+      use: [
+        bodyParser.json(),
+        function(req, res, next) {
+          assert.deepEqual(req.body, cardPayload, 'method sent card payload');
+          next();
+        }
+      ]
+    }).then(function(url) {
+      var client = PublicCardClient({
+        context: testContext,
+        plugins: [FiddlerProxy]
       });
-    });
-
-    mock.listen(8009);
-
-    return client.create(opts)
-      .should.eventually.have.property('id')
-      .notify(done);
+      client.context.basePciUrl = url;
+      client.create(cardPayload).then(function(result) {
+        assert.ok(result.id, "result delivered with card id");
+      })
+    })
   });
-  
-});
