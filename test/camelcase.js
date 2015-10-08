@@ -1,42 +1,39 @@
-var setupAssertions = require('./utils/setup-assertion-library');
-var SDK = require('../');
+var test = require('tape');
+var TenantClient = require('../clients/platform/tenant');
 
-describe('Client context headers', function() {
+var client = new TenantClient({
+  context: {
+    'dataview-mode': 'PENDING',
+    appClaims: 'camelClaims',
+    'app-claims': 'dash-claims',
+    'user-claims': 'dash-claims',
+    userClaims: 'camelClaims',
+    siteId: 'camelId',
+    catalogId: 'camelId',
+    masterCatalogId: 'camelId',
+    tenant: 'lower-tenant',
+    site: 'lower-site',
+    catalog: 'lower-catalog',
+    'master-catalog': 'lower-master-catalog'
+  }
+});
 
-  var client;
+var context = client.context;
 
-  before(setupAssertions);
-  beforeEach(function() {
-    client = SDK.client({
-      'dataview-mode': 'PENDING',
-      appClaims: 'camelClaims',
-      'app-claims': 'dash-claims',
-      'user-claims': 'dash-claims',
-      userClaims: 'camelClaims',
-      siteId: 'camelId',
-      catalogId: 'camelId',
-      masterCatalogId: 'camelId',
-      tenant: 'lower-tenant',
-      site: 'lower-site',
-      catalog: 'lower-catalog',
-      'master-catalog': 'lower-master-catalog'
-    })
-  })
-
-  it('can be provided in dash case or camel case', function() {
-    client.context['dataview-mode'].should.equal('PENDING');
-  });
-
-  it('always prefers camel case', function() {
-    client.context['app-claims'].should.equal('camelClaims');
-    client.context['user-claims'].should.equal('camelClaims');
-  });
-
-  it('prefers the special use cases tenantId, siteId, catalogId, masterCatalogId', function() {
-    client.context['tenant'].should.equal('lower-tenant');
-    client.context['site'].should.equal('camelId');
-    client.context['catalog'].should.equal('camelId');
-    client.context['master-catalog'].should.equal('camelId');
-  })
-  
+test('context value casing', function(assert) {
+  assert.plan(7);
+  assert.equal(context['dataview-mode'], 'PENDING',
+              'can be provided in dash-case or camelCase');
+  assert.equal(context['app-claims'], 'camelClaims',
+              'camelCase preferred for appClaims');
+  assert.equal(context['user-claims'], 'camelClaims',
+              'camelCase preferred for everything');
+  assert.equal(context.tenant, 'lower-tenant',
+              'legacy props `tenant` supported');
+  assert.equal(context.site, 'camelId',
+              'modern `tenantId` and `siteId` convention preferred');
+  assert.equal(context.catalog, 'camelId',
+              'modern `catalogId` convention preferred');
+  assert.equal(context['master-catalog'], 'camelId',
+              'camelCased with -Id preferred');
 });

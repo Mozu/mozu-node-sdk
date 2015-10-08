@@ -43,7 +43,9 @@ test(
         plugins: [FiddlerProxy]
       });
       client.context.basePciUrl = url;
-      client.create(cardPayload).then(function(result) {
+      client.create(cardPayload, {
+        scope: 'NONE'
+      }).then(function(result) {
         assert.ok(result.id, "result delivered with card id");
       })
     })

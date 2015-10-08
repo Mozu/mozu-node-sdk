@@ -1,26 +1,60 @@
-var setupChai = require('./utils/setup-assertion-library');
-var when = require('when');
-var proxyConf = {
-  plugins: [require('../plugins/fiddler-proxy')]
+var test = require('tape');
+var jort = require('jort');
+
+var TenantClient = require(
+  '../clients/platform/tenant');
+
+var FiddlerProxy = require('../plugins/fiddler-proxy');
+
+var testContext;
+var testPlatformService = function(assert, client, noscope) {
+  assert.plan(5);
+  client.getTenant({ 
+    tenantId: client.context.tenantId
+  }, {
+    scope: noscope && 'NONE'
+  }).then(function(tenant) {
+    assert.ok(tenant, 'result delivered');
+    assert.ok(tenant.domain, 'tenant has domain');
+    assert.ok(tenant.id, 'tenant has id');
+    assert.ok(tenant.sites, 'tenant has sites');
+    assert.ok(Array.isArray(tenant.sites), 'sites is a list');
+  }).catch(assert.fail);
 };
 
-describe('Platform service', function() {
+var runTests;
 
-  before(setupChai);
-  
-  this.timeout(20000);
+if (process.env.MOZU_TEST_LIVE) {
+  try {
+    testContext = require('mozu.test.config.json');
+  } catch(e) {}
+  runTests = function(client) {
+    return function(assert) {
+      testPlatformService(assert, client);
+    }
+  }
+} else {
+  runTests = function(client) {
+    return function(assert) {
+      jort({
+        domain: 'example.com',
+        id: 1,
+        sites: [
+          {}
+        ]
+      }).then(function(serviceUrl) {
+        client.context.baseUrl = serviceUrl;
+        testPlatformService(assert, client, true);
+      });
+    }
+  };
+}
 
-  it('returns a Tenant from GetTenant', function(done) {
-    var client = require('../clients/platform/tenant')(proxyConf);
-    var tenant = client.getTenant({
-      tenantId: client.context.tenant
-    });
+test(
+  'platform/tenant returns a tenant from GetTenant',
+  runTests(new TenantClient({
+    context: testContext,
+    plugins: [FiddlerProxy]
+  })));
 
-    when.join(
-      tenant.should.eventually.have.property('domain'),
-      tenant.should.eventually.have.property('id',client.context.tenant),
-      tenant.should.eventually.have.property('sites').should.eventually.have.property('length')
-    ).should.notify(done);
 
-  });
-});

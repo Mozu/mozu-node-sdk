@@ -22,17 +22,12 @@
   },
   "devDependencies": {
     "body-parser": "^1.13.3",
-    "chai": "^1.9.2",
-    "chai-as-promised": "^4.1.1",
-    "express": "^4.13.3",
     "jort": "^1.1.0",
     "jshint": "^2.7.0",
-    "mocha": "^1.21.4",
     "mozu-multipass": "^0.2.3",
-    "server-destroy": "^1.0.0",
     "tape": "^4.2.1"
   },
   "scripts": {
-    "test": "jshint . && mocha"
+    "test": "jshint . && tape ./test/*.js"
   }
 }

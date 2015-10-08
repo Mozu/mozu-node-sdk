@@ -1,30 +1,57 @@
-var setupAssertions = require('./utils/setup-assertion-library');
-var proxyConf = {
-  plugins: [require('../plugins/fiddler-proxy')]
-};
+var test = require('tape');
+var jort = require('jort');
 
-describe('Commerce service', function() {
+var LegacySDK = require('../');
+var OrderClient = require(
+  '../clients/commerce/order');
 
-  before(setupAssertions);
-  
-  this.timeout(20000);
-  var opts = {
-    pageSize: 4
-  };
+var FiddlerProxy = require('../plugins/fiddler-proxy');
 
-  function testClient(client) {
-    return client.getOrders(opts)
-      .should.eventually.have.property('items')
-      .of.length(opts.pageSize);
+var testContext;
+var testOrderService = function(assert, client) {
+  assert.plan(3);
+  client.getOrders({ pageSize: 3 }).then(function(result) {
+    assert.ok(result, 'result delivered');
+    assert.equal(result.pageSize, 3, 'pagesize as expected');
+    assert.equal(result.items.length, 3, 'items as expected');
+  }).catch(assert.fail);
+}
+
+var runTests;
+
+if (process.env.MOZU_TEST_LIVE) {
+  try {
+    testContext = require('mozu.test.config.json');
+  } catch(e) {}
+  runTests = function(client) {
+    return function(assert) {
+      testOrderService(assert, client);
+    }
   }
+} else {
+  runTests = function(client) {
+    return function(assert) {
+      jort({
+        pageSize: 3,
+        items: [
+          {},
+          {},
+          {}
+        ]
+      }).then(function(serviceUrl) {
+        client.context.tenantPod = serviceUrl;
+        testOrderService(assert, client);
+      });
+    }
+  };
+}
 
-  describe('returns Orders from CommerceAdmin.GetOrders()', function() {
+test('commerce/orders returns Orders from CommerceRuntime.GetOrders',
+    runTests(new OrderClient({
+      context: testContext,
+      plugins: [FiddlerProxy]
+    })));
 
-    it('in legacy require mode client.commerce()', function() {
-      return testClient(require('../').client(null, proxyConf).commerce().order());
-    });
-    it('in progressive require mode `require(\'../clients/commerce/...\')`', function() {
-      return testClient(require('../clients/commerce/order')(proxyConf));
-    });
-  });
-});
+test('legacy client access still returns Products',
+    runTests(LegacySDK.client(testContext, { plugins: [FiddlerProxy] })
+            .commerce().order()));
