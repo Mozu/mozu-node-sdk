@@ -50,7 +50,7 @@ module.exports = Client.sub({
 	}),
 	unAssignDiscount: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/assigneddiscounts'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/assigneddiscounts/{discountId}'
 	}),
 	deleteCoupon: Client.method({
 		method: constants.verbs.DELETE,

@@ -12,8 +12,8 @@
 var Client = require('../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
-	getFile: Client.method({
-		method: constants.verbs.GET,
-		url: '{+homePod}api/platform/appdev/filebasedpackage/packages/{applicationKey}?fileName={fileName}'
+	screen: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/payments/fraudscreen/screen'
 	})
 });
