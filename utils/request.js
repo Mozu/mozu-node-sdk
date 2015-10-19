@@ -11,8 +11,6 @@ var streamToCallback = require('./stream-to-callback');
 var parseJsonDates = require('./parse-json-dates');
 var errorify = require('./errorify');
 
-require('when/es6-shim/Promise.browserify-es6');
-
 var USER_AGENT = 'Mozu Node SDK v' + constants.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ')';
 
 /**

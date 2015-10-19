@@ -3,9 +3,9 @@ var extend = require('./utils/tiny-extend');
 
 module.exports = {
   suppressUnhandledRejections: function() {
-    // terrible, awful, but can't figure out the lifecycle here and when.js is logging
-    // a potential pending rejection which messes up the prompt
-    require('when').Promise.onPotentiallyUnhandledRejection = function() {};
+    // no longer uses when, so this is preserved for compatibility
+    // but is a noop
+    // require('when').Promise.onPotentiallyUnhandledRejection = function() {};
   },
   setDefaultRequestOptions: function(options) {
     Client.defaultRequestOptions = options;
