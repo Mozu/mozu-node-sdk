@@ -12,48 +12,24 @@
 var Client = require('../../../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
-	getAssignedDiscounts: Client.method({
-		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/assigneddiscounts'
-	}),
 	getCoupon: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/coupons/{couponCode}?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/couponcodes/{couponCode}?includeCounts={includeCounts}&responseFields={responseFields}'
 	}),
 	getCoupons: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/coupons?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
-	}),
-	getCouponSet: Client.method({
-		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}?responseFields={responseFields}'
-	}),
-	assignDiscount: Client.method({
-		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/assigneddiscounts'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/couponcodes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&includeCounts={includeCounts}&responseFields={responseFields}'
 	}),
 	addCoupons: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/coupons'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/couponcodes'
 	}),
 	deleteCoupons: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/coupons/remove'
-	}),
-	updateCouponSet: Client.method({
-		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}?responseFields={responseFields}'
-	}),
-	deleteCouponSet: Client.method({
-		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}'
-	}),
-	unAssignDiscount: Client.method({
-		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/assigneddiscounts/{discountId}'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/couponcodes/remove'
 	}),
 	deleteCoupon: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/coupons/{couponCode}'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}/couponcodes/{couponCode}'
 	})
 });

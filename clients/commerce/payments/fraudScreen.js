@@ -14,6 +14,6 @@ var Client = require('../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	screen: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/payments/fraudscreen/screen'
+		url: '{+pciPod}payments/commerce/payments/fraudscreen/screen'
 	})
 });

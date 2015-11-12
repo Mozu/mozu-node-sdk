@@ -18,7 +18,7 @@ module.exports = Client.sub({
 	}),
 	getPublishSetItems: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/content/publishsets/{code}/items?pageSize={pageSize}&startIndex={startIndex}&responseFields={responseFields}'
+		url: '{+tenantPod}api/content/publishsets/{code}/items?pageSize={pageSize}&startIndex={startIndex}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
 	}),
 	deletePublishSet: Client.method({
 		method: constants.verbs.POST,

@@ -14,7 +14,11 @@ var Client = require('../../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getCouponSets: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&includeCounts={includeCounts}&responseFields={responseFields}'
+	}),
+	getCouponSet: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}?includeCounts={includeCounts}&responseFields={responseFields}'
 	}),
 	getUniqueCouponSetCode: Client.method({
 		method: constants.verbs.GET,
@@ -27,5 +31,13 @@ module.exports = Client.sub({
 	validateUniqueCouponSetCode: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/validate-unique-code'
+	}),
+	updateCouponSet: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}?responseFields={responseFields}'
+	}),
+	deleteCouponSet: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/couponsets/{couponSetCode}'
 	})
 });
