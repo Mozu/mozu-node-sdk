@@ -32,7 +32,7 @@ module.exports = function makeUrl(client, tpt, body) {
     }
     var ctx = extend({
       homePod: context.baseUrl && ensureTrailingSlash(context.baseUrl),
-      tenantId: context.tenant, // URI templates expect tenantId
+      tenantId: context.tenant || context.tenantId, // URI templates expect tenantId
       pciPod: context.basePciUrl && ensureTrailingSlash(context.basePciUrl)
     }, context, body || {});
 
