@@ -33,6 +33,7 @@ function getTenantInfo(id) {
   return tenantsCache[id];
 }
 
+
   /**
  * Return an array of tasks (functions returning Promises) that performs, in sequence, all necessary authentication tasks for the given scope.
  * @param  {Client} client The client in whose context to run the tasks. AuthProvider will cache the claims per client.
@@ -41,6 +42,7 @@ function getTenantInfo(id) {
  */
  function getTasks(client, options, requestConfig) {
 
+  var tenantId = client.context.tenant || client.context.tenantId;
   var scope;
   // support a named scope, or a reference to a scope bitmask
   if (options && options.scope) {
@@ -70,9 +72,12 @@ function getTenantInfo(id) {
     });
   }
 
+  //if url requires a PCI pod but we don't have a tenant to find out
+  //whether we're a sandbox tenant, we need to know that
+
   //if url requires a PCI pod but context is not set throw error
   if (urlRequiresPciPod(requestConfig.url)) {
-    if (!client.context.tenant) {
+    if (!client.context.basePciUrl) {
       throw new Error("Could not perform request to PCI service '" + requestConfig.url + "'; no tenant ID was set.");
     }
   }
@@ -80,10 +85,10 @@ function getTenantInfo(id) {
   // if url requires a tenant pod but we don't have one...
   var currentTenant;
   if (urlRequiresTenantPod(requestConfig.url) && !client.context.tenantPod) {
-    if (!client.context.tenant) {
+    if (!tenantId) {
       throw new Error("Could not perform request to tenant-scoped service '" + requestConfig.url + "'; no tenant ID was set.");
     }
-    currentTenant = getTenantInfo(client.context.tenant);
+    currentTenant = getTenantInfo(tenantId);
     if (currentTenant) {
       client.context.tenantPod = 'https://' + currentTenant.domain + '/';
     } else {
