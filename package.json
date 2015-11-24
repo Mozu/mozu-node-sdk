@@ -17,8 +17,7 @@
     "concat-stream": "^1.4.7",
     "node.extend": "~1",
     "tunnel-agent": "^0.4.0",
-    "uritemplate": "~0",
-    "when": "^3.7.3"
+    "uritemplate": "~0"
   },
   "devDependencies": {
     "body-parser": "^1.13.3",

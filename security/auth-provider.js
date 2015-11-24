@@ -4,7 +4,7 @@ var constants = require('../constants'),
     AuthTicket = require('./auth-ticket'),
     scopes = constants.scopes;
 
-if (typeof Promise !== "function") require('when/es6-shim/Promise.browserify-es6');
+// if (typeof Promise !== "function") require('when/es6-shim/Promise.browserify-es6');
 
 function createMemoizedClientFactory(clientPath) {
   var c;
