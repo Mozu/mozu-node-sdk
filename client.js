@@ -56,16 +56,17 @@ function Client(cfg) {
     Client.defaultRequestOptions,
     cfg.defaultRequestOptions
   );
-  if (cfg.plugins) {
-    this.plugins = cfg.plugins.slice();
-    this.plugins.forEach(function(p) {
-      p(this);
-    }.bind(this));
-  }
   // apply the right default plugin config for a server-side environment
   // (that is, Node, ArcJS, or perhaps Rhino/Nashorn/WinJS)
   if (typeof process !== "undefined") {
     applyDefaultPlugins(this, NodeDefaultPlugins);
+  }
+  if (cfg.plugins) {
+    // override plugins if necessary
+    this.plugins = cfg.plugins.slice();
+    this.plugins.forEach(function(p) {
+      p(this);
+    }.bind(this));
   }
 }
 
