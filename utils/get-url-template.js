@@ -1,6 +1,7 @@
 'use strict';
-var uritemplate = require('uritemplate'),
-extend = require('./tiny-extend');
+const uritemplate = require('uritemplate');
+const extend = require('./tiny-extend');
+const getUrlTokens = require('./get-url-tokens');
 
 var templateCache = {};
 

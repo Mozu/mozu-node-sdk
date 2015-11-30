@@ -5,9 +5,21 @@ var extend = require('./utils/tiny-extend'),
     getConfig = require('./utils/get-config'),
     normalizeContext = require('./utils/normalize-context'),
     inMemoryAuthCache = require('./plugins/in-memory-auth-cache'),
+    serverSidePrerequisites = require('./plugins/server-side-prerequisites'),
     versionKey = constants.headers.VERSION,
     version = constants.version;
 
+const NodeDefaultPlugins = {
+  authenticationStorage: inMemoryAuthCache,
+  prerequisiteTasks: serverSidePrerequisites
+};
+
+function applyDefaultPlugins(client, plugins) {
+  Object.keys(plugins).reduce((c, p) {
+    plugins[p](c);
+    return c;
+  }
+}
 
 function makeClient(clientCls) {
   return function(cfg) {
@@ -21,7 +33,10 @@ function cloneContext(ctx) {
   try {
     newCtx = JSON.parse(JSON.stringify(ctx));
   } catch(e) {
-    throw new Error('Could not serialize context when creating Client. Do not assign non-serializable objects to the client.context.');
+    throw new Error(
+      'Could not serialize context when creating Client. ' +
+      'Do not assign non-serializable objects to the client.context.'
+    );
   }
   newCtx[versionKey] = newCtx[versionKey] || version;
   return newCtx;
@@ -38,14 +53,22 @@ function Client(cfg) {
     context = context ? extend(getConfig(), context) : getConfig();
   }
   this.context = cloneContext(context);
-  this.defaultRequestOptions = extend({}, Client.defaultRequestOptions, cfg.defaultRequestOptions);
+  this.defaultRequestOptions = extend(
+    {},
+    Client.defaultRequestOptions,
+    cfg.defaultRequestOptions
+  );
   if (cfg.plugins) {
     this.plugins = cfg.plugins.slice();
     this.plugins.forEach(function(p) {
       p(this);
     }.bind(this));
   }
-  this.authenticationStorage = this.authenticationStorage || inMemoryAuthCache(this);
+  // apply the right default plugin config for a server-side environment
+  // (that is, Node, ArcJS, or perhaps Rhino/Nashorn/WinJS)
+  if (typeof process !== "undefined") {
+    applyDefaultPlugins(this, NodeDefaultPlugins);
+  }
 }
 
 // statics

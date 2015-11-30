@@ -1,6 +1,27 @@
 var AuthProvider = require('../security/auth-provider'),
     scopes = require('../constants').scopes;
 
+const PrerequisiteTasks = [
+  require('./ensure-tenant-pod-url'),
+  require('./ensure-pci-pod-url'),
+  require('./ensure-developer-user-claims'),
+  require('./ensure-admin-user-claims'),
+  require('./ensure-')
+]
+
+/**
+ * Return a Promise that will resolve when all necessary prerequisites are
+ * satisfied for the given client and request configuration.
+ * This includes gathering authentication, adding missing context values
+ * like tenant URLs and PCI URLs, and anything else.
+ * @param {Client} client The client which wants to run the request.
+ * @param {Object} options Options sent along with the request, including body.
+ * @param {Object} requestConfig The request configuration, including URL.
+ */
+function satisfyPrerequisites(client, options, requestConfig) {
+  return PrerequisiteTasks.reduce((p, t) => p.then(t), Promise.resolve(true));
+}
+
 var tenantsCache = {};
 
 var makeTenantClient = (function() {

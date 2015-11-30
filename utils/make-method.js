@@ -54,9 +54,6 @@ module.exports = function(config) {
       tasks = PrerequisiteManager.getTasks(this, options, config) || [];
       tasks.push(doThisRequest);
       return pipeline(tasks);
-      // this is more readable than the below, earlier version:
-      // return pipeline((PrerequisiteManager.getTasks(this, options, config) || []).concat([doRequest.bind(this, body, options)]));
-      // and no slower really
     }
   };
 
