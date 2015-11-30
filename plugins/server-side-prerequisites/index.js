@@ -6,7 +6,6 @@
 module.exports = [
   require('./ensure-tenant-pod-url'),
   require('./ensure-pci-pod-url'),
-  require('./ensure-developer-user-claims'),
-  require('./ensure-admin-user-claims'),
+  require('./ensure-user-claims'),
   require('./ensure-app-claims')
 ];
