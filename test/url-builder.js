@@ -18,12 +18,14 @@ test('provides an informative error if your client context does not include a re
     assert.plan(2);
     var client = require('../clients/commerce/payments/publicCard')();
     delete client.context.basePciUrl;
+    delete client.context.tenantPod;
+    client.context.baseUrl = "https://unrecognized.domain";
     client.create(opts, {
       scope: 'NONE'
     }).then(function() {
       assert.fail('throws pci pod error');
     }, function(err) {
       assert.ok(err, 'error threw');
-      assert.ok(err.message.indexOf('Could not make URL from template') === 0, 'error threw');
+      assert.ok(~err.message.indexOf('no known payment service domain'), "error message is correct");
     });
   });
