@@ -13,8 +13,8 @@ module.exports = function(state) {
   let url = requestConfig.url;
 
   if (
-    getUrlTemplate(url).keysUsed.indexOf('tenantPod') &&
-    client.context.tenantPod
+    ~getUrlTemplate(url).keysUsed.required.indexOf('tenantPod') &&
+    !client.context.tenantPod
   ) {
     let tenantId = client.context.tenantId || client.context.tenant;
     if (!tenantId) {

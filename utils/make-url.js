@@ -1,14 +1,6 @@
 'use strict';
-const uritemplate = require('uritemplate');
+const getUrlTemplate = require('./get-url-template');
 const extend = require('./tiny-extend');
-const getUrlTokens = require('./get-url-tokens');
-
-var templateCache = {};
-
-function toKeysUsed(memo, expr) {
-  if (expr.templateText) memo[expr.templateText] = true;
-  return memo;
-}
 
 function ensureTrailingSlash(url) {
   return (url.charAt(url.length-1) === '/') ? url : (url + '/');
@@ -22,33 +14,32 @@ function ensureTrailingSlash(url) {
  * @return {string}         A fully qualified URL.
  */
 module.exports = function makeUrl(client, tpt, body) {
-  var context = client.context,
-    template = templateCache[tpt] && templateCache[tpt].template;
-    if (!template) {
-      template = uritemplate.parse(tpt);
-      templateCache[tpt] = {
-        template: template,
-        keysUsed: template.expressions.reduce(toKeysUsed, {})
-      };
-    }
-    var ctx = extend({
-      homePod: context.baseUrl && ensureTrailingSlash(context.baseUrl),
-      tenantId: context.tenant || context.tenantId, // URI templates expect tenantId
-      pciPod: context.basePciUrl && ensureTrailingSlash(context.basePciUrl)
-    }, context, body || {});
+  let context = client.context;
+  let template = getUrlTemplate(tpt);
+  let fullTptEvalCtx = extend(
+    // aliases for pod URLs and IDs first
+    {
+      homePod: context.baseUrl,
+      pciPod: context.basePciUrl,
+      tenantId: context.tenant,
+      siteId: context.site,
+      catalogId: context.catalog,
+      masterCatalogId: context['master-catalog']
+    },
+    // all context values override those base values if provided
+    context,
+    // any matching values in the body override last.
+    body
+  );
 
-  if (ctx.tenantPod) ctx.tenantPod = ensureTrailingSlash(ctx.tenantPod);
+  // ensure all base URLs have trailing slashes.
+  ['baseUrl','basePciUrl','tenantPod'].forEach(x => {
+    if (fullTptEvalCtx[x])
+      fullTptEvalCtx[x] = ensureTrailingSlash(fullTptEvalCtx[x]);
+  });
 
-  if (!body || !body.hasOwnProperty("version")) delete ctx.version; // don't pass the API version!
+  // don't pass the API version!
+  if (!body || !body.hasOwnProperty("version")) delete fullTptEvalCtx.version;
 
-  // ensure the correct base url is present
-  var baseVar = template.expressions[0];
-  if (baseVar.operator && baseVar.operator.symbol === '+' && baseVar.varspecs && !ctx[baseVar.varspecs[0].varname]) {
-    throw new Error('Could not make URL from template ' + tpt + '. Your context is missing a ' + baseVar.varspecs[0].varname + '.');
-  } 
-
-  return {
-    url: template.expand(ctx),
-    keysUsed: templateCache[tpt].keysUsed
-  };
+  return template.render(fullTptEvalCtx);
 };

@@ -4,6 +4,9 @@ var constants = require('../constants'),
     AuthTicket = require('./auth-ticket'),
     scopes = constants.scopes;
 
+let TenantCache = require('../utils/tenant-cache');
+
+
 // if (typeof Promise !== "function") require('when/es6-shim/Promise.browserify-es6');
 
 function createMemoizedClientFactory(clientPath) {
@@ -17,13 +20,23 @@ var makeAppAuthClient = createMemoizedClientFactory('../clients/platform/applica
 var makeDeveloperAuthClient = createMemoizedClientFactory('../clients/platform/developer/developerAdminUserAuthTicket');
 var makeAdminUserAuthClient = createMemoizedClientFactory('../clients/platform/adminuser/tenantAdminUserAuthTicket');
 
+function cacheDataAndCreateAuthTicket(res) {
+  let tenants = res.availableTenants;
+  if (tenants) {
+    for (var i = 0; i < tenants.length; i++) {
+      TenantCache.add(tenants[i]);
+    }
+  }
+  return new AuthTicket(res);
+}
+
 function getPlatformAuthTicket(client) {
   return makeAppAuthClient(client).authenticateApp({
     applicationId: client.context.appKey,
     sharedSecret: client.context.sharedSecret
   }, {
     scope: scopes.NONE
-  }).then(AuthTicket);
+  }).then(cacheDataAndCreateAuthTicket);
 }
 
 function refreshPlatformAuthTicket(client, ticket) {
@@ -31,7 +44,7 @@ function refreshPlatformAuthTicket(client, ticket) {
     refreshToken: ticket.refreshToken
   }, {
     scope: scopes.NONE
-  }).then(AuthTicket);
+  }).then(cacheDataAndCreateAuthTicket);
 }
 
 function getDeveloperAuthTicket(client) {
@@ -40,9 +53,8 @@ function getDeveloperAuthTicket(client) {
       client.context.developerAccount,
       {
         scope: scopes.NONE
-      }).then(function(json) {
-    return new AuthTicket(json);
-  });
+      }
+  ).then(cacheDataAndCreateAuthTicket);
 }
 
 function refreshDeveloperAuthTicket(client, ticket) {
@@ -50,7 +62,7 @@ function refreshDeveloperAuthTicket(client, ticket) {
     ticket,
     {
       scope: scopes.NONE
-    }).then(AuthTicket);
+    }).then(cacheDataAndCreateAuthTicket);
 }
 
 function getAdminUserAuthTicket(client) {
@@ -59,14 +71,14 @@ function getAdminUserAuthTicket(client) {
     scope: constants.scopes.APP_ONLY
   }).then(function(json) {
     client.context.user = json.user;
-    return new AuthTicket(json);
+    return cacheDataAndCreateAuthTicket(json);
   });
 }
 
 function refreshAdminUserAuthTicket(client, ticket) {
   return makeAdminUserAuthClient(client).refreshAuthTicket(ticket, {
     scope: constants.scopes.APP_ONLY
-  }).then(AuthTicket);
+  }).then(cacheDataAndCreateAuthTicket);
 }
 
 var calleeToClaimType = {
