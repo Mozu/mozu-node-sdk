@@ -33,7 +33,7 @@ module.exports = function makeUrl(client, tpt, body) {
   );
 
   // ensure all base URLs have trailing slashes.
-  ['baseUrl','basePciUrl','tenantPod'].forEach(x => {
+  ['homePod','pciPod','tenantPod'].forEach(x => {
     if (fullTptEvalCtx[x])
       fullTptEvalCtx[x] = ensureTrailingSlash(fullTptEvalCtx[x]);
   });
