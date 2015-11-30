@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Memoized function to turn URI Template text strings into Template objects.
  *

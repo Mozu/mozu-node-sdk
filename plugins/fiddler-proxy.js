@@ -33,10 +33,6 @@ var allowedHeaders = [
   return set;
 }, {});
 
-var onlyHeaders = [
-  'proxy-authorization'
-];
-
 var proxy = url.parse(FIDDLER_URL);
 
 function makeProxyHeaders(headers) {

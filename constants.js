@@ -1,3 +1,4 @@
+'use strict';
 var version = require('./version'),
     DEVELOPER = 1,
     ADMINUSER = 2,

@@ -22,13 +22,13 @@
   },
   "devDependencies": {
     "body-parser": "^1.13.3",
+    "eslint": "^1.10.2",
     "jort": "^1.1.0",
-    "jshint": "^2.7.0",
-    "mozu-multipass": "^0.2.3",
+    "mozu-multipass": "^0.2.4",
     "tape": "^4.2.1"
   },
   "scripts": {
-    "test": "jshint . && tape ./test/*.js"
+    "test": "eslint . && tape ./test/*.js"
   },
   "license": "ISC"
 }

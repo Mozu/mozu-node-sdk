@@ -1,3 +1,4 @@
+'use strict';
 var hashStream = require('./hash-stream'),
     concat = require('concat-stream'),
     constants = require('../constants'),
@@ -16,11 +17,10 @@ module.exports = function isRequestValid(context, req, cb) {
 
   req.pipe(hashStream(context.sharedSecret, queryString.dt)).pipe(concat(function(hash) {
     if (hash !== queryString.messageHash || diff > timeout) {
-      console.error(util.format("Unauthorized access from %s, %s, %s Computed: %s"), 
-                    req.headers.host, queryString.messageHash, queryString.dt, hash);
-      cb(false);
+      return cb(new Error(util.format("Unauthorized access from %s, %s, %s Computed: %s", 
+                    req.headers.host, queryString.messageHash, queryString.dt, hash)))
     } else {
-      cb(true);
+      return cb(null);
     }
   }));
 

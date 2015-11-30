@@ -1,7 +1,7 @@
+'use strict';
 var test = require('tape');
 var jort = require('jort');
 
-var LegacySDK = require('../');
 var DocumentListClient = require(
   '../clients/content/documentlists/document');
 
@@ -25,7 +25,9 @@ var runTests;
 if (process.env.MOZU_TEST_LIVE) {
   try {
     testContext = require('mozu.test.config.json');
-  } catch(e) {}
+  } catch(e) {
+    testContext = {};
+  }
   runTests = function(client) {
     return function(assert) {
       testContentService(assert, client);

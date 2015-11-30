@@ -1,5 +1,6 @@
-const AuthProvider = require('../security/auth-provider');
-const scopes = require('../constants').scopes;
+'use strict';
+const AuthProvider = require('../../security/auth-provider');
+const scopes = require('../../constants').scopes;
 
 /**
  * If necessary, add application claims to a client context before

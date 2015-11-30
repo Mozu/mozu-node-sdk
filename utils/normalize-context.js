@@ -1,3 +1,4 @@
+'use strict';
 var extend = require('./tiny-extend');
 
 var priorities = {

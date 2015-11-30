@@ -1,3 +1,4 @@
+'use strict';
 var test = require('tape');
 var jort = require('jort');
 var bodyParser = require('body-parser');
@@ -6,10 +7,12 @@ var PublicCardClient = require('../clients/commerce/payments/publicCard');
 
 var FiddlerProxy = require('../plugins/fiddler-proxy');
 
-var testContext = {};
+var testContext;
 try {
   testContext = require('mozu.test.config.json');
-} catch(e) {}
+} catch(e) {
+  testContext = {};
+}
 
 var cardPayload = {
   cvv: "123",

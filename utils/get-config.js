@@ -1,3 +1,4 @@
+'use strict';
 // BEGIN INIT
 var fs = require('fs');
 var findup = require('./tiny-findup');
@@ -17,7 +18,9 @@ module.exports = function getConfig() {
       try {
         var filename = findup(legalConfigNames[i]);
         if (filename) conf = fs.readFileSync(filename, 'utf-8');
-      } catch(e) {}
+      } catch(e) {
+        continue;
+      }
       if (conf) break;
     }
     if (!conf) {

@@ -1,3 +1,4 @@
+'use strict';
 var extend = require('./utils/tiny-extend'),
     sub = require('./utils/sub'),
     constants = require('./constants'),
@@ -15,10 +16,7 @@ const NodeDefaultPlugins = {
 };
 
 function applyDefaultPlugins(client, plugins) {
-  Object.keys(plugins).reduce((c, p) {
-    plugins[p](c);
-    return c;
-  }
+  Object.keys(plugins).forEach(n => client[n] = plugins[n](client));
 }
 
 function makeClient(clientCls) {

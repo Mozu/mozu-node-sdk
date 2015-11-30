@@ -7,13 +7,12 @@ module.exports = function(config) {
 
   function doRequest(body, options) {
     options = options || {};
-    var url = 
-    var finalRequestConfig = extend({}, config, this.defaultRequestOptions, {
+    let finalRequestConfig = extend({}, config, this.defaultRequestOptions, {
       url: makeUrl(this, config.url, body),
       context: this.context,
       body: body
     }, options);
-    var finalMethod = finalRequestConfig.method && finalRequestConfig.method.toUpperCase();
+    let finalMethod = finalRequestConfig.method && finalRequestConfig.method.toUpperCase();
 
     // this is magic and was never a good idea.
     // the way the SDK was designed, the first argument to a method will get
@@ -50,8 +49,7 @@ module.exports = function(config) {
   }
 
   return function(body, options) {
-    var tasks;
-    var doThisRequest = doRequest.bind(this, body, options);
+    let doThisRequest = doRequest.bind(this, body, options);
     if (process.env.mozuHosted) {
       return doThisRequest();
     } else if (
@@ -63,7 +61,7 @@ module.exports = function(config) {
           `Could not place request. No \`prerequisiteTasks\` array found on ` +
           `the client object. To require no auth or URL prerequisites, set ` +
           `\`this.prerequisiteTasks = [];\` on the client object.`
-        );
+        )
       );
     } else {
       return this.prerequisiteTasks.reduce(

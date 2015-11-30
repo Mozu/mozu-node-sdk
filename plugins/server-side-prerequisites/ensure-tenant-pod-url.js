@@ -1,5 +1,6 @@
-const TenantCache = require('../utils/tenant-cache');
-const getUrlTemplate = require('../utils/get-url-template');
+'use strict';
+const TenantCache = require('../../utils/tenant-cache');
+const getUrlTemplate = require('../../utils/get-url-template');
 
 /**
  * If necessary, transforms a promise for a prepared client into a promise
@@ -23,7 +24,7 @@ module.exports = function(state) {
         `ID to be set in the client context.`
       );
     } else {
-      return TenantCache.get(tenantId).then(t => {
+      return TenantCache.get(tenantId).then(tenant => {
         client.context.tenantPod = 'https://' + tenant.domain + '/';
         return state;
       })

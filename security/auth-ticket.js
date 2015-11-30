@@ -1,3 +1,4 @@
+'use strict';
 
 /**
  * The authentication ticket used to authenticate anything.

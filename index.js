@@ -1,4 +1,5 @@
-﻿var Client = require('./client');
+﻿'use strict';
+var Client = require('./client');
 var extend = require('./utils/tiny-extend');
 
 module.exports = {

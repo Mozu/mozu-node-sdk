@@ -1,6 +1,7 @@
-const TenantCache = require('../utils/tenant-cache');
+'use strict';
+const TenantCache = require('../../utils/tenant-cache');
 const EnvUrls = require('mozu-metadata/data/environments.json');
-const getUrlTemplate = require('../utils/get-url-template');
+const getUrlTemplate = require('../../utils/get-url-template');
 
 /**
  * If necessary, transforms a promise for a prepared client into a promise

@@ -1,3 +1,4 @@
+'use strict';
 module.exports = function streamToCallback(stream, cb) {
   var buf = '';
   stream.setEncoding('utf8');

@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Utility function to look up an item from an array based on a set of properties, compare Underscore _.findWhere
  * @param  {Array} arr   The array to search

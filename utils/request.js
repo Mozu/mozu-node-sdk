@@ -1,7 +1,7 @@
+'use strict';
 /* global Promise */
 var constants = require('../constants');
 var extend = require('./tiny-extend');
-var path = require('path');
 var url = require('url');
 var protocolHandlers = {
   'http:': require('http'),
@@ -40,7 +40,7 @@ function makeHeaders(conf, payload) {
     'Accept': 'application/json',
     'Connection': 'close',
     'Content-Type': 'application/json; charset=utf-8',
-    'User-Agent': USER_AGENT,
+    'User-Agent': USER_AGENT
   }, headers, conf.headers || {});
 }
 

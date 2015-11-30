@@ -1,3 +1,4 @@
+'use strict';
 /* global Promise */
 module.exports = function promisePipeline(tasks) {
   return tasks.reduce(function(p, task) {

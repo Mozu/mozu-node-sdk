@@ -1,3 +1,4 @@
+'use strict';
 var assert = require('assert');
 
 function isExpired(ticket) {
@@ -31,7 +32,7 @@ function generateCacheKey(claimtype, context) {
   return cmps.join();
 }
 
-var InMemoryAuthCache = module.exports = function InMemoryAuthCache() {
+module.exports = function InMemoryAuthCache() {
   var claimsCaches = {
     application: {},
     developer: {},

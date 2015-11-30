@@ -1,11 +1,13 @@
-var TenantClient = require('../clients/platform/tenant');
+'use strict';
+var TenantClient;
 var TenantsOrPromisesById = {};
 
 module.exports = {
-  set: function(tenant) {
-    TenantPromisesById[tenant.id] = tenant;
+  add: function(tenant) {
+    TenantsOrPromisesById[tenant.id] = tenant;
   },
   get: function(client, tenantId) {
+    TenantClient = TenantClient || require('../clients/platform/tenant');
     let tenant = TenantsOrPromisesById[tenantId];
     if (tenant) {
       // may not be a promise if it was set en masse by AuthProvider.
@@ -17,7 +19,7 @@ module.exports = {
       }
       return tenant;
     } else {
-      return TenantPromisesById[tenantId] =
+      return TenantsOrPromisesById[tenantId] =
         (new TenantClient(client)).getTenant();
     }
   }

@@ -1,3 +1,4 @@
+'use strict';
 var test = require('tape');
 var jort = require('jort');
 var FiddlerProxy = require('../plugins/fiddler-proxy');
@@ -7,7 +8,9 @@ var AppDevClient = require( '../clients/platform/application');
 var testContext;
 try {
   testContext = require('../mozu.test.config.json')
-} catch(e) {}
+} catch(e) {
+  testContext = {};
+}
 
 var fakeAuthTicket = {
   accessToken: 'accessToken',

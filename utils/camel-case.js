@@ -1,3 +1,4 @@
+'use strict';
 function cccb (match, l) {
   return l.toUpperCase();
 }
