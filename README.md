@@ -2,6 +2,11 @@
 
 The Mozu Node SDK provides a NodeJS API for connecting to Mozu web services.
 
+Requirements:
+ - ArcJS, **or**
+ - Node 4.0 and above, **or**
+ - Node 0.12 and below, **with a global Promise polyfill [as shown below](#promise-global-now-required)**
+
 ## Usage
 
 Full reference documentation is available in the form of the [REST API](http://developer.mozu.com/content/api/APIResources/Resource_Overview.htm) section in the Mozu Developer Center. The Node SDK has methods for each one of the resources listed here. Below is a quick getting-started guide.
@@ -63,7 +68,7 @@ A full context is necessary before making calls. The Mozu API needs requests to 
 Some of the context is necessary in order to bootstrap your Mozu authentication:
  - `client.context['appKey']`: The key for the Mozu application that the client object will use for auth when it sends API requests. The default authentication provider will use this application key when it's trying to get its initial set of app claims. A new client object will do this silently, prior to its first API call, and then it manages, reuses, and refreshes those app claims as necessary for ensuing calls.
  - `client.context['sharedSecret']`: The shared secret for the Mozu application that the client object will use for auth when it sends API requests. The default authentication provider will use this shared secret when it's trying to get its initial set of app claims. A new client object will do this silently, prior to its first API call, and then it manages, reuses, and refreshes those app claims as necessary for ensuing calls.
- - `client.context['baseUrl']`: The base URL (usually just a domain name) representing the "home pod" for the Mozu API. **For all production and sandbox uses, this will be https://home.mozu.com/. ** For different Mozu environments (such as internal integration and staging environments), this domain will differ. This is the "bootstrap" domain; the SDK knows how to retrieve the domains for your tenants by calling the services on this domain.
+ - `client.context['baseUrl']`: The base URL (usually just a domain name) representing the "home pod" for the Mozu API. **For all production and sandbox uses, this will be https://home.mozu.com/.** For different Mozu environments (such as internal integration and staging environments), this domain will differ. This is the "bootstrap" domain; the SDK knows how to retrieve the domains for your tenants by calling the services on this domain.
  - `client.context['basePciUrl']`: To comply with Payment Card Industry (PCI) rules, Mozu hosts its PaymentService, which stores credit card data, on separate hardware from the rest of its systems. If your code will need to talk directly to the PaymentService (which is rare unless you're doing actual transaction processing) then you will need to add this domain to your context configuration. It may differ based on your individual tenant configuration; Mozu Support will provide you with yours.
  - `client.context['tenantPod']`: The base domain for tenant-related API calls (that is, all calls that access actual tenant data). Normally, the client object will call the TenantService on the home pod to find this URL, before placing tenant calls, so all you need to specify in the context is the `tenantId`. If you know ahead of time what tenant your code will need to access, then you can hardcode the tenant pod URL in your context.
  - `client.context['developerAccount']`: An object with an `emailAddress` property and a `password` property, that the client object will use when trying to authenticate to services that require developer login, such as the AppDev file sync services. **Do not hardcode your password in a file!** If you need persistent authentication, we recommend using an AuthenticationStorage plugin such as [Multipass][1].
@@ -166,7 +171,7 @@ require('mozu-node-sdk').setDefaultRequestOptions({
 
 ### Handling Responses
 
-All API calls return a Promise, specifically either a native Promise where available, or a [When](https://github.com/cujojs/when) Promise. Promises are one of the most standard and popular ways of handling asynchronous code in JavaScript. The Promise represents an "eventual value". It's an object which is either pending, resolved (success) or rejected (failure). You can attach handlers to it using the standard `.then(onResolved, onRejected)` method.
+All API calls return a Promise, specifically either a native Promise where available, or a shimmed Promise. Promises are one of the most standard and popular ways of handling asynchronous code in JavaScript. The Promise represents an "eventual value". It's an object which is either pending, resolved (success) or rejected (failure). You can attach handlers to it using the standard `.then(onResolved, onRejected)` method.
 
 Crucially, promises can be chained. Inside a promise handler, you can return a promise in order to produce a promise that will only resolve once both the inner and outer promise have.
 
@@ -181,9 +186,6 @@ orderClient.getOrder({ orderId: 'ab96c79e59b79a76' }).then(function(order) {
     // orders will be a list of orders for the customer of the first order
 });
 ```
-
-The Mozu Node SDK will use native Promises when available, and will use the [When ES6 shim](https://github.com/cujojs/when/blob/master/docs/es6-promise-shim.md) otherwise.
-This guarantees that the global `Promise` constructor will be available. That constructor has static methods which can manipulate promises. This can be useful for higher-order promise tasks, such as joining multiple promises together into a single result.
 
 ```js
 // get a fully-hydrated customer from an order and add all orders for that customer
@@ -209,6 +211,17 @@ orderClient.getOrder({ orderId: 'ab96c79e59b79a76' })
     console.error("Request failed");
 });
 ```
+
+### Promise Global Now Required
+**As of version 2.0, the Mozu Node SDK expects a global `Promise` constructor to exist. In Node 4.0 and above, native Promises are available, but if you are using the Mozu Node SDK on Node 0.12 or below, *you will need to use a Promise shim.* Mozu recommends the [When ES6 shim](https://github.com/cujojs/when/blob/master/docs/es6-promise-shim.md).**
+
+On Node 0.12 or below:
+```javascript
+if (typeof Promise !== "function") require('when/es6-shim/Promise.browserify-es6');
+var client = require('mozu-node-sdk/clients/path/to/client');
+```
+
+This guarantees that the global `Promise` constructor will be available. That constructor has static methods which can manipulate promises. This can be useful for higher-order promise tasks, such as joining multiple promises together into a single result.
 
 ### Plugins
 
