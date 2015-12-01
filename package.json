@@ -11,7 +11,8 @@
   "scripts": {
     "lint": "eslint src",
     "babel": "babel src -d .",
-    "test": "npm run lint && npm run babel && tape ./test/*.js",
+    "test-plain": "tape ./test/*.js",
+    "test": "npm run lint && npm run babel && npm run test-plain | tap-spec",
     "preversion": "npm test",
     "version": "git add -A ."
   },
@@ -39,6 +40,7 @@
     "eslint": "^1.10.2",
     "jort": "^1.1.0",
     "mozu-multipass": "^0.2.4",
+    "tap-spec": "^4.1.1",
     "tape": "^4.2.1"
   },
   "license": "ISC"
