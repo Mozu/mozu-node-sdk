@@ -14,7 +14,7 @@ module.exports = function(state) {
   let url = requestConfig.url;
 
   if (
-    ~getUrlTemplate(url).keysUsed.required.indexOf('tenantPod') &&
+    ~getUrlTemplate(url).keysUsed.indexOf('tenantPod') &&
     !client.context.tenantPod
   ) {
     let tenantId = client.context.tenantId || client.context.tenant;

@@ -10,7 +10,17 @@
  */
 
 ;
-var uritemplate = require('uritemplate');
+var expRe = /\{.+?\}/g;
+var varnameRe = /[\w_-]+/;
+function findKeys(rawTpt) {
+  var matches = rawTpt.match(expRe);
+  if (!matches) return [];
+  return matches.map(function (x) {
+    return x.match(varnameRe)[0];
+  });
+}
+
+var uritemplate = require('./uri-template');
 var cache = {};
 module.exports = function (templateText) {
   if (cache[templateText]) {
@@ -21,18 +31,6 @@ module.exports = function (templateText) {
     render: function render(x) {
       return tpt.expand(x);
     },
-    keysUsed: tpt.expressions.reduce(function (o, e) {
-      var varname = e.varspecs && e.varspecs[0] && e.varspecs[0].varname;
-      if (varname && !e.varspecs[0].exploded) {
-        o.all.push(varname);
-        if (e.operator.symbol === '+') {
-          o.required.push(varname);
-        }
-      }
-      return o;
-    }, {
-      all: [],
-      required: []
-    })
+    keysUsed: findKeys(templateText)
   };
 };

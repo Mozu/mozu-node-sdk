@@ -14,7 +14,7 @@ module.exports = function (state) {
   var requestConfig = state.requestConfig;
   var url = requestConfig.url;
 
-  if (~getUrlTemplate(url).keysUsed.required.indexOf('tenantPod') && !client.context.tenantPod) {
+  if (~getUrlTemplate(url).keysUsed.indexOf('tenantPod') && !client.context.tenantPod) {
     var tenantId = client.context.tenantId || client.context.tenant;
     if (!tenantId) {
       throw new Error('Could not place request to ' + url + ' because it requires a tenant ' + 'ID to be set in the client context.');

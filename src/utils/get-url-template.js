@@ -9,7 +9,15 @@
  * @returns {Template} Object with a `render` method and a `keysUsed` object.
  */
 
-const uritemplate = require('uritemplate');
+let expRe = /\{.+?\}/g;
+let varnameRe = /[\w_-]+/;
+function findKeys(rawTpt) {
+  let matches = rawTpt.match(expRe);
+  if (!matches) return [];
+  return matches.map(x => x.match(varnameRe)[0]);
+}
+
+const uritemplate = require('./uri-template');
 let cache = {};
 module.exports = function(templateText) {
   if (cache[templateText]) {
@@ -18,21 +26,6 @@ module.exports = function(templateText) {
   let tpt = uritemplate.parse(templateText);
   return cache[templateText] = {
     render: x => tpt.expand(x),
-    keysUsed: tpt.expressions.reduce(
-      (o, e) => {
-        let varname = e.varspecs && e.varspecs[0] && e.varspecs[0].varname;
-        if (varname && !e.varspecs[0].exploded) {
-          o.all.push(varname);
-          if (e.operator.symbol === '+') {
-            o.required.push(varname);
-          }
-        }
-        return o;
-      },
-      {
-        all: [],
-        required: []
-      }
-    )
+    keysUsed: findKeys(templateText)
   };
 };

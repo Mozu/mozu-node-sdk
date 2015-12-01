@@ -23,7 +23,7 @@ module.exports = function(state) {
   let url = requestConfig.url;
 
   if (
-    ~getUrlTemplate(url).keysUsed.required.indexOf('pciPod') &&
+    ~getUrlTemplate(url).keysUsed.indexOf('pciPod') &&
     !client.context.basePciUrl && !client.context.pciPod
   ) {
     let tenantId = client.context.tenantId || client.context.tenant;
