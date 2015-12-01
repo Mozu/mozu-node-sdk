@@ -1,9 +1,10 @@
 'use strict';
-const getUrlTemplate = require('./get-url-template');
-const extend = require('./tiny-extend');
+
+var getUrlTemplate = require('../utils/get-url-template');
+var extend = require('../utils/tiny-extend');
 
 function ensureTrailingSlash(url) {
-  return (url.charAt(url.length-1) === '/') ? url : (url + '/');
+  return url.charAt(url.length - 1) === '/' ? url : url + '/';
 }
 
 /**
@@ -13,10 +14,11 @@ function ensureTrailingSlash(url) {
  * @param  {Object} body      An object consisting of the JSON body of the request, to be used to interpolate URL paramters.
  * @return {string}         A fully qualified URL.
  */
-module.exports = function makeUrl(client, tpt, body) {
-  let context = client.context;
-  let template = getUrlTemplate(tpt);
-  let fullTptEvalCtx = extend(
+module.exports = function () {
+  return function (client, tpt, body) {
+    var context = client.context;
+    var template = getUrlTemplate(tpt);
+    var fullTptEvalCtx = extend(
     // aliases for pod URLs and IDs first
     {
       homePod: context.baseUrl,
@@ -29,17 +31,16 @@ module.exports = function makeUrl(client, tpt, body) {
     // all context values override those base values if provided
     context,
     // any matching values in the body override last.
-    body
-  );
+    body);
 
-  // ensure all base URLs have trailing slashes.
-  ['homePod','pciPod','tenantPod'].forEach(x => {
-    if (fullTptEvalCtx[x])
-      fullTptEvalCtx[x] = ensureTrailingSlash(fullTptEvalCtx[x]);
-  });
+    // ensure all base URLs have trailing slashes.
+    ['homePod', 'pciPod', 'tenantPod'].forEach(function (x) {
+      if (fullTptEvalCtx[x]) fullTptEvalCtx[x] = ensureTrailingSlash(fullTptEvalCtx[x]);
+    });
 
-  // don't pass the API version!
-  if (!body || !body.hasOwnProperty("version")) delete fullTptEvalCtx.version;
+    // don't pass the API version!
+    if (!body || !body.hasOwnProperty("version")) delete fullTptEvalCtx.version;
 
-  return template.render(fullTptEvalCtx);
+    return template.render(fullTptEvalCtx);
+  };
 };

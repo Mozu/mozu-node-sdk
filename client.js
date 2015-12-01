@@ -8,12 +8,14 @@ var extend = require('./utils/tiny-extend'),
     normalizeContext = require('./utils/normalize-context'),
     inMemoryAuthCache = require('./plugins/in-memory-auth-cache'),
     serverSidePrerequisites = require('./plugins/server-side-prerequisites'),
+    expandUriTemplateFromContext = require('./plugins/expand-uritemplate-from-context'),
     versionKey = constants.headers.VERSION,
     version = constants.version;
 
 var NodeDefaultPlugins = {
   authenticationStorage: inMemoryAuthCache,
-  prerequisiteTasks: serverSidePrerequisites
+  prerequisiteTasks: serverSidePrerequisites,
+  urlResolver: expandUriTemplateFromContext
 };
 
 function applyDefaultPlugins(client, plugins) {

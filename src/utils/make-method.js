@@ -2,14 +2,13 @@
 
 const extend = require('./tiny-extend');
 const request = require('./request');
-const makeUrl = require('./make-url');
 
 module.exports = function(config) {
 
   function doRequest(body, options) {
     options = options || {};
     let finalRequestConfig = extend({}, config, this.defaultRequestOptions, {
-      url: makeUrl(this, config.url, body),
+      url: this.urlResolver(this, config.url, body),
       context: this.context,
       body: body
     }, options);
