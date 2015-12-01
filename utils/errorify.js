@@ -1,4 +1,7 @@
 'use strict';
+
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
 var extend = require('./tiny-extend');
 var util = require('util');
 module.exports = function errorify(res, additions) {
@@ -7,15 +10,15 @@ module.exports = function errorify(res, additions) {
       return new Error(res);
     }
     var err;
-    var message = ensureMessage(res); 
+    var message = ensureMessage(res);
     var stringBody = ensureString(res.body);
-    var details = typeof res.body === "object" ? res.body : (typeof res === "object" ? res : {});
+    var details = _typeof(res.body) === "object" ? res.body : (typeof res === 'undefined' ? 'undefined' : _typeof(res)) === "object" ? res : {};
 
     if (!message && stringBody) {
       try {
         details = JSON.parse(stringBody);
         message = details.message || stringBody;
-      } catch(e) {
+      } catch (e) {
         message = stringBody;
       }
     }
@@ -29,15 +32,15 @@ module.exports = function errorify(res, additions) {
     err = new Error(message);
     err.originalError = details;
     return err;
-  } catch(e) {
+  } catch (e) {
     return e;
   }
 };
 
 function formatDetails(deets) {
-  return "\n\nDetails:\n" + Object.keys(deets).map(function(label) {
+  return "\n\nDetails:\n" + Object.keys(deets).map(function (label) {
     var deet = deets[label];
-    if (typeof deet === "object") deet = util.inspect(deet);
+    if ((typeof deet === 'undefined' ? 'undefined' : _typeof(deet)) === "object") deet = util.inspect(deet);
     return " " + label + ": " + deet;
   }).join('\n') + '\n';
 }

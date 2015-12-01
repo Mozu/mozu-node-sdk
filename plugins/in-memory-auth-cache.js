@@ -1,11 +1,12 @@
 'use strict';
+
 var assert = require('assert');
 
 function isExpired(ticket) {
   var ungraceperiod = 60000;
   var compareDate = new Date();
   compareDate.setTime(compareDate.getTime() + ungraceperiod);
-  return (new Date(ticket.refreshTokenExpiration)) < compareDate;
+  return new Date(ticket.refreshTokenExpiration) < compareDate;
 }
 
 function generateCacheKey(claimtype, context) {
@@ -16,7 +17,7 @@ function generateCacheKey(claimtype, context) {
   } else {
     cmps = ['mozuHosted'];
   }
-  switch(claimtype) {
+  switch (claimtype) {
     case "developer":
       assert(context.developerAccount && context.developerAccount.emailAddress, "No developer account email address in context!");
       cmps.push(context.developerAccount.emailAddress, context.developerAccountId);
@@ -40,13 +41,13 @@ module.exports = function InMemoryAuthCache() {
   };
 
   return {
-    get: function(claimtype, context, callback) {
+    get: function get(claimtype, context, callback) {
       var ticket = claimsCaches[claimtype][generateCacheKey(claimtype, context)];
-      setImmediate(function() {
+      setImmediate(function () {
         callback(null, ticket && !isExpired(ticket) && ticket || undefined);
       });
     },
-    set: function(claimtype, context, ticket, callback) {
+    set: function set(claimtype, context, ticket, callback) {
       claimsCaches[claimtype][generateCacheKey(claimtype, context)] = ticket;
       setImmediate(callback);
     },

@@ -1,6 +1,7 @@
 'use strict';
+
 var extend = require('./utils/tiny-extend'),
-    sub = require('./utils/sub'),
+    _sub = require('./utils/sub'),
     constants = require('./constants'),
     makeMethod = require('./utils/make-method'),
     getConfig = require('./utils/get-config'),
@@ -10,17 +11,19 @@ var extend = require('./utils/tiny-extend'),
     versionKey = constants.headers.VERSION,
     version = constants.version;
 
-const NodeDefaultPlugins = {
+var NodeDefaultPlugins = {
   authenticationStorage: inMemoryAuthCache,
   prerequisiteTasks: serverSidePrerequisites
 };
 
 function applyDefaultPlugins(client, plugins) {
-  Object.keys(plugins).forEach(n => client[n] = plugins[n](client));
+  Object.keys(plugins).forEach(function (n) {
+    return client[n] = plugins[n](client);
+  });
 }
 
 function makeClient(clientCls) {
-  return function(cfg) {
+  return function (cfg) {
     return new clientCls(extend({}, this, cfg));
   };
 }
@@ -30,11 +33,8 @@ function cloneContext(ctx) {
   if (!ctx) return {};
   try {
     newCtx = JSON.parse(JSON.stringify(ctx));
-  } catch(e) {
-    throw new Error(
-      'Could not serialize context when creating Client. ' +
-      'Do not assign non-serializable objects to the client.context.'
-    );
+  } catch (e) {
+    throw new Error('Could not serialize context when creating Client. ' + 'Do not assign non-serializable objects to the client.context.');
   }
   newCtx[versionKey] = newCtx[versionKey] || version;
   return newCtx;
@@ -51,11 +51,7 @@ function Client(cfg) {
     context = context ? extend(getConfig(), context) : getConfig();
   }
   this.context = cloneContext(context);
-  this.defaultRequestOptions = extend(
-    {},
-    Client.defaultRequestOptions,
-    cfg.defaultRequestOptions
-  );
+  this.defaultRequestOptions = extend({}, Client.defaultRequestOptions, cfg.defaultRequestOptions);
   // apply the right default plugin config for a server-side environment
   // (that is, Node, ArcJS, or perhaps Rhino/Nashorn/WinJS)
   if (typeof process !== "undefined") {
@@ -64,9 +60,9 @@ function Client(cfg) {
   if (cfg.plugins) {
     // override plugins if necessary
     this.plugins = cfg.plugins.slice();
-    this.plugins.forEach(function(p) {
+    this.plugins.forEach((function (p) {
       p(this);
-    }.bind(this));
+    }).bind(this));
   }
 }
 
@@ -74,8 +70,8 @@ function Client(cfg) {
 extend(Client, {
   defaultRequestOptions: {},
   method: makeMethod,
-  sub: function(methods) {
-    return makeClient(sub(Client, methods));
+  sub: function sub(methods) {
+    return makeClient(_sub(Client, methods));
   },
   constants: constants
 });

@@ -8,6 +8,18 @@
       "email": "james_zetlen@volusion.com"
     }
   ],
+  "scripts": {
+    "lint": "eslint src",
+    "babel": "babel src -d .",
+    "test": "npm run lint && npm run babel && tape ./test/*.js",
+    "preversion": "npm test",
+    "version": "git add -A ."
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "version": "2.0.1",
   "repository": {
     "type": "git",
@@ -21,14 +33,13 @@
     "uritemplate": "~0"
   },
   "devDependencies": {
+    "babel-cli": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
     "body-parser": "^1.13.3",
     "eslint": "^1.10.2",
     "jort": "^1.1.0",
     "mozu-multipass": "^0.2.4",
     "tape": "^4.2.1"
-  },
-  "scripts": {
-    "test": "eslint . && tape ./test/*.js"
   },
   "license": "ISC"
 }

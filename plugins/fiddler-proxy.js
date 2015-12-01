@@ -1,34 +1,13 @@
 'use strict';
+
 var url = require('url');
 var tunnelAgent = require('tunnel-agent');
 
 var FIDDLER_URL = 'http://127.0.0.1:8888';
 
-var allowedHeaders = [
-  'accept',
-  'accept-charset',
-  'accept-encoding',
-  'accept-language',
-  'accept-ranges',
-  'cache-control',
-  'content-encoding',
-  'content-language',
-  // 'content-length',
-  'content-location',
-  'content-md5',
-  'content-range',
-  'content-type',
-  'connection',
-  'date',
-  'expect',
-  'max-forwards',
-  'pragma',
-  'referer',
-  'te',
-  'transfer-encoding',
-  'user-agent',
-  'via'
-].reduce(function(set, header) {
+var allowedHeaders = ['accept', 'accept-charset', 'accept-encoding', 'accept-language', 'accept-ranges', 'cache-control', 'content-encoding', 'content-language',
+// 'content-length',
+'content-location', 'content-md5', 'content-range', 'content-type', 'connection', 'date', 'expect', 'max-forwards', 'pragma', 'referer', 'te', 'transfer-encoding', 'user-agent', 'via'].reduce(function (set, header) {
   set[header] = true;
   return set;
 }, {});
@@ -36,16 +15,13 @@ var allowedHeaders = [
 var proxy = url.parse(FIDDLER_URL);
 
 function makeProxyHeaders(headers) {
-  return Object.keys(headers)
-    .filter(function(header) {
-      return allowedHeaders[header.toLowerCase()];
-    })
-    .reduce(function(set, header) {
-      set[header] = headers[header];
-      return set;
-    }, {});
+  return Object.keys(headers).filter(function (header) {
+    return allowedHeaders[header.toLowerCase()];
+  }).reduce(function (set, header) {
+    set[header] = headers[header];
+    return set;
+  }, {});
 }
-
 
 var agentFactories = {
   'https:https:': tunnelAgent.httpsOverHttps,
@@ -73,8 +49,10 @@ function addFiddlerProxy(conf) {
 }
 
 module.exports = function FiddlerProxyPlugin(client) {
-  var previous = client.requestTransform || function identity(x) { return x; };
-  client.requestTransform = function(conf) {
+  var previous = client.requestTransform || function identity(x) {
+    return x;
+  };
+  client.requestTransform = function (conf) {
     return addFiddlerProxy(previous(conf));
   };
 };

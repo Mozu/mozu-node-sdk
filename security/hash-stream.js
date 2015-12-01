@@ -1,4 +1,5 @@
 'use strict';
+
 var crypto = require('crypto');
 
 function makeHashStream() {
@@ -10,7 +11,7 @@ function makeHashStream() {
 module.exports = function hashStream(secretKey, date) {
   var hash1 = makeHashStream();
   var hash2 = makeHashStream();
-  
+
   hash1.write(secretKey + secretKey);
   hash1.end();
   var sha256key = hash1.read();

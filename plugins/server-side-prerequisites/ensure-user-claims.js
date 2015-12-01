@@ -1,6 +1,7 @@
 'use strict';
-const AuthProvider = require('../../security/auth-provider');
-const scopes = require('../../constants').scopes;
+
+var AuthProvider = require('../../security/auth-provider');
+var scopes = require('../../constants').scopes;
 
 /**
  * If necessary, add developer user claims to a client context before
@@ -8,12 +9,12 @@ const scopes = require('../../constants').scopes;
  * Uses AuthProvider.
  */
 
-module.exports = function(state) {
-  let client = state.client;
-  let requestConfig = state.requestConfig;
-  let options = state.options;
+module.exports = function (state) {
+  var client = state.client;
+  var requestConfig = state.requestConfig;
+  var options = state.options;
 
-  let scope;
+  var scope = undefined;
   if (options && options.scope) {
     if (scopes[options.scope]) {
       scope = scopes[options.scope];
@@ -25,13 +26,18 @@ module.exports = function(state) {
   }
 
   if (scope & scopes.DEVELOPER) {
-    return AuthProvider.addDeveloperUserClaims(client).then(() => state);
+    return AuthProvider.addDeveloperUserClaims(client).then(function () {
+      return state;
+    });
   } else if (scope & scopes.ADMINUSER) {
-    return AuthProvider.addAdminUserClaims(client).then(() => state);
+    return AuthProvider.addAdminUserClaims(client).then(function () {
+      return state;
+    });
   } else if (!scope && AuthProvider.addMostRecentUserClaims) {
-    return AuthProvider.addMostRecentUserClaims(client).then(() => state);
+    return AuthProvider.addMostRecentUserClaims(client).then(function () {
+      return state;
+    });
   } else {
     return state;
   }
-
 };

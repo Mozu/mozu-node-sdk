@@ -1,18 +1,18 @@
 /* eslint handle-callback-err: 0 */
 /* global Promise */
 'use strict';
+
 var constants = require('../constants'),
     AuthTicket = require('./auth-ticket'),
     scopes = constants.scopes;
 
-let TenantCache = require('../utils/tenant-cache');
-
+var TenantCache = require('../utils/tenant-cache');
 
 // if (typeof Promise !== "function") require('when/es6-shim/Promise.browserify-es6');
 
 function createMemoizedClientFactory(clientPath) {
   var c;
-  return function() {
+  return function () {
     return (c || (c = require(clientPath))).apply(this, arguments);
   };
 }
@@ -22,7 +22,7 @@ var makeDeveloperAuthClient = createMemoizedClientFactory('../clients/platform/d
 var makeAdminUserAuthClient = createMemoizedClientFactory('../clients/platform/adminuser/tenantAdminUserAuthTicket');
 
 function cacheDataAndCreateAuthTicket(res) {
-  let tenants = res.availableTenants;
+  var tenants = res.availableTenants;
   if (tenants) {
     for (var i = 0; i < tenants.length; i++) {
       TenantCache.add(tenants[i]);
@@ -49,28 +49,22 @@ function refreshPlatformAuthTicket(client, ticket) {
 }
 
 function getDeveloperAuthTicket(client) {
-  return makeDeveloperAuthClient(client)
-    .createDeveloperUserAuthTicket(
-      client.context.developerAccount,
-      {
-        scope: scopes.NONE
-      }
-  ).then(cacheDataAndCreateAuthTicket);
+  return makeDeveloperAuthClient(client).createDeveloperUserAuthTicket(client.context.developerAccount, {
+    scope: scopes.NONE
+  }).then(cacheDataAndCreateAuthTicket);
 }
 
 function refreshDeveloperAuthTicket(client, ticket) {
-  return makeDeveloperAuthClient(client).refreshDeveloperAuthTicket(
-    ticket,
-    {
-      scope: scopes.NONE
-    }).then(cacheDataAndCreateAuthTicket);
+  return makeDeveloperAuthClient(client).refreshDeveloperAuthTicket(ticket, {
+    scope: scopes.NONE
+  }).then(cacheDataAndCreateAuthTicket);
 }
 
 function getAdminUserAuthTicket(client) {
-  return makeAdminUserAuthClient(client).createUserAuthTicket({ tenantId: client.context.tenant }, { 
+  return makeAdminUserAuthClient(client).createUserAuthTicket({ tenantId: client.context.tenant }, {
     body: client.context.adminUser,
     scope: constants.scopes.APP_ONLY
-  }).then(function(json) {
+  }).then(function (json) {
     client.context.user = json.user;
     return cacheDataAndCreateAuthTicket(json);
   });
@@ -89,24 +83,24 @@ var calleeToClaimType = {
 };
 
 function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
-  return function(client) {
-    var cacheAndUpdateClient = function(ticket) {
-      return new Promise(function(resolve) {
-        client.authenticationStorage.set(calleeToClaimType[calleeName], client.context, ticket, function() {
+  return function (client) {
+    var cacheAndUpdateClient = function cacheAndUpdateClient(ticket) {
+      return new Promise(function (resolve) {
+        client.authenticationStorage.set(calleeToClaimType[calleeName], client.context, ticket, function () {
           client.context[claimHeader] = ticket.accessToken;
           resolve(client);
         });
       });
     };
-    var op = new Promise(function(resolve) {
-      client.authenticationStorage.get(calleeToClaimType[calleeName], client.context, function(err, ticket) {
+    var op = new Promise(function (resolve) {
+      client.authenticationStorage.get(calleeToClaimType[calleeName], client.context, function (err, ticket) {
         resolve(ticket);
       });
-    }).then(function(ticket) {
+    }).then(function (ticket) {
       if (!ticket) {
         return requester(client).then(cacheAndUpdateClient);
       }
-      if ((new Date(ticket.accessTokenExpiration)) < new Date()) {
+      if (new Date(ticket.accessTokenExpiration) < new Date()) {
         return refresher(client, ticket).then(cacheAndUpdateClient);
       }
       client.context[claimHeader] = ticket.accessToken;
@@ -119,7 +113,6 @@ function makeClaimMemoizer(calleeName, requester, refresher, claimHeader) {
     return op;
   };
 }
-
 
 var AuthProvider = {
 

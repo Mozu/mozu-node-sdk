@@ -1,18 +1,19 @@
 'use strict';
-const extend = require('./tiny-extend');
-const request = require('./request');
-const makeUrl = require('./make-url');
 
-module.exports = function(config) {
+var extend = require('./tiny-extend');
+var request = require('./request');
+var makeUrl = require('./make-url');
+
+module.exports = function (config) {
 
   function doRequest(body, options) {
     options = options || {};
-    let finalRequestConfig = extend({}, config, this.defaultRequestOptions, {
+    var finalRequestConfig = extend({}, config, this.defaultRequestOptions, {
       url: makeUrl(this, config.url, body),
       context: this.context,
       body: body
     }, options);
-    let finalMethod = finalRequestConfig.method && finalRequestConfig.method.toUpperCase();
+    var finalMethod = finalRequestConfig.method && finalRequestConfig.method.toUpperCase();
 
     // this is magic and was never a good idea.
     // the way the SDK was designed, the first argument to a method will get
@@ -23,11 +24,11 @@ module.exports = function(config) {
     // very hard to debug.
     //
     // remove any properties from the body that were used to expand the url
-    // if (body && 
+    // if (body &&
     //     typeof body === "object" &&
     //     !Array.isArray(body) &&
-    //     !options.body && 
-    //     !options.includeUrlVariablesInPostBody && 
+    //     !options.body &&
+    //     !options.includeUrlVariablesInPostBody &&
     //     (finalMethod === "POST" || finalMethod === "PUT")) {
     //   finalRequestConfig.body = Object.keys(body).reduce(function(m, k) {
     //     if (!urlSpec.keysUsed[k]) {
@@ -40,7 +41,6 @@ module.exports = function(config) {
     //   }
     // }
 
-
     if (finalMethod === "GET" || finalMethod === "DELETE" && !options.body) {
       delete finalRequestConfig.body;
       // it's outlived its usefulness, we've already made a url with it
@@ -48,32 +48,20 @@ module.exports = function(config) {
     return request(finalRequestConfig, this.requestTransform);
   }
 
-  return function(body, options) {
-    let doThisRequest = doRequest.bind(this, body, options);
+  return function (body, options) {
+    var doThisRequest = doRequest.bind(this, body, options);
     if (process.env.mozuHosted) {
       return doThisRequest();
-    } else if (
-      !this.prerequisiteTasks ||
-      !Array.isArray(this.prerequisiteTasks)
-    ) {
-      return Promise.reject(
-        new Error(
-          `Could not place request. No \`prerequisiteTasks\` array found on ` +
-          `the client object. To require no auth or URL prerequisites, set ` +
-          `\`this.prerequisiteTasks = [];\` on the client object.`
-        )
-      );
+    } else if (!this.prerequisiteTasks || !Array.isArray(this.prerequisiteTasks)) {
+      return Promise.reject(new Error('Could not place request. No `prerequisiteTasks` array found on ' + 'the client object. To require no auth or URL prerequisites, set ' + '`this.prerequisiteTasks = [];` on the client object.'));
     } else {
-      return this.prerequisiteTasks.reduce(
-        (p, t) => p.then(t),
-        Promise.resolve({
-          client: this,
-          options: options,
-          requestConfig: config
-        })
-      ).then(doThisRequest);
+      return this.prerequisiteTasks.reduce(function (p, t) {
+        return p.then(t);
+      }, Promise.resolve({
+        client: this,
+        options: options,
+        requestConfig: config
+      })).then(doThisRequest);
     }
   };
-
 };
-

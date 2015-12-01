@@ -1,6 +1,7 @@
 'use strict';
-const TenantCache = require('../../utils/tenant-cache');
-const getUrlTemplate = require('../../utils/get-url-template');
+
+var TenantCache = require('../../utils/tenant-cache');
+var getUrlTemplate = require('../../utils/get-url-template');
 
 /**
  * If necessary, transforms a promise for a prepared client into a promise
@@ -8,29 +9,22 @@ const getUrlTemplate = require('../../utils/get-url-template');
  * Reads from the TenantCache if necessary.
  */
 
-module.exports = function(state) {
-  let client = state.client;
-  let requestConfig = state.requestConfig;
-  let url = requestConfig.url;
+module.exports = function (state) {
+  var client = state.client;
+  var requestConfig = state.requestConfig;
+  var url = requestConfig.url;
 
-  if (
-    ~getUrlTemplate(url).keysUsed.required.indexOf('tenantPod') &&
-    !client.context.tenantPod
-  ) {
-    let tenantId = client.context.tenantId || client.context.tenant;
+  if (~getUrlTemplate(url).keysUsed.required.indexOf('tenantPod') && !client.context.tenantPod) {
+    var tenantId = client.context.tenantId || client.context.tenant;
     if (!tenantId) {
-      throw new Error(
-        `Could not place request to ${url} because it requires a tenant ` +
-        `ID to be set in the client context.`
-      );
+      throw new Error('Could not place request to ' + url + ' because it requires a tenant ' + 'ID to be set in the client context.');
     } else {
-      return TenantCache.get(tenantId).then(tenant => {
+      return TenantCache.get(tenantId).then(function (tenant) {
         client.context.tenantPod = 'https://' + tenant.domain + '/';
         return state;
-      })
+      });
     }
   } else {
     return state;
   }
-
 };

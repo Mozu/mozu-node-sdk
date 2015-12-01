@@ -1,9 +1,10 @@
 'use strict';
-const getUrlTemplate = require('./get-url-template');
-const extend = require('./tiny-extend');
+
+var getUrlTemplate = require('./get-url-template');
+var extend = require('./tiny-extend');
 
 function ensureTrailingSlash(url) {
-  return (url.charAt(url.length-1) === '/') ? url : (url + '/');
+  return url.charAt(url.length - 1) === '/' ? url : url + '/';
 }
 
 /**
@@ -14,28 +15,26 @@ function ensureTrailingSlash(url) {
  * @return {string}         A fully qualified URL.
  */
 module.exports = function makeUrl(client, tpt, body) {
-  let context = client.context;
-  let template = getUrlTemplate(tpt);
-  let fullTptEvalCtx = extend(
-    // aliases for pod URLs and IDs first
-    {
-      homePod: context.baseUrl,
-      pciPod: context.basePciUrl,
-      tenantId: context.tenant,
-      siteId: context.site,
-      catalogId: context.catalog,
-      masterCatalogId: context['master-catalog']
-    },
-    // all context values override those base values if provided
-    context,
-    // any matching values in the body override last.
-    body
-  );
+  var context = client.context;
+  var template = getUrlTemplate(tpt);
+  var fullTptEvalCtx = extend(
+  // aliases for pod URLs and IDs first
+  {
+    homePod: context.baseUrl,
+    pciPod: context.basePciUrl,
+    tenantId: context.tenant,
+    siteId: context.site,
+    catalogId: context.catalog,
+    masterCatalogId: context['master-catalog']
+  },
+  // all context values override those base values if provided
+  context,
+  // any matching values in the body override last.
+  body);
 
   // ensure all base URLs have trailing slashes.
-  ['homePod','pciPod','tenantPod'].forEach(x => {
-    if (fullTptEvalCtx[x])
-      fullTptEvalCtx[x] = ensureTrailingSlash(fullTptEvalCtx[x]);
+  ['homePod', 'pciPod', 'tenantPod'].forEach(function (x) {
+    if (fullTptEvalCtx[x]) fullTptEvalCtx[x] = ensureTrailingSlash(fullTptEvalCtx[x]);
   });
 
   // don't pass the API version!

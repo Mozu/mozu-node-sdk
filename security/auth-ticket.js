@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * The authentication ticket used to authenticate anything.
@@ -8,6 +8,7 @@
  * @property {string} refreshToken The token that refreshes the application's authentication ticket.
  * @property {Date} refreshTokenExpiration Date and time the refresh token expires. After the refresh token expires, generate a new authentication ticket.
  */
+;
 function AuthTicket(json) {
   var self = this;
   if (!(this instanceof AuthTicket)) return new AuthTicket(json);

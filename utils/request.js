@@ -1,5 +1,6 @@
-'use strict';
+'use strict'
 /* global Promise */
+;
 var constants = require('../constants');
 var extend = require('./tiny-extend');
 var url = require('url');
@@ -15,7 +16,7 @@ var USER_AGENT = 'Mozu Node SDK v' + constants.version + ' (Node.js ' + process.
 
 /**
  * Handle headers
- */ 
+ */
 function makeHeaders(conf, payload) {
   var headers;
   function iterateHeaders(memo, key) {
@@ -50,7 +51,7 @@ function makeHeaders(conf, payload) {
  * @return {Promise<ApiResponse,ApiError>}         A Promise that will fulfill as the JSON response from the API, or reject with an error as JSON from the API.
  */
 
-module.exports = function(options, transform) {
+module.exports = function (options, transform) {
   var conf = extend({}, options);
   conf.method = (conf.method || 'get').toUpperCase();
   var payload;
@@ -66,7 +67,7 @@ module.exports = function(options, transform) {
   if (!protocolHandler) {
     throw new Error('Protocol ' + uri.protocol + ' not supported.');
   }
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     var requestOptions = extend({
       hostname: uri.hostname,
       port: uri.port || (uri.protocol === 'https:' ? 443 : 80),
@@ -76,34 +77,34 @@ module.exports = function(options, transform) {
       agent: conf.agent
     }, options);
     if (typeof transform === "function") {
-      requestOptions = transform(requestOptions); 
+      requestOptions = transform(requestOptions);
     }
     var complete = false;
-    var request = protocolHandler.request(requestOptions, function(response) {
-      streamToCallback(response, function(err, body) {
+    var request = protocolHandler.request(requestOptions, function (response) {
+      streamToCallback(response, function (err, body) {
         complete = true;
-        if (err) return reject(errorify(err, extend({ statusCode: response.statusCode}, response.headers)));
+        if (err) return reject(errorify(err, extend({ statusCode: response.statusCode }, response.headers)));
         if (body) {
           try {
-            body = JSON.parse(body, (conf.parseDates !== false) && parseJsonDates);
-          } catch(e) { 
+            body = JSON.parse(body, conf.parseDates !== false && parseJsonDates);
+          } catch (e) {
             return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
           }
         }
         if (response && response.statusCode >= 400 && response.statusCode < 600) {
-          return reject(errorify(body || response, extend({ statusCode: response.statusCode}, response.headers)));
+          return reject(errorify(body || response, extend({ statusCode: response.statusCode }, response.headers)));
         }
         return resolve(body);
       });
     });
     var timeout = options.timeout || 20000;
-    request.setTimeout(timeout, function() {
+    request.setTimeout(timeout, function () {
       if (!complete) {
         request.abort();
         reject(errorify("Timeout occurred: request to " + conf.url + " took more than " + timeout / 1000 + " seconds to complete."));
       }
     });
-    request.on('error', function(err) {
+    request.on('error', function (err) {
       reject(errorify(err, request));
     });
     if (payload) request.write(payload);

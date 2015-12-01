@@ -1,16 +1,17 @@
-'use strict';
+'use strict'
 // BEGIN INIT
+;
 var fs = require('fs');
 var findup = require('./tiny-findup');
 
-var legalConfigNames = ['mozu.config','mozu.config.json'];
+var legalConfigNames = ['mozu.config', 'mozu.config.json'];
 
 module.exports = function getConfig() {
   var conf;
   if (process.env.mozuHosted) {
     try {
       conf = JSON.parse(process.env.mozuHosted).sdkConfig;
-    } catch(e) {
+    } catch (e) {
       throw new Error("Mozu hosted configuration was unreadable: " + e.message);
     }
   } else {
@@ -18,7 +19,7 @@ module.exports = function getConfig() {
       try {
         var filename = findup(legalConfigNames[i]);
         if (filename) conf = fs.readFileSync(filename, 'utf-8');
-      } catch(e) {
+      } catch (e) {
         continue;
       }
       if (conf) break;
@@ -28,7 +29,7 @@ module.exports = function getConfig() {
     }
     try {
       conf = JSON.parse(conf);
-    } catch(e) {
+    } catch (e) {
       throw new Error("Configuration file was unreadable: " + e.message);
     }
   }
