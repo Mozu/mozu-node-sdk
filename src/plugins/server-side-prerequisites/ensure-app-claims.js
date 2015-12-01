@@ -1,6 +1,7 @@
 'use strict';
 const AuthProvider = require('../../security/auth-provider');
 const scopes = require('../../constants').scopes;
+const getScopeFromState = require('./get-scope-from-state');
 
 /**
  * If necessary, add application claims to a client context before
@@ -10,19 +11,8 @@ const scopes = require('../../constants').scopes;
 
 module.exports = function(state) {
   let client = state.client;
-  let requestConfig = state.requestConfig;
-  let options = state.options;
 
-  let scope;
-  if (options && options.scope) {
-    if (scopes[options.scope]) {
-      scope = scopes[options.scope];
-    } else {
-      scope = options.scope;
-    }
-  } else {
-    scope = requestConfig.scope;
-  }
+  let scope = getScopeFromState(state);
 
   if (!((scope & scopes.NONE) || (scope & scopes.DEVELOPER))) {
     return AuthProvider.addPlatformAppClaims(client).then(() => state);

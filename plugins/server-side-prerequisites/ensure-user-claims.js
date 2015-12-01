@@ -2,6 +2,7 @@
 
 var AuthProvider = require('../../security/auth-provider');
 var scopes = require('../../constants').scopes;
+var getScopeFromState = require('./get-scope-from-state');
 
 /**
  * If necessary, add developer user claims to a client context before
@@ -11,19 +12,7 @@ var scopes = require('../../constants').scopes;
 
 module.exports = function (state) {
   var client = state.client;
-  var requestConfig = state.requestConfig;
-  var options = state.options;
-
-  var scope = undefined;
-  if (options && options.scope) {
-    if (scopes[options.scope]) {
-      scope = scopes[options.scope];
-    } else {
-      scope = options.scope;
-    }
-  } else {
-    scope = requestConfig.scope;
-  }
+  var scope = getScopeFromState(state);
 
   if (scope & scopes.DEVELOPER) {
     return AuthProvider.addDeveloperUserClaims(client).then(function () {

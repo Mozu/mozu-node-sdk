@@ -1,6 +1,7 @@
 'use strict';
 const TenantCache = require('../../utils/tenant-cache');
 const getUrlTemplate = require('../../utils/get-url-template');
+const getScopeFromState = require('./get-scope-from-state');
 
 /**
  * If necessary, transforms a promise for a prepared client into a promise
@@ -24,7 +25,11 @@ module.exports = function(state) {
         `ID to be set in the client context.`
       );
     } else {
-      return TenantCache.get(tenantId).then(tenant => {
+      return TenantCache.get(
+        tenantId,
+        client,
+        getScopeFromState(state)
+      ).then(tenant => {
         client.context.tenantPod = 'https://' + tenant.domain + '/';
         return state;
       })

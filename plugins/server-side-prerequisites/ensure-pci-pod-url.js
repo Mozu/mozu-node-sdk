@@ -5,6 +5,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
 var TenantCache = require('../../utils/tenant-cache');
 var EnvUrls = require('mozu-metadata/data/environments.json');
 var getUrlTemplate = require('../../utils/get-url-template');
+var getScopeFromState = require('./get-scope-from-state');
 
 /**
  * If necessary, transforms a promise for a prepared client into a promise
@@ -13,7 +14,7 @@ var getUrlTemplate = require('../../utils/get-url-template');
  */
 
 var PCIUrlsByBaseUrl = Object.keys(EnvUrls).reduce(function (o, c) {
-  o[c.homeDomain] = c;
+  o[EnvUrls[c].homeDomain] = EnvUrls[c];
   return o;
 }, {});
 
@@ -32,7 +33,7 @@ module.exports = function (state) {
         throw new Error('Could not place request to ' + url + ' because it is making a call to ' + 'Payment Service, but there is no known payment service domain ' + ('matching the environment whose base URL is ' + client.context.baseUrl + '.'));
       } else {
         return {
-          v: TenantCache.get(tenantId).then(function (t) {
+          v: TenantCache.get(tenantId, client, getScopeFromState(state)).then(function (t) {
             if (t.isDevTenant) {
               client.context.basePciUrl = pciUrls.paymentServiceSandboxDomain;
             } else {

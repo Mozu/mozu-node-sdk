@@ -7,7 +7,7 @@ module.exports = {
   add: function add(tenant) {
     TenantsOrPromisesById[tenant.id] = tenant;
   },
-  get: function get(client, tenantId) {
+  get: function get(tenantId, client, scope) {
     TenantClient = TenantClient || require('../clients/platform/tenant');
     var tenant = TenantsOrPromisesById[tenantId];
     if (tenant) {
@@ -20,7 +20,7 @@ module.exports = {
       }
       return tenant;
     } else {
-      return TenantsOrPromisesById[tenantId] = new TenantClient(client).getTenant();
+      return TenantsOrPromisesById[tenantId] = new TenantClient(client).getTenant(null, { scope: scope });
     }
   }
 };
