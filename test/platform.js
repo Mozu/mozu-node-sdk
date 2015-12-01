@@ -13,7 +13,7 @@ var testPlatformService = function(assert, client, noscope) {
   client.getTenant({ 
     tenantId: client.context.tenantId
   }, {
-    scope: noscope && 'NONE'
+    scope: noscope && 'NONE' || 'ADMINUSER'
   }).then(function(tenant) {
     assert.ok(tenant, 'result delivered');
     assert.ok(tenant.domain, 'tenant has domain');
@@ -27,7 +27,7 @@ var runTests;
 
 if (process.env.MOZU_TEST_LIVE) {
   try {
-    testContext = require('mozu.test.config.json');
+    testContext = require('../mozu.test.config.json');
   } catch(e) {
     testContext = {};
   }

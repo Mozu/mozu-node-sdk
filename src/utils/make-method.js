@@ -1,4 +1,5 @@
 'use strict';
+
 const extend = require('./tiny-extend');
 const request = require('./request');
 const makeUrl = require('./make-url');

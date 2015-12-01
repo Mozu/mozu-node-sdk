@@ -9,7 +9,7 @@ var FiddlerProxy = require('../plugins/fiddler-proxy');
 
 var testContext;
 try {
-  testContext = require('mozu.test.config.json');
+  testContext = require('../mozu.test.config.json');
 } catch(e) {
   testContext = {};
 }

@@ -1,6 +1,7 @@
 'use strict';
-var TenantClient;
-var TenantsOrPromisesById = {};
+
+let TenantClient;
+let TenantsOrPromisesById = {};
 
 module.exports = {
   add: function(tenant) {

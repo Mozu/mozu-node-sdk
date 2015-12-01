@@ -22,7 +22,7 @@ var runTests;
 
 if (process.env.MOZU_TEST_LIVE) {
   try {
-    testContext = require('mozu.test.config.json');
+    testContext = require('../mozu.test.config.json');
   } catch(e) {
     testContext = {};
   }
