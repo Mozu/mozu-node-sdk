@@ -20,7 +20,7 @@ function findKeys(rawTpt) {
   });
 }
 
-var uritemplate = require('./uri-template');
+var uritemplate = require('uri-template');
 var cache = {};
 module.exports = function (templateText) {
   if (cache[templateText]) {

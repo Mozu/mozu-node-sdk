@@ -17,7 +17,7 @@ function findKeys(rawTpt) {
   return matches.map(x => x.match(varnameRe)[0]);
 }
 
-const uritemplate = require('./uri-template');
+const uritemplate = require('uri-template');
 let cache = {};
 module.exports = function(templateText) {
   if (cache[templateText]) {
