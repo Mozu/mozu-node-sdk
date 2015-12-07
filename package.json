@@ -34,10 +34,12 @@
     "uri-template": "^1.0.0"
   },
   "devDependencies": {
+    "acorn": "^2.6.4",
     "babel-cli": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
     "body-parser": "^1.13.3",
     "eslint": "^1.10.2",
+    "glob": "^6.0.1",
     "jort": "^1.1.0",
     "mozu-multipass": "^0.2.4",
     "tap-spec": "^4.1.1",
