@@ -22,7 +22,7 @@ function findKeys(rawTpt) {
 
 var badStarRE = /\{\*([^}]+)\}/;
 function normalizeTemplateText(txt) {
-  return txt.replace(badStarRE, '$1');
+  return txt.replace(badStarRE, '{$1}');
 }
 
 var uritemplate = require('uri-template');
