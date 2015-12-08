@@ -4,7 +4,7 @@ var test = require('tape');
 var acorn = require('acorn');
 var acornWalk = require('acorn/dist/walk');
 var glob = require('glob');
-var uriTemplate = require('uri-template');
+var getUriTemplate = require('../utils/get-url-template');
 
 test('all uri templates in autogenned code are parseable', function(assert) {
   let allClients = glob.sync('./clients/**/*.js');
@@ -16,7 +16,7 @@ test('all uri templates in autogenned code are parseable', function(assert) {
       Property: function(n) {
         if (n.key && n.key.name === 'url') {
           try {
-            uriTemplate.parse(n.value.value);
+            getUriTemplate(n.value.value);
           } catch(e) {
             badness += 
               '\n\nuri template "' + n.value.value + '" does not parse in ' +
