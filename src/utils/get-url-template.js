@@ -19,7 +19,7 @@ function findKeys(rawTpt) {
 
 let badStarRE = /\{\*([^}]+)\}/
 function normalizeTemplateText(txt) {
-  return txt.replace(badStarRE, '$1');
+  return txt.replace(badStarRE, '{$1}');
 }
 
 const uritemplate = require('uri-template');
