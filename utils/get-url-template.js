@@ -20,9 +20,15 @@ function findKeys(rawTpt) {
   });
 }
 
+var badStarRE = /\{\*([^}]+)\}/;
+function normalizeTemplateText(txt) {
+  return txt.replace(badStarRE, '{$1}');
+}
+
 var uritemplate = require('uri-template');
 var cache = {};
-module.exports = function (templateText) {
+module.exports = function (rawTemplateText) {
+  var templateText = normalizeTemplateText(rawTemplateText);
   if (cache[templateText]) {
     return cache[templateText];
   }
