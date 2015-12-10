@@ -94,7 +94,8 @@ function testPciPodDetection(tenantId, sandbox) {
             }
             return makeUrl(me, tpt, body);
           };
-          var previousTransform = client.requestTransform;
+          var previousTransform = client.requestTransform ||
+            function(x) { return x; };
           client.requestTransform = function(conf) {
             if (conf.url === fixture)
               return previousTransform(conf);
