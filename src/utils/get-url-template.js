@@ -17,15 +17,9 @@ function findKeys(rawTpt) {
   return matches.map(x => x.match(varnameRe)[0]);
 }
 
-let badStarRE = /\{\*([^}]+)\}/
-function normalizeTemplateText(txt) {
-  return txt.replace(badStarRE, '{$1}');
-}
-
 const uritemplate = require('uri-template');
 let cache = {};
-module.exports = function(rawTemplateText) {
-  let templateText = normalizeTemplateText(rawTemplateText);
+module.exports = function(templateText) {
   if (cache[templateText]) {
     return cache[templateText];
   }
