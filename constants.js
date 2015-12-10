@@ -49,7 +49,8 @@ module.exports = {
     MASTERCATALOG: 'master-catalog',
     CATALOG: 'catalog',
     DATAVIEWMODE: 'dataview-mode',
-    VERSION: 'version'
+    VERSION: 'version',
+    SHA256: 'hmac-sha256'
   },
   dataViewModes: {
     LIVE: 'Live',

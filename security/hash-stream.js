@@ -8,7 +8,7 @@ function makeHashStream() {
   return h;
 }
 
-module.exports = function hashStream(secretKey, date) {
+module.exports = function hashStream(secretKey, date, body) {
   var hash1 = makeHashStream();
   var hash2 = makeHashStream();
 
@@ -19,6 +19,8 @@ module.exports = function hashStream(secretKey, date) {
   hash2.write(sha256key);
 
   hash2.write(date);
+
+  hash2.write(body);
 
   return hash2;
 };
