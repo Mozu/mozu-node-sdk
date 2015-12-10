@@ -22,7 +22,7 @@ module.exports = Client.sub({
 	}),
 	getPackageFileMetadata: Client.method({
 		method: constants.verbs.GET,
-		url: '{+homePod}api/platform/developer/packages/{applicationKey}/filemetadata/{*filepath}?responseFields={responseFields}'
+		url: '{+homePod}api/platform/developer/packages/{applicationKey}/filemetadata/{filepath}?responseFields={responseFields}'
 	}),
 	getPackageMetadata: Client.method({
 		method: constants.verbs.GET,
@@ -30,7 +30,7 @@ module.exports = Client.sub({
 	}),
 	upsertPackageFile: Client.method({
 		method: constants.verbs.POST,
-		url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{*filepath}?lastModifiedTime={lastModifiedTime}&responseFields={responseFields}'
+		url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{filepath}?lastModifiedTime={lastModifiedTime}&responseFields={responseFields}'
 	}),
 	renamePackageFile: Client.method({
 		method: constants.verbs.POST,
@@ -38,6 +38,6 @@ module.exports = Client.sub({
 	}),
 	deletePackageFile: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{*filepath}'
+		url: '{+homePod}api/platform/developer/packages/{applicationKey}/files/{filepath}'
 	})
 });
