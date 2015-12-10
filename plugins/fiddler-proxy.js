@@ -3,7 +3,7 @@
 var url = require('url');
 var tunnelAgent = require('tunnel-agent');
 
-var FIDDLER_URL = 'http://127.0.0.1:8888';
+var DEFAULT_FIDDLER_URL = 'http://127.0.0.1:8888';
 
 var allowedHeaders = ['accept', 'accept-charset', 'accept-encoding', 'accept-language', 'accept-ranges', 'cache-control', 'content-encoding', 'content-language',
 // 'content-length',
@@ -11,8 +11,6 @@ var allowedHeaders = ['accept', 'accept-charset', 'accept-encoding', 'accept-lan
   set[header] = true;
   return set;
 }, {});
-
-var proxy = url.parse(FIDDLER_URL);
 
 function makeProxyHeaders(headers) {
   return Object.keys(headers).filter(function (header) {
@@ -33,7 +31,7 @@ function getAgentFactory(targetProtocol, proxyProtocol) {
   return agentFactories[targetProtocol + proxyProtocol].bind(tunnelAgent);
 }
 
-function addFiddlerProxy(conf) {
+function addFiddlerProxy(conf, proxy) {
   if (process.env.USE_FIDDLER) {
     conf.agent = getAgentFactory(conf.port === 443 ? 'https:' : 'http:', proxy.protocol)({
       proxy: {
@@ -48,11 +46,17 @@ function addFiddlerProxy(conf) {
   return conf;
 }
 
-module.exports = function FiddlerProxyPlugin(client) {
-  var previous = client.requestTransform || function identity(x) {
-    return x;
-  };
-  client.requestTransform = function (conf) {
-    return addFiddlerProxy(previous(conf));
+module.exports = function (opts) {
+  opts = opts || {};
+  opts.url = opts.url || DEFAULT_FIDDLER_URL;
+  var proxy = url.parse(opts.url);
+
+  return function FiddlerProxyPlugin(client) {
+    var previous = client.requestTransform || function identity(x) {
+      return x;
+    };
+    client.requestTransform = function (conf) {
+      return addFiddlerProxy(previous(conf), proxy);
+    };
   };
 };
