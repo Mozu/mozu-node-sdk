@@ -7,8 +7,14 @@ var ProductAdminClient = require(
   '../clients/commerce/catalog/admin/product');
 
 var FiddlerProxy = require('../plugins/fiddler-proxy');
+var shouldTestLive = require('./should-test-live');
 
 var testContext;
+try {
+  testContext = require('../mozu.test.config.json');
+} catch(e) {
+  testContext = {};
+}
 var testProductService = function(assert, client) {
   assert.plan(3);
   client.getProducts({ pageSize: 3 }).then(function(result) {
@@ -20,12 +26,7 @@ var testProductService = function(assert, client) {
 
 var runTests;
 
-if (process.env.MOZU_TEST_LIVE) {
-  try {
-    testContext = require('../mozu.test.config.json');
-  } catch(e) {
-    testContext = {};
-  }
+if (shouldTestLive()) {
   runTests = function(client) {
     return function(assert) {
       testProductService(assert, client);
@@ -53,10 +54,10 @@ test(
   'payments/publicCard returns Products from ProductAdmin.GetProducts',
   runTests(new ProductAdminClient({ 
     context: testContext,
-    plugins: [FiddlerProxy] 
+    plugins: [FiddlerProxy()] 
   })));
 
 test(
   'legacy client access still returns Products',
-  runTests(LegacySDK.client(testContext, { plugins: [FiddlerProxy] })
+  runTests(LegacySDK.client(testContext, { plugins: [FiddlerProxy()] })
                       .commerce().catalog().admin().product()));

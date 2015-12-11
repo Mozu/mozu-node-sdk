@@ -7,6 +7,7 @@ var OrderClient = require(
   '../clients/commerce/order');
 
 var FiddlerProxy = require('../plugins/fiddler-proxy');
+var shouldTestLive = require('./should-test-live');
 
 var testContext;
 var testOrderService = function(assert, client) {
@@ -20,7 +21,7 @@ var testOrderService = function(assert, client) {
 
 var runTests;
 
-if (process.env.MOZU_TEST_LIVE) {
+if (shouldTestLive()) {
   try {
     testContext = require('../mozu.test.config.json');
   } catch(e) {
@@ -41,7 +42,7 @@ if (process.env.MOZU_TEST_LIVE) {
           {},
           {}
         ]
-      }).then(function(serviceUrl) {
+      }, { ipv6: false }).then(function(serviceUrl) {
         client.context.tenantPod = serviceUrl;
         testOrderService(assert, client);
       });
@@ -52,9 +53,9 @@ if (process.env.MOZU_TEST_LIVE) {
 test('commerce/orders returns Orders from CommerceRuntime.GetOrders',
     runTests(new OrderClient({
       context: testContext,
-      plugins: [FiddlerProxy]
+      plugins: [FiddlerProxy()]
     })));
 
 test('legacy client access still returns Products',
-    runTests(LegacySDK.client(testContext, { plugins: [FiddlerProxy] })
+    runTests(LegacySDK.client(testContext, { plugins: [FiddlerProxy()] })
             .commerce().order()));

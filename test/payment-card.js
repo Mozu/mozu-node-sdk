@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var PublicCardClient = require('../clients/commerce/payments/publicCard');
 
 var FiddlerProxy = require('../plugins/fiddler-proxy');
+var shouldTestLive = require('./should-test-live');
 
 var cardPayload = {
   cvv: "123",
@@ -23,12 +24,10 @@ var cardPayload = {
 
 var testContext;
 var runTests;
-if (process.env.MOZU_TEST_LIVE) {
-  try {
-    testContext = require('../mozu.test.config.json');
-  } catch(e) {
-    testContext = {};
-  }
+try {
+  testContext = require('../mozu.test.config.json');
+} catch(e) {
+  testContext = {};
 }
 
 test(
@@ -38,7 +37,7 @@ test(
     function runTest(url) {
       var client = PublicCardClient({
         context: testContext,
-        plugins: [FiddlerProxy]
+        plugins: [FiddlerProxy()]
       });
       client.context.basePciUrl = url;
       client.create(cardPayload, {
@@ -47,7 +46,7 @@ test(
         assert.ok(result.id, "result delivered with card id");
       })
     }
-    if (process.env.MOZU_TEST_LIVE) {
+    if (shouldTestLive()) {
       assert.plan(1);
       runTest();
     } else {
@@ -63,7 +62,8 @@ test(
               assert.deepEqual(req.body, cardPayload, 'method sent card payload');
               next();
             }
-          ]
+          ],
+          ipv6: false
         }
       ).then(runTest);
     }
@@ -76,6 +76,9 @@ function testPciPodDetection(tenantId, sandbox) {
       {
         id: tenantId,
         isDevTenant: sandbox
+      },
+      {
+        ipv6: false
       }
     ).then(function(fixture) {
       var client = PublicCardClient({
@@ -85,7 +88,7 @@ function testPciPodDetection(tenantId, sandbox) {
           baseUrl: ProdUrls.homeDomain,
           tenantId: tenantId
         },
-        plugins: [FiddlerProxy, function(client) {
+        plugins: [function(client) {
           var makeUrl = client.urlResolver;
           client.urlResolver = function(me, tpt, body) {
             if (~tpt.indexOf('platform/tenants')) {

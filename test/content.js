@@ -6,8 +6,14 @@ var DocumentListClient = require(
   '../clients/content/documentlists/document');
 
 var FiddlerProxy = require('../plugins/fiddler-proxy');
+var shouldTestLive = require('./should-test-live');
 
 var testContext;
+try {
+  testContext = require('../mozu.test.config.json');
+} catch(e) {
+  testContext = {};
+}
 var testContentService = function(assert, client) {
   assert.plan(3);
   client.getDocuments({
@@ -22,12 +28,7 @@ var testContentService = function(assert, client) {
 
 var runTests;
 
-if (process.env.MOZU_TEST_LIVE) {
-  try {
-    testContext = require('../mozu.test.config.json');
-  } catch(e) {
-    testContext = {};
-  }
+if (shouldTestLive()) {
   runTests = function(client) {
     return function(assert) {
       testContentService(assert, client);
@@ -43,7 +44,7 @@ if (process.env.MOZU_TEST_LIVE) {
           {},
           {}
         ]
-      }).then(function(serviceUrl) {
+      }, { ipv6: false }).then(function(serviceUrl) {
         client.context.tenantPod = serviceUrl;
         testContentService(assert, client);
       });
@@ -55,6 +56,6 @@ test(
   'content/documentlists/document returns Documents',
   runTests(new DocumentListClient({ 
     context: testContext,
-    plugins: [FiddlerProxy] 
+    plugins: [FiddlerProxy()] 
   })));
 

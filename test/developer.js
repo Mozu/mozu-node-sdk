@@ -1,7 +1,6 @@
 'use strict';
 var test = require('tape');
 var jort = require('jort');
-var FiddlerProxy = require('../plugins/fiddler-proxy');
 var DeveloperAuthTicketClient = require( '../clients/platform/developer/developerAdminUserAuthTicket');
 var AppDevClient = require( '../clients/platform/application');
 
@@ -30,10 +29,10 @@ test(
                      assert.notOk(req.headers['x-vol-user-claims'],
                                   'no user claims sent');
                                   next();
-      }
+      },
+      ipv6: false
     }).then(function(uri) {
       var client = new DeveloperAuthTicketClient({
-        plugins: [FiddlerProxy],
         context: testContext
       });
       client.context.baseUrl = uri;
@@ -71,9 +70,8 @@ test(
         }
       ]
     ];
-    jort.steps(steps).then(function(uri) {
+    jort.steps(steps, { ipv6: false }).then(function(uri) {
       var client = new AppDevClient({
-        plugins: [FiddlerProxy],
         context: testContext
       });
       client.context.baseUrl = uri;
