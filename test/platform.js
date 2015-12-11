@@ -8,7 +8,7 @@ var TenantClient = require(
 
 var FiddlerProxy = require('../plugins/fiddler-proxy');
 var shouldTestLive = require('./should-test-live');
-var scopes =- require('../constants').scopes;
+var scopes = require('../constants').scopes;
 
 var testContext;
 try {
@@ -31,36 +31,26 @@ var testPlatformService = function(assert, client, noscope) {
   }).catch(assert.fail);
 };
 
-var runTests;
-
-if (shouldTestLive()) {
-  runTests = function(client) {
-    return function(assert) {
-      testPlatformService(assert, client);
-    }
-  }
-} else {
-  runTests = function(client) {
-    return function(assert) {
+test(
+  'platform/tenant returns a tenant from GetTenant',
+  function(assert) {
+    if (shouldTestLive()) {
+      testPlatformService(
+        assert,
+        new TenantClient({ context: testContext, plugins: [FiddlerProxy()]})
+      );
+    } else {
       jort({
         domain: 'example.com',
         id: 1,
         sites: [
           {}
         ]
-      }, { ipv6: false }).then(function(serviceUrl) {
+      }).then(function(serviceUrl) {
+        var client = new TenantClient({ context: testContext });
         client.context.baseUrl = serviceUrl;
         testPlatformService(assert, client, true);
       });
     }
-  };
-}
-
-test(
-  'platform/tenant returns a tenant from GetTenant',
-  runTests(new TenantClient({
-    context: testContext,
-    plugins: [FiddlerProxy()]
-  })));
-
-
+  }
+);
