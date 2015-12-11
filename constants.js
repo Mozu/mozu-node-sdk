@@ -9,7 +9,8 @@ var version = require('./version'),
     MASTERCATALOG = 32,
     CATALOG = 64,
     APP_ONLY = 128,
-    NONE = 256;
+    NONE = 256,
+    APP_REQUIRED = 512;
 
 // scopes are not yet in use, but when the services can reflect
 // their required scope, here will be all the bitmask constants
@@ -24,6 +25,7 @@ SHOPPER |= SITE | CATALOG;
 
 module.exports = {
   scopes: {
+    APP_REQUIRED: APP_REQUIRED,
     DEVELOPER: DEVELOPER,
     ADMINUSER: ADMINUSER,
     SHOPPER: SHOPPER,

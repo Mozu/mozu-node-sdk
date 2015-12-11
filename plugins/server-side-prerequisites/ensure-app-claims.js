@@ -15,7 +15,7 @@ module.exports = function (state) {
 
   var scope = getScopeFromState(state);
 
-  if (!(scope & scopes.NONE || scope & scopes.DEVELOPER)) {
+  if (scope & scopes.APP_REQUIRED || !(scope & scopes.NONE || scope & scopes.DEVELOPER)) {
     return AuthProvider.addPlatformAppClaims(client).then(function () {
       return state;
     });
