@@ -34,7 +34,7 @@ var client = require('mozu-node-sdk/clients/platform/application')({
 Or, if you have a JSON file in your working directory called `mozu.config.json` or `mozu.config`, the SDK will attempt to read configuration out of that instead, and you can call the client factory with no arguments.
 
 For creating credit cards in mozu set the basePciUrl to one of the following
-- https://payments-qa.mozu.com/ for Sandbox tenants
+- https://payments-sb.mozu.com/ for Sandbox tenants
 - https://pmts.mozu.com/ for production tenants
 
 In order to access different features of the API, use `require()` to pull in a client, and pass it your existing client instance in order to preserve context.
