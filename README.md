@@ -75,7 +75,7 @@ Some of the context is necessary in order to bootstrap your Mozu authentication:
  - `client.context['developerAccountId']`: A unique ID for the particular Developer Account context that your developer user should use when contacting App Dev. Unless you are talking to the App Dev services it should not be necessary; you can look it up by examining the numbers next to your developer account link in the Mozu Launchpad immediately after login.
  - `client.context['adminUser']`: An object with an `emailAddress` property and a `password` property, that the client object will use when trying to authenticate to services that require an admin user, such as SiteSettings. **Do not hardcode your password in a file!** If you need persistent authentication, we recommend using an AuthenticationStorage plugin such as [Multipass][1].
 
-The following context values will be sent as HTTP request headers when they are present. 
+The following context values will be sent as HTTP request headers when they are present.
  - `client.context['app-claims']`: The claims header for your associated Application. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for all calls. You can initialize a client with app claims by passing `appClaims` in the context.
  - `client.context['user-claims']`: The claims header for your associated user. The SDK manages its own authentication, so you should rarely have to use this as long as you have it in your configuration. Required for many calls. You can initialize a client with user claims by passing `userClaims` in the context.
  - `client.context['tenant']`: The tenant ID, for scoping calls to a tenant. Required at minimum for all calls to services outside the Home Pod; `tenant` is the outermost scope. You can initialize a client with a tenant ID by passing `tenantId` in the context.
@@ -270,11 +270,15 @@ The SDK comes packaged with on such plugin: FiddlerProxy, which is useful for de
 //gin up clients you can monitor with a proxy
 var FiddlerProxy = require('mozu-node-sdk/plugins/fiddler-proxy');
 var productClient = require('mozu-node-sdk/clients/commerce/catalog/admin/product')({
-  plugins: [FiddlerProxy]
+  plugins: [FiddlerProxy()]
 });
 ```
 
-When the `USE_FIDDLER` environment is nonempty, the above client will route all requests through the proxy at `http://127.0.0.1:8888`.
+When the `USE_FIDDLER` environment is nonempty, the above client will route all requests through the proxy at `http://127.0.0.1:8888`. If the Fiddler is running on another machine or VM, the proxy url can be set up by passing a configuration object to the plugin:
+
+```js
+  FiddlerProxy({ url: 'http://192.168.1.37:8888' })
+```
 
 The `.requestTransform` receives as its argument, and must return, an object of configuration that could be supplied to the builtin Node `http.request` method.
 
@@ -342,7 +346,7 @@ isRequestValid(client.context, req, function(valid) {
 });
 ```
 
-## Development 
+## Development
 
 ### Requirements
 
