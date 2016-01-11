@@ -1,6 +1,6 @@
 {
   "name": "mozu-node-sdk",
-  "title": "Mozu Node SDK",
+  "description": "Mozu JavaScript SDK for Node.js and Arc.js environments",
   "author": "Volusion, Inc.",
   "contributors": [
     {
@@ -10,10 +10,16 @@
   ],
   "scripts": {
     "lint": "eslint src",
+    "prebabel": "npm run lint",
     "babel": "babel src -d .",
-    "test-plain": "tape ./test/*.js",
-    "test": "npm run lint && npm run babel && npm run test-plain | tap-spec",
-    "preversion": "npm test",
+    "preci-bild": "npm run babel",
+    "ci-build": "npm test",
+    "ci-build-stable": "npm run ci-build",
+    "postci-build-stable": "mozu-validate-npm-package",
+    "cov": "istanbul cover test/*.js",
+    "test": "tape ./test/*.js",
+    "spec": "npm run test | tap-spec",
+    "preversion": "npm run spec",
     "version": "git add -A ."
   },
   "babel": {
@@ -29,7 +35,6 @@
   "dependencies": {
     "concat-stream": "^1.5.1",
     "mozu-metadata": "^2.3.1",
-    "node.extend": "~1",
     "tunnel-agent": "^0.4.2",
     "uri-template": "^1.0.0"
   },
@@ -40,13 +45,15 @@
     "body-parser": "^1.14.1",
     "eslint": "^1.10.3",
     "glob": "^6.0.1",
+    "istanbul": "^0.4.2",
     "jort": "^1.2.1",
     "mozu-multipass": "^0.3.0",
+    "mozu-validate-npm-package": "^1.0.1",
     "sinon": "^1.17.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.2.2"
   },
-  "license": "ISC",
+  "license": "MIT",
   "engines": {
     "node": "^4.1.0"
   }
