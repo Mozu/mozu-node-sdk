@@ -7,7 +7,7 @@ var glob = require('glob');
 var getUriTemplate = require('../utils/get-url-template');
 
 test('all uri templates in autogenned code are parseable', function(assert) {
-  let allClients = glob.sync('./clients/**/*.js');
+  var allClients = glob.sync('./clients/**/*.js');
   assert.plan(allClients.length);
   allClients.forEach(function(f) {
     var t = acorn.parse(fs.readFileSync(f, 'utf8'));
