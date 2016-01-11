@@ -27,7 +27,7 @@
       "es2015"
     ]
   },
-  "version": "2.2.3",
+  "version": "2.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Mozu/mozu-node-sdk.git"
