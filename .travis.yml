@@ -5,7 +5,7 @@ os:
 sudo: false
 branches:
   except:
-    - /^v[0-9]/
+  - /^v[0-9]/
 env:
   matrix:
   - TRAVIS_NODE_VERSION="0.12"
@@ -19,7 +19,7 @@ before_script:
 - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
   && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm
   install $TRAVIS_NODE_VERSION
-- npm install -g npm #want latest npm
+- npm install -g npm
 - npm install
 - git config --global user.email "travis-ci-build@volusion.com"
 - git config --global user.name "Travis CI Build"
@@ -29,4 +29,4 @@ script:
 - if [ -n "TRAVIS_TAG" ]; then npm run ci-build-stable; else npm run ci-build; fi
 notifications:
   slack:
-    secure: 1JBhIYVAEGxoylBBOyOzw4ynj+2LUwl42elrWJ/JyR0uHvsLZB8FevSscxXk/lz2ltQD7mvfbPJHcnbvXJDNXmvAsliT0syy/Zz/ELexg5HaiYx6Hg7j5cfcMfl40byeJb2GUvigxNgj5DXA1DyZiesQ0vHKbua8F3HjBauNCVZeV6QGAkibDlvD+qwC6HZnJthgXYFYZZKZiHR2q2cyav/LkYJvvODtqwEa8cIR+ScHS/3MK7EgRYfCJ3YZbO7J5zwMbp0cdXdSR6VzY0jSwNNQr2LhWRCx46Z0V4VBlcPUrcft7Psum2vnbYDMp3TPo/M191iFFNZTyAyRGncNkVqJSBM6ypWKOwe/maH06gmoir+yVKzU0EIhOx9rlh7G6nOgl+Lk75d4IscPGPgt058BFGi0xY5qbbAd2krm9eM4NAcRK0cMeEw6Ln7m1/qXb9I1B9KEVsBhA8ou1pPoh7LtMIhs0SaQ2eLPES0NDRVL3zQ6JPFpycBr5OCA/AzlDiwv4MRbk6KMWygVggraa9Fq1BlptSrOVqEUPQj/0lLn7qfKkQOHAl4ICbznYhkXIz3wpXF7iXrahVd8R79l4gw2bt4xwsZiSVqsFb1XcSMvyBqkcUnxF1qOwTMAIxzlyXVU/27lZHNNJstpef426eIrtBDVGjRtlsz7vbwY9y8=
+    secure: aaucbfzRlAgHA9VL6QeXNoY5UAWvQ8ITLKdtyOrDeU2I1r7eDbDNNcudHX70EQ3C4d57t6G24gZ9cHKb1QCjTvceWVC5zF6jZTWVBSTl4jSRRIVkkIns7W78iSD6H1WViDvt9QwGlRHN1wDDxa5IcCqQJuT6lU9S/ybVJKBW008=
