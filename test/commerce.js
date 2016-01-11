@@ -3,16 +3,23 @@ var test = require('tape');
 var jort = require('jort');
 
 var LegacySDK = require('../');
+var testContext = require('./_test-context');
 var OrderClient = require(
   '../clients/commerce/order');
 
 var FiddlerProxy = require('../plugins/fiddler-proxy');
-var shouldTestLive = require('./should-test-live');
+var shouldTestLive = require('./_should-test-live');
 
-var testContext;
 var testOrderService = function(assert, client) {
   assert.plan(3);
-  client.getOrders({ pageSize: 3 }).then(function(result) {
+  client.getOrders(
+    {
+      pageSize: 3
+    },
+    {
+      scope: 'NONE'
+    }
+  ).then(function(result) {
     assert.ok(result, 'result delivered');
     assert.equal(result.pageSize, 3, 'pagesize as expected');
     assert.equal(result.items.length, 3, 'items as expected');
@@ -22,11 +29,6 @@ var testOrderService = function(assert, client) {
 var runTests;
 
 if (shouldTestLive()) {
-  try {
-    testContext = require('../mozu.test.config.json');
-  } catch(e) {
-    testContext = {};
-  }
   runTests = function(client) {
     return function(assert) {
       testOrderService(assert, client);

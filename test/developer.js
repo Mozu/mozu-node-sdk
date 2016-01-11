@@ -3,13 +3,7 @@ var test = require('tape');
 var jort = require('jort');
 var DeveloperAuthTicketClient = require( '../clients/platform/developer/developerAdminUserAuthTicket');
 var AppDevClient = require( '../clients/platform/application');
-
-var testContext;
-try {
-  testContext = require('../mozu.test.config.json')
-} catch(e) {
-  testContext = {};
-}
+var testContext = require('./_test-context');
 
 var fakeAuthTicket = {
   accessToken: 'accessToken',

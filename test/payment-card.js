@@ -7,9 +7,9 @@ var jort = require('jort');
 var bodyParser = require('body-parser');
 
 var PublicCardClient = require('../clients/commerce/payments/publicCard');
-
 var FiddlerProxy = require('../plugins/fiddler-proxy');
-var shouldTestLive = require('./should-test-live');
+var testContext = require('./_test-context');
+var shouldTestLive = require('./_should-test-live');
 
 var cardPayload = {
   cvv: "123",
@@ -21,14 +21,6 @@ var cardPayload = {
   cardIssueMonth: "01",
   cardIssueYear: "14"
 };
-
-var testContext;
-var runTests;
-try {
-  testContext = require('../mozu.test.config.json');
-} catch(e) {
-  testContext = {};
-}
 
 test(
   'payments/publicCard sends card data via basePCIUrl',

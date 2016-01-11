@@ -4,6 +4,7 @@ var TenantClient = require('../clients/platform/tenant');
 
 var client = new TenantClient({
   context: {
+    baseUrl: 'http://example.com',
     'dataview-mode': 'PENDING',
     appClaims: 'camelClaims',
     'app-claims': 'dash-claims',

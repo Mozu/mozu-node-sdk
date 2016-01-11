@@ -2,16 +2,11 @@
 var test = require('tape');
 var jort = require('jort');
 var sinon = require('sinon');
+var testContext = require('./_test-context');
 
 var ProductClient = require('../clients/commerce/catalog/admin/product');
 var Multipass = require('mozu-multipass');
 
-var testContext;
-try {
-  testContext = require('../mozu.test.config.json');
-} catch(e) {
-  testContext = {};
-}
 
 var getClient = function(plugins) {
   var client = ProductClient({

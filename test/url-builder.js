@@ -1,5 +1,6 @@
 'use strict';
 var test = require('tape');
+var testContext = require('./_test-context');
 
 var opts = {
   cvv: "123",
@@ -16,7 +17,7 @@ var opts = {
 test('provides an informative error if your client context does not include a required base url', 
      function(assert) {
     assert.plan(2);
-    var client = require('../clients/commerce/payments/publicCard')();
+    var client = require('../clients/commerce/payments/publicCard')({ context: testContext });
     delete client.context.basePciUrl;
     delete client.context.tenantPod;
     client.context.baseUrl = "https://unrecognized.domain";
@@ -26,6 +27,6 @@ test('provides an informative error if your client context does not include a re
       assert.fail('throws pci pod error');
     }, function(err) {
       assert.ok(err, 'error threw');
-      assert.ok(~err.message.indexOf('no known payment service domain'), "error message is correct");
+      assert.ok(~err.message.indexOf('no known payment service domain'), "error message is correct: " + err.message);
     });
   });

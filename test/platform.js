@@ -7,15 +7,10 @@ var TenantClient = require(
 );
 
 var FiddlerProxy = require('../plugins/fiddler-proxy');
-var shouldTestLive = require('./should-test-live');
+var shouldTestLive = require('./_should-test-live');
+var testContext = require('./_test-context');
 var scopes = require('../constants').scopes;
 
-var testContext;
-try {
-  testContext = require('../mozu.test.config.json');
-} catch(e) {
-  testContext = {};
-}
 var testPlatformService = function(assert, client, noscope) {
   assert.plan(5);
   client.getTenant({ 

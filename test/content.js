@@ -4,22 +4,21 @@ var jort = require('jort');
 
 var DocumentListClient = require(
   '../clients/content/documentlists/document');
-
+var testContext = require('./_test-context');
 var FiddlerProxy = require('../plugins/fiddler-proxy');
-var shouldTestLive = require('./should-test-live');
+var shouldTestLive = require('./_should-test-live');
 
-var testContext;
-try {
-  testContext = require('../mozu.test.config.json');
-} catch(e) {
-  testContext = {};
-}
 var testContentService = function(assert, client) {
   assert.plan(3);
-  client.getDocuments({
-    pageSize: 3,
-    documentListName: "files@mozu"
-  }).then(function(result) {
+  client.getDocuments(
+    {
+      pageSize: 3,
+      documentListName: "files@mozu"
+    },
+    {
+      scope: 'NONE'
+    }
+  ).then(function(result) {
     assert.ok(result, 'result delivered');
     assert.equal(result.pageSize, 3, 'pagesize as expected');
     assert.equal(result.items.length, 3, 'items as expected');
