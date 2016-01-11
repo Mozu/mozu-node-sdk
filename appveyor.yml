@@ -8,6 +8,9 @@ environment:
     - nodejs_version: "4.2"
     - nodejs_version: "5"
 
+matrix:
+  fast_finish: true
+
 branches:
   except:
     - /^v[0-9]/
