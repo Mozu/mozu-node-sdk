@@ -1,13 +1,7 @@
 {
   "name": "mozu-node-sdk",
   "description": "Mozu JavaScript SDK for Node.js and Arc.js environments",
-  "author": "Volusion, Inc.",
-  "contributors": [
-    {
-      "name": "James Zetlen",
-      "email": "james_zetlen@volusion.com"
-    }
-  ],
+  "author": "Volusion, LLC",
   "scripts": {
     "lint": "eslint src",
     "prebabel": "npm run lint",
@@ -30,7 +24,7 @@
   "version": "2.3.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mozu/mozu-node-sdk.git"
+    "url": "https://github.com/Mozu/mozu-node-sdk"
   },
   "dependencies": {
     "concat-stream": "^1.5.1",
