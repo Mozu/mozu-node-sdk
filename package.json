@@ -12,7 +12,7 @@
     "lint": "eslint src",
     "prebabel": "npm run lint",
     "babel": "babel src -d .",
-    "preci-bild": "npm run babel",
+    "preci-build": "npm run babel",
     "ci-build": "npm test",
     "ci-build-stable": "npm run ci-build",
     "postci-build-stable": "mozu-validate-npm-package",
@@ -34,24 +34,24 @@
   },
   "dependencies": {
     "concat-stream": "^1.5.1",
-    "mozu-metadata": "^2.3.1",
+    "mozu-metadata": "^2.3.2",
     "tunnel-agent": "^0.4.2",
     "uri-template": "^1.0.0"
   },
   "devDependencies": {
-    "acorn": "^2.6.4",
-    "babel-cli": "^6.3.17",
+    "acorn": "^2.7.0",
+    "babel-cli": "^6.4.0",
     "babel-preset-es2015": "^6.3.13",
-    "body-parser": "^1.14.1",
+    "body-parser": "^1.14.2",
     "eslint": "^1.10.3",
-    "glob": "^6.0.1",
+    "glob": "^6.0.4",
     "istanbul": "^0.4.2",
-    "jort": "^1.2.2",
+    "jort": "^1.3.0",
     "mozu-multipass": "^0.3.0",
-    "mozu-validate-npm-package": "^1.0.1",
+    "mozu-validate-npm-package": "^1.1.0",
     "sinon": "^1.17.2",
     "tap-spec": "^4.1.1",
-    "tape": "^4.2.2"
+    "tape": "^4.4.0"
   },
   "license": "MIT",
   "engines": {

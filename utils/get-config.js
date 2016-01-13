@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 // BEGIN INIT
-;
+
 var fs = require('fs');
 var findup = require('./tiny-findup');
 
