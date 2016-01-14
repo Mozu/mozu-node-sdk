@@ -1,6 +1,6 @@
 'use strict';
 
-function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 var TenantCache = require('../../utils/tenant-cache');
 var EnvUrls = require('mozu-metadata/data/environments.json');
@@ -24,7 +24,7 @@ module.exports = function (state) {
   var url = requestConfig.url;
 
   if (~getUrlTemplate(url).keysUsed.indexOf('pciPod') && !client.context.basePciUrl && !client.context.pciPod) {
-    var _ret = (function () {
+    var _ret = function () {
       var tenantId = client.context.tenantId || client.context.tenant;
       var pciUrls = PCIUrlsByBaseUrl[client.context.baseUrl];
       if (!tenantId) {
@@ -43,7 +43,7 @@ module.exports = function (state) {
           })
         };
       }
-    })();
+    }();
 
     if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
   } else {

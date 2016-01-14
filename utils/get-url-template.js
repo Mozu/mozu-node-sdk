@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /**
  * Memoized function to turn URI Template text strings into Template objects.
  *
@@ -9,7 +9,6 @@
  * @returns {Template} Object with a `render` method and a `keysUsed` object.
  */
 
-;
 var expRe = /\{.+?\}/g;
 var varnameRe = /[\w_-]+/;
 function findKeys(rawTpt) {

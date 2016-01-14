@@ -31,8 +31,8 @@ test_script:
   - npm --version
   # We test multiple Windows shells because of Node.js stdout buffering issues:
   # https://github.com/joyent/node/issues/3584
-  - ps: "npm run ci-build #PowerShell" # Pass comment to PS for easier debugging
-  - cmd: npm run ci-build
+  - ps: "if ( -not $env:APPVEYOR_REPO_TAG ) { npm run ci-build } else { npm run ci-build-stable }"
+  - cmd: "if [%APPVEYOR_REPO_TAG%] == [] npm run ci-build else npm run ci-build-stable"
 
 # Don't actually build any .NET.
 build: off

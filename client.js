@@ -62,9 +62,9 @@ function Client(cfg) {
   if (cfg.plugins) {
     // override plugins if necessary
     this.plugins = cfg.plugins.slice();
-    this.plugins.forEach((function (p) {
+    this.plugins.forEach(function (p) {
       p(this);
-    }).bind(this));
+    }.bind(this));
   }
 }
 

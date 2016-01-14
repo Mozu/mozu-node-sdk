@@ -225,44 +225,45 @@ This guarantees that the global `Promise` constructor will be available. That co
 
 ### Plugins
 
-#### Authentication Storage
+The Mozu Node SDK has a simple plugin system. A Client object created by any one of the client generation methods has a set of semi-private methods that it uses for internal behavior. By default, a generated client has implementations of these methods that are appropriate for a standard NodeJS or ArcJS context, but you can swap these out on any client object. Each method has a different name and signature; this is pretty deliberately under-engineered.
 
-Client factory methods can accept other configurations besides `context`. One such configuration property is `plugins`, which must be an array of functions that transform a client. One supported plugin type is `AuthenticationStorage`. An AuthenticationStorage plugin must supply an `authenticationStorage` property to an SDK client.
+One convenience: you can supply an array of `plugins` to the client factory method configuration object, alongside the `context`. Each plugin is a function that will receive the client and can should append or replace one of the properties below.
 
-```js
-// `null` to fetch context from a local config file
-var persistentAuthClient = require('mozu-node-sdk/clients/platform/applications')({
-  plugins: [customAuthStorageObject]
-});
-```
+#### Plugin Types
 
-The SDK will call this object to store and retrieve auth tickets. It must be a function that receives a client as its argument, and returns an object that implements the following methods, both asynchronous:
+##### Authentication Storage: `client.authenticationStorage`
 
-##### `AuthenticationStorage.get(claimType, context, callback)`
-Retrieve a stored auth ticket. Should never return tickets whose refresh tokens have expired.
-**Arguments:**
- - `claimType` *(String)* A string representing the type of ticket to retrieve. Can be one of the following strings:
-    - `"platform"` -- an app claim for your application
-    - `"developer"` -- a user claim for a developer account to use Platform services
-    - `"admin-user"` -- a user claim for an administrator to work with tenant data
- - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
- - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument first that should be null, and a `ticket` argument second, that will be either `undefined` if no ticket exists, or an Auth Ticket a qualifying one exists.
+An Authentication Storage plugin must supply a `client.authenticationStorage` object. It must have `get` and `set` methods. The SDK will call this object internally to store and retrieve auth tickets.
 
-##### `AuthenticationStorage.set(claimType, context, ticket, callback)`
-Store an auth ticket. Invoke an asynchronous callback to indicate that the ticket was successfully stored.
-**Arguments:**
- - `claimType` *(String)* A string representing the type of ticket to store. Can be one of the following strings:
-    - `"platform"` -- an app claim for your application
-    - `"developer"` -- a user claim for a developer account to use Platform services
-    - `"admin-user"` -- a user claim for an administrator to work with tenant data
- - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
- - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument that should be null. There is no result sent to this callback; as long as the error is null, the operation succeeded.
+ - `AuthenticationStorage.get(claimType, context, callback)`
+
+    Retrieve a stored auth ticket. Should never return tickets whose refresh tokens have expired.
+
+    **Arguments:**
+     - `claimType` *(String)* A string representing the type of ticket to retrieve. Can be one of the following strings:
+        - `"platform"` -- an app claim for your application
+        - `"developer"` -- a user claim for a developer account to use Platform services
+        - `"admin-user"` -- a user claim for an administrator to work with tenant data
+     - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
+     - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument first that should be null, and a `ticket` argument second, that will be either `undefined` if no ticket exists, or an Auth Ticket a qualifying one exists.
+
+ - `AuthenticationStorage.set(claimType, context, ticket, callback)`
+
+    Store an auth ticket. Invoke an asynchronous callback to indicate that the ticket was successfully stored.
+
+    **Arguments:**
+    - `claimType` *(String)* A string representing the type of ticket to store. Can be one of the following strings:
+      - `"platform"` -- an app claim for your application
+      - `"developer"` -- a user claim for a developer account to use Platform services
+      - `"admin-user"` -- a user claim for an administrator to work with tenant data
+    - `context` *(Object)* The context object your client includes. This context is required to calculate a unique key for the stored ticket.
+    - `callback` *(Function)* A callback that will be invoked, Node-style, with a `error` argument that should be null. There is no result sent to this callback; as long as the error is null, the operation succeeded.
 
 If you need auth persistence, consider using the [Multipass][1] plugin for AuthenticationStorage.
 
-#### Request Transforms
+##### Request Transform: `client.requestTransform`
 
-Another plugin type is `RequestTransform`. A request transform is a function which adjusts the configuration for HTTP requests at a low level. A RequestTransform plugin must attach this function to clients as a `.requestTransform` property.
+Another plugin type is Request Transform. A request transform is a function which adjusts the configuration for HTTP requests at a low level. A RequestTransform plugin must attach this function to clients as a `.requestTransform` property.
 
 The SDK comes packaged with on such plugin: FiddlerProxy, which is useful for development. You can use a local HTTP request monitor proxy like Fiddler or Charles to monitor SDK requests; just use the `FiddlerProxy` plugin and export the environment variable `USE_FIDDLER` to turn it on.
 
@@ -281,6 +282,18 @@ When the `USE_FIDDLER` environment is nonempty, the above client will route all 
 ```
 
 The `.requestTransform` receives as its argument, and must return, an object of configuration that could be supplied to the builtin Node `http.request` method.
+
+##### Prerequisite Tasks: `client.prerequisiteTasks`
+
+A plugin type which has immense control over SDK client behavior is the Prerequisite Tasks plugin. By default, a client will inspect every request to make sure it has necessary prerequisites before actually dispatching the request. These prerequisites might include authentication, context completion checking, or the determining of the appropriate base URL. The default array of prerequisite tasks is designed for a NodeJs environment and an app that will require authentication.
+
+A Prerequisite Tasks plugin is a function which assigns an *array of Promise-returning functions to the `client.prerequisiteTasks` property of a client.* The functions are run in order and their composed output is sent to the client.
+
+Each function receives a `state` object with `client`, `requestConfig`, and `url` properties, and must return the same type of object, or a Promise for the same type of object. The function can also throw an exception to cancel the client request.
+
+##### URL Resolver: `client.urlResolver`
+
+This plugin type can govern how URL templates from the generated client methods turn into fully realized URLs. It's a function that receives three arguments: a Client instance, a URI template (according to the RFC), and a request body as JSON. It must return a string URL.
 
 #### Setting Environment Variables
 
@@ -357,20 +370,18 @@ isRequestValid(client.context, req, function(err) {
 
 ### Requirements
 
-*   NodeJS >= 0.12
+*   NodeJS >= 4.2
 
 ### Testing
 
-The tests use the [Mocha](http://mochajs.org/) framework and the [Chai](http://chaijs.com/) assertion library, with the [Chai as Promised](http://chaijs.com/plugins/chai-as-promised) extensions for native Promise support in assertions.
+The tests use the [tape](https://github.com/substack/tape) framework. Tests should be simple and should use [jort](http://npmjs.com/package/jort) to mock service responses.
 
 Run the tests with:
 ```
 npm test
 ```
 
-Mocha will run all .js file in the `test` directory. To add a test, simply copy one of the existing test files to use its setup boilerplate, and then modify the `it()` function.
-
-The tests are set up to run against a live Mozu sandbox. Configure which sandbox is used by adding a `mozu.config.json` file in the root SDK directory. Without this file, the tests will all fail.
+The tests are set up to run against a live Mozu sandbox. Configure which sandbox is used by adding a `mozu.test.config.json` file in the root SDK directory. Then, set the environment variable `MOZU_TEST_LIVE` to true.
 
 The clients in the unit tests are all configured to use the FiddlerProxy plugin, so export the `USE_FIDDLER` environment variable as described above in order to monitor the test network traffic.
 
