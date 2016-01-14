@@ -4,6 +4,7 @@ try {
 } catch(e) {
   testContext = {
     appKey: 'nothing',
+    sharedSecret: '12345',
     baseUrl: 'http://example.com',
     developerAccountId: 1,
     developerAccount: {
