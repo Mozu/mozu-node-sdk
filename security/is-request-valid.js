@@ -1,11 +1,13 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var hashStream = require('./hash-stream'),
-  concat = require('concat-stream'),
-  constants = require('../constants'),
-  url = require('url'),
-  util = require('util'),
-  defaultTimeout = constants.capabilityTimeoutInSeconds;
+    concat = require('concat-stream'),
+    constants = require('../constants'),
+    url = require('url'),
+    util = require('util'),
+    defaultTimeout = constants.capabilityTimeoutInSeconds;
 
 module.exports = function isRequestValid(context, req, cb) {
 
@@ -20,26 +22,26 @@ module.exports = function isRequestValid(context, req, cb) {
   if (!req.body) {
     return cb(new Error("The request object must contain a body."));
   }
-  
+
   var timeout = context.capabilityTimeoutInSeconds || defaultTimeout;
-  var uri = (req.url ? url.parse(req.url, true) : null);
+  var uri = req.url ? url.parse(req.url, true) : null;
 
   if (uri.query.messageHash && uri.query.dt) {
     var headers = req.headers,
-      queryString = uri.query,
-      requestDate = new Date(queryString.dt),
-      currentDate = new Date(),
-      diff = (currentDate - requestDate) / 1000,
-      messageHash = decodeURIComponent(queryString.messageHash);
+        queryString = uri.query,
+        requestDate = new Date(queryString.dt),
+        currentDate = new Date(),
+        diff = (currentDate - requestDate) / 1000,
+        messageHash = decodeURIComponent(queryString.messageHash);
 
     var bodyString = "";
 
-    if (typeof req.body === 'object') {
+    if (_typeof(req.body) === 'object') {
       var bodyKeys = Object.keys(req.body);
 
       for (var i = 0; i < bodyKeys.length; i++) {
-        bodyString += (bodyKeys[i] + '=' + req.body[bodyKeys[i]]);
-        if (i < (bodyKeys.length - 1)) {
+        bodyString += bodyKeys[i] + '=' + req.body[bodyKeys[i]];
+        if (i < bodyKeys.length - 1) {
           bodyString += '&';
         }
       }
@@ -48,7 +50,7 @@ module.exports = function isRequestValid(context, req, cb) {
     } else {
       return cb(new Error("Unable to process the request body on the incoming request object. Please structure the body on your request as an object or a string. This utility does not process buffers."));
     }
-    
+
     req.pipe(hashStream(context.sharedSecret, queryString.dt, bodyString)).pipe(concat(function (hash) {
       if (hash !== messageHash || diff > timeout) {
         return cb(new Error(util.format("Unauthorized access from %s, %s, %s Computed: %s", headers.host, messageHash, queryString.dt, hash)));
@@ -57,7 +59,7 @@ module.exports = function isRequestValid(context, req, cb) {
       }
     }));
   } else if (req.headers.date && req.headers[constants.headerPrefix + constants.headers['SHA256']]) {
-    var body = typeof req.body === 'string' ? JSON.stringify(JSON.parse(req.body)) : JSON.stringify(req.body);
+    var body = typeof req.body === 'string' ? JSON.parse(req.body) : JSON.stringify(req.body);
     headers = req.headers;
     requestDate = new Date(headers.date);
     currentDate = new Date();
@@ -73,5 +75,4 @@ module.exports = function isRequestValid(context, req, cb) {
   } else {
     return cb(new Error("No headers or query parameters from Mozu are present on the request object. An error occured, this request is malformed, or this request did not originate from Mozu."));
   }
-
 };
