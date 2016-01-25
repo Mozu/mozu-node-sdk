@@ -83,7 +83,7 @@ module.exports = function (options, transform) {
     var request = protocolHandler.request(requestOptions, function (response) {
       streamToCallback(response, function (err, body) {
         complete = true;
-        if (err) return reject(errorify(err, extend({ statusCode: response.statusCode }, response.headers)));
+        if (err) return reject(errorify(err, extend({ statusCode: response.statusCode, url: response.req.path}, response.headers)));
         if (body) {
           try {
             body = JSON.parse(body, conf.parseDates !== false && parseJsonDates);
@@ -92,7 +92,7 @@ module.exports = function (options, transform) {
           }
         }
         if (response && response.statusCode >= 400 && response.statusCode < 600) {
-          return reject(errorify(body || response, extend({ statusCode: response.statusCode }, response.headers)));
+          return reject(errorify(body || response, extend({ statusCode: response.statusCode, url: response.req.path}, response.headers)));
         }
         return resolve(body);
       });
