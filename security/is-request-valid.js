@@ -59,7 +59,7 @@ module.exports = function isRequestValid(context, req, cb) {
       }
     }));
   } else if (req.headers.date && req.headers[constants.headerPrefix + constants.headers['SHA256']]) {
-    var body = typeof req.body === 'string' ? JSON.parse(req.body) : JSON.stringify(req.body);
+    var body = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
     headers = req.headers;
     requestDate = new Date(headers.date);
     currentDate = new Date();
