@@ -22,11 +22,15 @@ module.exports = Client.sub({
 	}),
 	getSearchTuningRuleSortFields: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrulesortfields'
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrulesortfields?responseFields={responseFields}'
 	}),
 	getSettings: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/settings?responseFields={responseFields}'
+	}),
+	getSynonymDefinitionCollection: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/synonym-definitions/{localeCode}?responseFields={responseFields}'
 	}),
 	addSearchTuningRule: Client.method({
 		method: constants.verbs.POST,
@@ -34,7 +38,11 @@ module.exports = Client.sub({
 	}),
 	updateSearchTuningRuleSortFields: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrulesortfields'
+		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrulesortfields?responseFields={responseFields}'
+	}),
+	updateSynonymDefinitionCollection: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/synonym-definitions/{localeCode}?responseFields={responseFields}'
 	}),
 	updateSearchTuningRule: Client.method({
 		method: constants.verbs.PUT,

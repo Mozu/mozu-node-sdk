@@ -14,7 +14,7 @@ var Client = require('../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	createAnonymousShopperAuthTicket: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/customer/authtickets/anonymousshopper'
+		url: '{+tenantPod}api/commerce/customer/authtickets/anonymousshopper?responseFields={responseFields}'
 	}),
 	createUserAuthTicket: Client.method({
 		method: constants.verbs.POST,
