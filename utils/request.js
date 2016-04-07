@@ -37,22 +37,16 @@ function makeHeaders(conf, payload) {
     headers['Content-Length'] = payload.length.toString();
   }
 
-  if (payload && isJsonContent(payload)) {
-    headers['Content-Type'] = 'application/json; charset=utf-8';     
-  }
-
-  
 
   return extend({
     'Accept': 'application/json',
     'Connection': 'close',
+    'Content-Type' : 'application/json; charset=utf-8',
     'User-Agent': USER_AGENT
   }, headers, conf.headers || {});
 }
 
-function isJsonContent(payload) {
-  return (typeof payload === "string" && !Buffer.isBuffer(payload))
-}
+
 
 /**
  * Make an HTTP request to the Mozu API. This method populates headers based on the scope of the supplied context.
