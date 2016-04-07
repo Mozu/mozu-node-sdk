@@ -37,12 +37,21 @@ function makeHeaders(conf, payload) {
     headers['Content-Length'] = payload.length.toString();
   }
 
+  if (payload && isJsonContent(payload)) {
+    headers['Content-Type'] = 'application/json; charset=utf-8';     
+  }
+
+  
+
   return extend({
     'Accept': 'application/json',
     'Connection': 'close',
-    'Content-Type': 'application/json; charset=utf-8',
     'User-Agent': USER_AGENT
   }, headers, conf.headers || {});
+}
+
+function isJsonContent(payload) {
+  return (typeof payload === "string" && !Buffer.isBuffer(payload))
 }
 
 /**
@@ -67,15 +76,16 @@ module.exports = function (options, transform) {
   if (!protocolHandler) {
     throw new Error('Protocol ' + uri.protocol + ' not supported.');
   }
+
   return new Promise(function (resolve, reject) {
-    var requestOptions = extend({
+    var requestOptions = extend(options, {
       hostname: uri.hostname,
       port: uri.port || (uri.protocol === 'https:' ? 443 : 80),
       method: conf.method,
       path: uri.path,
       headers: conf.headers,
       agent: conf.agent
-    }, options);
+    });
     if (typeof transform === "function") {
       requestOptions = transform(requestOptions);
     }

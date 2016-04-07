@@ -14,8 +14,7 @@
     "test": "tape ./test/*.js",
     "spec": "npm run test | tap-spec",
     "preversion": "npm run spec",
-    "version": "git add -A .",
-    "prepublish": "mozu-npm-publish-check"
+    "version": "git add -A ."
   },
   "babel": {
     "presets": [
