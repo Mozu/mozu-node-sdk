@@ -10,6 +10,8 @@ module.exports = Client.sub({
 	"facet": require('./admin/facet'),
 	"locationInventory": require('./admin/locationInventory'),
 	"masterCatalog": require('./admin/masterCatalog'),
+	"priceList": require('./admin/priceList'),
+	"pricelists": require('./admin/pricelists'),
 	"product": require('./admin/product'),
 	"productReservation": require('./admin/productReservation'),
 	"products": require('./admin/products'),

@@ -56,6 +56,10 @@ module.exports = Client.sub({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/email/resend'
 	}),
+	changeOrderPriceList: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/priceList?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
 	changeOrderUserId: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/users?responseFields={responseFields}'
