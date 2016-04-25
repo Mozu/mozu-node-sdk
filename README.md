@@ -7,6 +7,10 @@ Requirements:
  - Node 4.0 and above, **or**
  - Node 0.12 and below, **with a global Promise polyfill [as shown below](#promise-global-now-required)**
 
+## Get Started
+
+To learn how to use the Mozu Node SDK, read our Pulitzer Prize-winning [Getting Started](https://www.mozu.com/docs/developer/sdks/mozu-node-sdk.htm) guide.
+
 ## Usage
 
 Full reference documentation is available in the form of the [REST API](http://developer.mozu.com/content/api/APIResources/Resource_Overview.htm) section in the Mozu Developer Center. The Node SDK has methods for each one of the resources listed here. Below is a quick getting-started guide.
