@@ -63,6 +63,9 @@ module.exports = function (options, transform) {
     if (typeof payload !== "string" && !Buffer.isBuffer(payload)) {
       payload = JSON.stringify(payload);
     }
+    if ( typeof payload === "string"){
+      payload = new Buffer(payload);
+    }
   }
   conf.headers = makeHeaders(conf, payload);
   var uri = url.parse(conf.url);
