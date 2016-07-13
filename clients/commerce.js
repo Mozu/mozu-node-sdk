@@ -16,6 +16,8 @@ module.exports = Client.sub({
 	"return": require('./commerce/return'),
 	"returns": require('./commerce/returns'),
 	"settings": require('./commerce/settings'),
+	"shipping": require('./commerce/shipping'),
+	"targetRule": require('./commerce/targetRule'),
 	"wishlist": require('./commerce/wishlist'),
 	"wishlists": require('./commerce/wishlists')
 });

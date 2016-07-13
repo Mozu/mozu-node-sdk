@@ -68,6 +68,10 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/customer/accounts/loginstatebyusername?userName={userName}&responseFields={responseFields}'
 	}),
+	getCustomersPurchaseOrderAccounts: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/accounts/purchaseOrderAccounts?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&responseFields={responseFields}'
+	}),
 	resetPassword: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/customer/accounts/Reset-Password'

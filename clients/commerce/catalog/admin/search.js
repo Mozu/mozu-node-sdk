@@ -32,6 +32,14 @@ module.exports = Client.sub({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/synonym-definitions/{localeCode}?responseFields={responseFields}'
 	}),
+	getSynonymDefinitions: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/synonyms/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+	}),
+	getSynonymDefinition: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/synonyms/{synonymId}?responseFields={responseFields}'
+	}),
 	addSearchTuningRule: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrules?responseFields={responseFields}'
@@ -44,6 +52,10 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/synonym-definitions/{localeCode}?responseFields={responseFields}'
 	}),
+	addSynonymDefinition: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/synonyms?responseFields={responseFields}'
+	}),
 	updateSearchTuningRule: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrules/{searchTuningRuleCode}?responseFields={responseFields}'
@@ -52,8 +64,16 @@ module.exports = Client.sub({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/settings?responseFields={responseFields}'
 	}),
+	updateSynonymDefinition: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/synonyms/{synonymId}?responseFields={responseFields}'
+	}),
 	deleteSearchTuningRule: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+tenantPod}api/commerce/catalog/admin/search/searchtuningrules/{searchTuningRuleCode}'
+	}),
+	deleteSynonymDefinition: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/catalog/admin/search/synonyms/{synonymId}'
 	})
 });
