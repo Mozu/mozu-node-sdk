@@ -66,7 +66,7 @@ module.exports = Client.sub({
 	}),
 	getLoginStateByUserName: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/customer/accounts/loginstatebyusername?userName={userName}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/accounts/loginstatebyusername?userName={userName}&customerSetCode={customerSetCode}&responseFields={responseFields}'
 	}),
 	getCustomersPurchaseOrderAccounts: Client.method({
 		method: constants.verbs.POST,

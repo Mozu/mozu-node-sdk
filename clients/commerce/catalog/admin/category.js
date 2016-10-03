@@ -26,7 +26,7 @@ module.exports = Client.sub({
 	}),
 	addCategory: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/admin/categories/?incrementSequence={incrementSequence}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/admin/categories/?incrementSequence={incrementSequence}&useProvidedId={useProvidedId}&responseFields={responseFields}'
 	}),
 	updateCategoryTree: Client.method({
 		method: constants.verbs.POST,

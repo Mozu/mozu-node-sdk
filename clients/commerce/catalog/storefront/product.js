@@ -14,7 +14,7 @@ var Client = require('../../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getProducts: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/?filter={filter}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&responseOptions={responseOptions}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/?filter={filter}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&responseOptions={responseOptions}&cursorMark={cursorMark}&responseFields={responseFields}'
 	}),
 	getProductInventory: Client.method({
 		method: constants.verbs.GET,
@@ -22,7 +22,7 @@ module.exports = Client.sub({
 	}),
 	getProduct: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&supressOutOfStock404={supressOutOfStock404}&quantity={quantity}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&supressOutOfStock404={supressOutOfStock404}&quantity={quantity}&acceptVariantProductCode={acceptVariantProductCode}&responseFields={responseFields}'
 	}),
 	getProductForIndexing: Client.method({
 		method: constants.verbs.GET,
