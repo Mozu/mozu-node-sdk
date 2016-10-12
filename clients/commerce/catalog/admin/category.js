@@ -28,10 +28,6 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/categories/?incrementSequence={incrementSequence}&useProvidedId={useProvidedId}&responseFields={responseFields}'
 	}),
-	updateCategoryTree: Client.method({
-		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/admin/categories/category-tree'
-	}),
 	validateDynamicExpression: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/categories/ValidateDynamicExpression?responseFields={responseFields}'

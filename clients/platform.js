@@ -8,6 +8,7 @@ module.exports = Client.sub({
 	"developer": require('./platform/developer'),
 	"entityList": require('./platform/entityList'),
 	"entitylists": require('./platform/entitylists'),
+	"extensions": require('./platform/extensions'),
 	"referenceData": require('./platform/referenceData'),
 	"secureAppData": require('./platform/secureAppData'),
 	"siteData": require('./platform/siteData'),

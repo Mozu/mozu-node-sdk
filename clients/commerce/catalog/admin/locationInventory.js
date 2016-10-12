@@ -18,7 +18,7 @@ module.exports = Client.sub({
 	}),
 	getLocationInventories: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/admin/locationinventory/{locationCode}?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&filterFunctions={filterFunctions}&responseFields={responseFields}'
 	}),
 	addLocationInventory: Client.method({
 		method: constants.verbs.POST,
