@@ -37,16 +37,13 @@ function makeHeaders(conf, payload) {
     headers['Content-Length'] = payload.length.toString();
   }
 
-
   return extend({
     'Accept': 'application/json',
     'Connection': 'close',
-    'Content-Type' : 'application/json; charset=utf-8',
+    'Content-Type': 'application/json; charset=utf-8',
     'User-Agent': USER_AGENT
   }, headers, conf.headers || {});
 }
-
-
 
 /**
  * Make an HTTP request to the Mozu API. This method populates headers based on the scope of the supplied context.
@@ -63,7 +60,7 @@ module.exports = function (options, transform) {
     if (typeof payload !== "string" && !Buffer.isBuffer(payload)) {
       payload = JSON.stringify(payload);
     }
-    if ( typeof payload === "string"){
+    if (typeof payload === "string") {
       payload = new Buffer(payload);
     }
   }
@@ -73,16 +70,15 @@ module.exports = function (options, transform) {
   if (!protocolHandler) {
     throw new Error('Protocol ' + uri.protocol + ' not supported.');
   }
-
   return new Promise(function (resolve, reject) {
-    var requestOptions = extend(options, {
+    var requestOptions = extend({
       hostname: uri.hostname,
       port: uri.port || (uri.protocol === 'https:' ? 443 : 80),
       method: conf.method,
       path: uri.path,
       headers: conf.headers,
       agent: conf.agent
-    });
+    }, options);
     if (typeof transform === "function") {
       requestOptions = transform(requestOptions);
     }
@@ -90,18 +86,16 @@ module.exports = function (options, transform) {
     var request = protocolHandler.request(requestOptions, function (response) {
       streamToCallback(response, function (err, body) {
         complete = true;
-        if (err) return reject(errorify(err, extend({ statusCode: response.statusCode, url: response.req.path}, response.headers)));
+        if (err) return reject(errorify(err, extend({ statusCode: response.statusCode, url: response.req.path }, response.headers)));
         if (body) {
           try {
-            if(response.headers["content-type"].indexOf('json') > -1 || response.headers["content-type"].indexOf('text/plain') > -1){
-              body = JSON.parse(body, conf.parseDates !== false && parseJsonDates);
-            }
+            body = JSON.parse(body, conf.parseDates !== false && parseJsonDates);
           } catch (e) {
             return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
           }
         }
         if (response && response.statusCode >= 400 && response.statusCode < 600) {
-          return reject(errorify(body || response, extend({ statusCode: response.statusCode, url: (response.req ? response.req.path : "")}, response.headers)));
+          return reject(errorify(body || response, extend({ statusCode: response.statusCode, url: response.req ? response.req.path : "" }, response.headers)));
         }
         return resolve(body);
       });

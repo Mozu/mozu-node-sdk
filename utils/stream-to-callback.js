@@ -1,5 +1,7 @@
 'use strict';
+
 var Stream = require('stream').Transform;
+
 module.exports = function streamToCallback(stream, cb) {
   var buf = new Stream();
   //stream.setEncoding('utf8');
