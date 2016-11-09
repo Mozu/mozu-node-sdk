@@ -12,24 +12,24 @@
 var Client = require('../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
-	getPackageLabel: Client.method({
+	getReturnNotes: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}/label?returnAsBase64={returnAsBase64}'
+		url: '{+tenantPod}api/commerce/returns/{returnId}/notes'
 	}),
-	getPackage: Client.method({
+	getReturnNote: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/returns/{returnId}/notes/{noteId}?responseFields={responseFields}'
 	}),
-	createPackage: Client.method({
+	createReturnNote: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/returns/{returnId}/packages?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/returns/{returnId}/notes?responseFields={responseFields}'
 	}),
-	updatePackage: Client.method({
+	updateReturnNote: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/returns/{returnId}/notes/{noteId}?responseFields={responseFields}'
 	}),
-	deletePackage: Client.method({
+	deleteReturnNote: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}'
+		url: '{+tenantPod}api/commerce/returns/{returnId}/notes/{noteId}'
 	})
 });

@@ -12,6 +12,10 @@
 var Client = require('../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
+	applyHandlingAdjustment: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/adjustment/handling?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
 	applyShippingAdjustment: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/adjustment/shipping?updatemode={updateMode}&version={version}&responseFields={responseFields}'
@@ -19,6 +23,10 @@ module.exports = Client.sub({
 	applyAdjustment: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/adjustment?updatemode={updateMode}&version={version}&responseFields={responseFields}'
+	}),
+	removeHandlingAdjustment: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/adjustment/handling?updatemode={updateMode}&version={version}'
 	}),
 	removeShippingAdjustment: Client.method({
 		method: constants.verbs.DELETE,

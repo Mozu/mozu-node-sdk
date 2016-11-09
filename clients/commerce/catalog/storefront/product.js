@@ -26,7 +26,7 @@ module.exports = Client.sub({
 	}),
 	getProductForIndexing: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/indexing/{productCode}&productVersion={productVersion}?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/indexing/{productCode}&productVersion={productVersion}&lastModifiedDate={lastModifiedDate}?responseFields={responseFields}'
 	}),
 	configuredProduct: Client.method({
 		method: constants.verbs.POST,

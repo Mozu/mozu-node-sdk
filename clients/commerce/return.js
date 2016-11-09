@@ -14,7 +14,7 @@ var Client = require('../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getReturns: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/returns/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/returns/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&responseFields={responseFields}'
 	}),
 	getAvailableReturnActions: Client.method({
 		method: constants.verbs.GET,
@@ -63,6 +63,10 @@ module.exports = Client.sub({
 	createPaymentActionForReturn: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/returns/{returnId}/payments/actions?responseFields={responseFields}'
+	}),
+	createReturnShippingOrder: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/returns/{returnId}/ship?responseFields={responseFields}'
 	}),
 	performReturnActions: Client.method({
 		method: constants.verbs.POST,
