@@ -94,12 +94,12 @@ You can also store arbitrary data on the context, and it will be passed around t
 
 Use `require()` to navigate the directory structure of the SDK. Each directory will return a constructor for creating a client with the relevant methods.
 ```js
-var cartClient = require('mozu-node-sdk/commerce/cart')()
+var cartClient = require('mozu-node-sdk/clients/commerce/cart')()
 ```
 
 Share context between clients by passing client instances to each others' constructors.
 ```js
-var productSearchClient = require('mozu-node-sdk/commerce/catalog/storefront/productSearchResult')(cartClient);
+var productSearchClient = require('mozu-node-sdk/clients/commerce/catalog/storefront/productSearchResult')(cartClient);
 ```
 
 #### Legacy Interface
