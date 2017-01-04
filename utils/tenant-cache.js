@@ -1,6 +1,6 @@
 'use strict';
 
-var TenantClient = undefined;
+var TenantClient = void 0;
 var TenantsOrPromisesById = {};
 
 module.exports = {

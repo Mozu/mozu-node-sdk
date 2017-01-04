@@ -9,6 +9,7 @@ module.exports = Client.sub({
 	"customerAccount": require('./customer/customerAccount'),
 	"customerAuthTicket": require('./customer/customerAuthTicket'),
 	"customerSegment": require('./customer/customerSegment'),
+	"customerSet": require('./customer/customerSet'),
 	"visit": require('./customer/visit')
 });
 

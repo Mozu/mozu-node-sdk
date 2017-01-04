@@ -14,7 +14,7 @@ var Client = require('../../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getProducts: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/?filter={filter}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/?filter={filter}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&responseOptions={responseOptions}&cursorMark={cursorMark}&responseFields={responseFields}'
 	}),
 	getProductInventory: Client.method({
 		method: constants.verbs.GET,
@@ -22,11 +22,11 @@ module.exports = Client.sub({
 	}),
 	getProduct: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&supressOutOfStock404={supressOutOfStock404}&quantity={quantity}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&supressOutOfStock404={supressOutOfStock404}&quantity={quantity}&acceptVariantProductCode={acceptVariantProductCode}&responseFields={responseFields}'
 	}),
 	getProductForIndexing: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/indexing/{productCode}&productVersion={productVersion}?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/indexing/{productCode}&productVersion={productVersion}&lastModifiedDate={lastModifiedDate}?responseFields={responseFields}'
 	}),
 	configuredProduct: Client.method({
 		method: constants.verbs.POST,
@@ -39,6 +39,10 @@ module.exports = Client.sub({
 	validateDiscounts: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}/validateDiscounts?variationProductCode={variationProductCode}&customerAccountId={customerAccountId}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&responseFields={responseFields}'
+	}),
+	getProductCosts: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/costs?responseFields={responseFields}'
 	}),
 	getProductInventories: Client.method({
 		method: constants.verbs.POST,
