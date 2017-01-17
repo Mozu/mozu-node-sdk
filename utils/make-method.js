@@ -23,11 +23,11 @@ module.exports = function (config) {
     // very hard to debug.
     //
     // remove any properties from the body that were used to expand the url
-    // if (body &&
+    // if (body && 
     //     typeof body === "object" &&
     //     !Array.isArray(body) &&
-    //     !options.body &&
-    //     !options.includeUrlVariablesInPostBody &&
+    //     !options.body && 
+    //     !options.includeUrlVariablesInPostBody && 
     //     (finalMethod === "POST" || finalMethod === "PUT")) {
     //   finalRequestConfig.body = Object.keys(body).reduce(function(m, k) {
     //     if (!urlSpec.keysUsed[k]) {
@@ -39,6 +39,7 @@ module.exports = function (config) {
     //     delete finalRequestConfig.body;
     //   }
     // }
+
 
     if (finalMethod === "GET" || finalMethod === "DELETE" && !options.body) {
       delete finalRequestConfig.body;
