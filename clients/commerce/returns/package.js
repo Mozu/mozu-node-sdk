@@ -14,7 +14,7 @@ var Client = require('../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getPackageLabel: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}/label?returnAsBase64={returnAsBase64}'
+		url: '{+tenantPod}api/commerce/returns/{returnId}/packages/{packageId}/label?returnAsBase64Png={returnAsBase64Png}'
 	}),
 	getPackage: Client.method({
 		method: constants.verbs.GET,

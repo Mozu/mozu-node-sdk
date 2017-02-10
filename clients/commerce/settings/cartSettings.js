@@ -12,16 +12,16 @@
 var Client = require('../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
-	createUserAuthTicket: Client.method({
+	getCartSettings: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/cart/cartsettings?responseFields={responseFields}'
+	}),
+	createCartSettings: Client.method({
 		method: constants.verbs.POST,
-		url: '{+homePod}api/platform/adminuser/authtickets/tenants?tenantId={tenantId}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/settings/cart/cartsettings?responseFields={responseFields}'
 	}),
-	refreshAuthTicket: Client.method({
+	updateCartSettings: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+homePod}api/platform/adminuser/authtickets/tenants?tenantId={tenantId}&responseFields={responseFields}'
-	}),
-	deleteUserAuthTicket: Client.method({
-		method: constants.verbs.DELETE,
-		url: '{+homePod}api/platform/adminuser/authtickets/?refreshToken={refreshToken}'
+		url: '{+tenantPod}api/commerce/settings/cart/cartsettings?responseFields={responseFields}'
 	})
 });
