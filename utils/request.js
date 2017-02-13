@@ -91,7 +91,7 @@ module.exports = function (options, transform) {
         if (err) return reject(errorify(err, extend({ statusCode: response.statusCode, url: response.req.path }, response.headers)));
         if (body) {
           try {
-            body = JSON.parse(body, conf.parseDates !== false && parseJsonDates);
+            if (response.headers["content-type"].indexOf('json') > -1 || response.headers["content-type"].indexOf('text/plain') > -1) body = JSON.parse(body, conf.parseDates !== false && parseJsonDates);
           } catch (e) {
             return reject(new Error('Response was not valid JSON: ' + e.message + '\n\n-----\n' + body));
           }
