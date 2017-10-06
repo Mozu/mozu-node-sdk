@@ -28,6 +28,10 @@ module.exports = Client.sub({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/contacts/{contactId}?responseFields={responseFields}'
 	}),
+	addAccountContactList: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/contacts?responseFields={responseFields}'
+	}),
 	deleteAccountContact: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/contacts/{contactId}'

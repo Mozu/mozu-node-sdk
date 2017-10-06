@@ -7,6 +7,8 @@ module.exports = Client.sub({
 	"catalog": require('./commerce/catalog'),
 	"channel": require('./commerce/channel'),
 	"channelGroup": require('./commerce/channelGroup'),
+	"checkout": require('./commerce/checkout'),
+	"checkouts": require('./commerce/checkouts'),
 	"customer": require('./commerce/customer'),
 	"inStockNotificationSubscription": require('./commerce/inStockNotificationSubscription'),
 	"location": require('./commerce/location'),

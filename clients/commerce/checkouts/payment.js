@@ -12,8 +12,12 @@
 var Client = require('../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
-	screen: Client.method({
+	performPaymentAction: Client.method({
 		method: constants.verbs.POST,
-		url: '{+pciPod}payments/commerce/payments/fraudscreen/screen?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/payments/{paymentId}/actions?responseFields={responseFields}'
+	}),
+	createPaymentAction: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/payments/actions?responseFields={responseFields}'
 	})
 });

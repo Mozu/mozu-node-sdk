@@ -34,7 +34,7 @@ module.exports = Client.sub({
 	}),
 	validateProduct: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}/validate?skipInventoryCheck={skipInventoryCheck}&quantity={quantity}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}/validate?skipInventoryCheck={skipInventoryCheck}&quantity={quantity}&skipDefaults={skipDefaults}&responseFields={responseFields}'
 	}),
 	validateDiscounts: Client.method({
 		method: constants.verbs.POST,

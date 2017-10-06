@@ -40,6 +40,10 @@ module.exports = Client.sub({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
 	}),
+	patchDocument: Client.method({
+		method: constants.verbs.PATCH,
+		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}?responseFields={responseFields}'
+	}),
 	deleteDocument: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+tenantPod}api/content/documentlists/{documentListName}/documents/{documentId}'

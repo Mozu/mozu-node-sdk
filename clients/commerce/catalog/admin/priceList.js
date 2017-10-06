@@ -24,6 +24,18 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/pricelists/?responseFields={responseFields}'
 	}),
+	bulkAddPriceListEntries: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/pricelists/bulkaddentries?publishEvents={publishEvents}&invalidateCache={invalidateCache}'
+	}),
+	bulkDeletePriceListEntries: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/pricelists/bulkdeleteentries?publishEvents={publishEvents}&invalidateCache={invalidateCache}'
+	}),
+	bulkUpdatePriceListEntries: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/pricelists/bulkupdateentries?publishEvents={publishEvents}&invalidateCache={invalidateCache}'
+	}),
 	updatePriceList: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/catalog/admin/pricelists/{priceListCode}?responseFields={responseFields}'

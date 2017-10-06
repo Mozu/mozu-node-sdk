@@ -9,11 +9,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-var Client = require('../../../client'), constants = Client.constants;
+var Client = require('../../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
-	screen: Client.method({
-		method: constants.verbs.POST,
-		url: '{+pciPod}payments/commerce/payments/fraudscreen/screen?responseFields={responseFields}'
+	getOrderProcessingSettings: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/settings/checkout/orderprocessingsettings?responseFields={responseFields}'
 	})
 });

@@ -12,8 +12,16 @@
 var Client = require('../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
-	screen: Client.method({
-		method: constants.verbs.POST,
-		url: '{+pciPod}payments/commerce/payments/fraudscreen/screen?responseFields={responseFields}'
+	applyCoupon: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/coupons/{couponCode}?responseFields={responseFields}'
+	}),
+	removeCoupons: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/coupons'
+	}),
+	removeCoupon: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/coupons/{couponcode}'
 	})
 });

@@ -12,6 +12,7 @@ module.exports = Client.sub({
 	"orderAttribute": require('./orders/orderAttribute'),
 	"orderItem": require('./orders/orderItem'),
 	"orderNote": require('./orders/orderNote'),
+	"orderReturnableItem": require('./orders/orderReturnableItem'),
 	"orderValidationResult": require('./orders/orderValidationResult'),
 	"package": require('./orders/package'),
 	"payment": require('./orders/payment'),

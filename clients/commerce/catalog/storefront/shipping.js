@@ -12,6 +12,10 @@
 var Client = require('../../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
+	getMultiRates: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/storefront/shipping/request-multi-rates'
+	}),
 	getRates: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/storefront/shipping/request-rates?responseFields={responseFields}'

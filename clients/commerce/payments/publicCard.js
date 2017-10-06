@@ -14,11 +14,11 @@ var Client = require('../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	create: Client.method({
 		method: constants.verbs.POST,
-		url: '{+pciPod}payments/commerce/payments/cards/'
+		url: '{+pciPod}payments/commerce/payments/cards/?responseFields={responseFields}'
 	}),
 	update: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+pciPod}payments/commerce/payments/cards/{cardId}'
+		url: '{+pciPod}payments/commerce/payments/cards/{cardId}?responseFields={responseFields}'
 	}),
 	delete: Client.method({
 		method: constants.verbs.DELETE,

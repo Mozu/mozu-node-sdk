@@ -12,8 +12,8 @@
 var Client = require('../../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
-	screen: Client.method({
-		method: constants.verbs.POST,
-		url: '{+pciPod}payments/commerce/payments/fraudscreen/screen?responseFields={responseFields}'
+	getOrderReturnableItems: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/returnableitems?responseFields={responseFields}'
 	})
 });
