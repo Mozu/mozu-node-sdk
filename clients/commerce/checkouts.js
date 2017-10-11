@@ -4,6 +4,7 @@ module.exports = Client.sub({
 	"appliedDiscount": require('./checkouts/appliedDiscount'),
 	"destination": require('./checkouts/destination'),
 	"extendedProperty": require('./checkouts/extendedProperty'),
+	"orderAttribute": require('./checkouts/orderAttribute'),
 	"orderItem": require('./checkouts/orderItem'),
 	"orderNote": require('./checkouts/orderNote'),
 	"payment": require('./checkouts/payment')

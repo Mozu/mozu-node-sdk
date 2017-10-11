@@ -9,6 +9,7 @@ module.exports = Client.sub({
 	"entityList": require('./platform/entityList'),
 	"entitylists": require('./platform/entitylists'),
 	"extensions": require('./platform/extensions'),
+	"installedApplications": require('./platform/installedApplications'),
 	"referenceData": require('./platform/referenceData'),
 	"secureAppData": require('./platform/secureAppData'),
 	"siteData": require('./platform/siteData'),
