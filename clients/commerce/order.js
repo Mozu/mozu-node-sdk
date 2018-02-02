@@ -14,7 +14,7 @@ var Client = require('../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getOrders: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/orders/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&qLimit={qLimit}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/orders/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&qLimit={qLimit}&includeBin={includeBin}&responseFields={responseFields}'
 	}),
 	getAvailableActions: Client.method({
 		method: constants.verbs.GET,
@@ -26,7 +26,7 @@ module.exports = Client.sub({
 	}),
 	getOrder: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/orders/{orderId}?draft={draft}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/orders/{orderId}?draft={draft}&includeBin={includeBin}&responseFields={responseFields}'
 	}),
 	createOrderFromCart: Client.method({
 		method: constants.verbs.POST,
@@ -39,6 +39,10 @@ module.exports = Client.sub({
 	performOrderAction: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/actions?responseFields={responseFields}'
+	}),
+	priceOrder: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/price?refreshShipping={refreshShipping}&couponCodeToApply={couponCodeToApply}&responseFields={responseFields}'
 	}),
 	processDigitalWallet: Client.method({
 		method: constants.verbs.PUT,

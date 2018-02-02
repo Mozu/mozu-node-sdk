@@ -23,5 +23,13 @@ module.exports = Client.sub({
 	getAttribute: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/{attributeFQN}?responseFields={responseFields}'
+	}),
+	createAttribute: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/?responseFields={responseFields}'
+	}),
+	updateAttribute: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+tenantPod}api/commerce/customer/attributedefinition/attributes/{attributeFQN}?responseFields={responseFields}'
 	})
 });
