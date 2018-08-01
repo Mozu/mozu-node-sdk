@@ -28,6 +28,14 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/categories/?incrementSequence={incrementSequence}&useProvidedId={useProvidedId}&responseFields={responseFields}'
 	}),
+	addProductsToCategory: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/categories/{categoryId}/add-products'
+	}),
+	removeProductsFromCategory: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/catalog/admin/categories/{categoryId}/remove-products'
+	}),
 	validateDynamicExpression: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/catalog/admin/categories/ValidateDynamicExpression?responseFields={responseFields}'

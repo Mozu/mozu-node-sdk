@@ -16,6 +16,14 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+pciPod}payments/commerce/payments/cards/?responseFields={responseFields}'
 	}),
+	getGiftCardBalance: Client.method({
+		method: constants.verbs.POST,
+		url: '{+pciPod}payments/commerce/payments/cards/{cardId}/balance?responseFields={responseFields}'
+	}),
+	getUnregisteredGiftCardBalance: Client.method({
+		method: constants.verbs.POST,
+		url: '{+pciPod}payments/commerce/payments/cards/balance?responseFields={responseFields}'
+	}),
 	update: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+pciPod}payments/commerce/payments/cards/{cardId}?responseFields={responseFields}'

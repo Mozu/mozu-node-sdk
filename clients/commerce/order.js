@@ -42,7 +42,7 @@ module.exports = Client.sub({
 	}),
 	priceOrder: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/orders/price?refreshShipping={refreshShipping}&couponCodeToApply={couponCodeToApply}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/orders/price?refreshShipping={refreshShipping}&responseFields={responseFields}'
 	}),
 	processDigitalWallet: Client.method({
 		method: constants.verbs.PUT,

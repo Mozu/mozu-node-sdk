@@ -7,6 +7,7 @@ module.exports = Client.sub({
 	"couponsets": require('./admin/couponsets'),
 	"discount": require('./admin/discount'),
 	"discounts": require('./admin/discounts'),
+	"discountSettings": require('./admin/discountSettings'),
 	"facet": require('./admin/facet'),
 	"locationInventory": require('./admin/locationInventory'),
 	"masterCatalog": require('./admin/masterCatalog'),
