@@ -3,6 +3,7 @@ var Client = require('../../client');
 module.exports = Client.sub({
 	"fraudScreen": require('./payments/fraudScreen'),
 	"fraudScreenResponse": require('./payments/fraudScreenResponse'),
-	"publicCard": require('./payments/publicCard')
+	"publicCard": require('./payments/publicCard'),
+	"publicToken": require('./payments/publicToken')
 });
 

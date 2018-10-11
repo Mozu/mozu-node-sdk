@@ -14,7 +14,7 @@ var Client = require('../../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getProducts: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/?filter={filter}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&responseOptions={responseOptions}&cursorMark={cursorMark}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/?filter={filter}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&responseOptions={responseOptions}&cursorMark={cursorMark}&defaultSort={defaultSort}&responseFields={responseFields}'
 	}),
 	getProductInventory: Client.method({
 		method: constants.verbs.GET,

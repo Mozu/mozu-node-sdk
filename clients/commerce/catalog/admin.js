@@ -16,6 +16,7 @@ module.exports = Client.sub({
 	"product": require('./admin/product'),
 	"productReservation": require('./admin/productReservation'),
 	"products": require('./admin/products'),
+	"productSortDefinition": require('./admin/productSortDefinition'),
 	"publishingScope": require('./admin/publishingScope'),
 	"search": require('./admin/search'),
 	"softAllocation": require('./admin/softAllocation')
