@@ -1,26 +1,15 @@
-language: objective-c
-os:
-- linux
-- osx
+language: node_js
 sudo: false
 branches:
   except:
   - /^v[0-9]/
-env:
-  matrix:
-  - TRAVIS_NODE_VERSION="0.12"
-  - TRAVIS_NODE_VERSION="4.1"
-  - TRAVIS_NODE_VERSION="4.2"
-  - TRAVIS_NODE_VERSION="stable"
-cache:
-  directories:
-  - node_modules
+node_js:
+- "0.12"
+- "4.1"
+- "4.2"
+- "stable"
+cache: npm
 before_script:
-- rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
-  && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm
-  install $TRAVIS_NODE_VERSION
-- npm install -g npm
-- npm install
 - git config --global user.email "travis-ci-build@volusion.com"
 - git config --global user.name "Travis CI Build"
 script:
