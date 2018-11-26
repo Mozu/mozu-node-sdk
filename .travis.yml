@@ -13,8 +13,6 @@ before_script:
 - git config --global user.email "travis-ci-build@volusion.com"
 - git config --global user.name "Travis CI Build"
 script:
-- node --version
-- npm --version
 - if [ -n "TRAVIS_TAG" ]; then npm run ci-build-stable; else npm run ci-build; fi
 notifications:
   slack:
