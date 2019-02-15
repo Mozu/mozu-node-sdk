@@ -5,6 +5,7 @@ module.exports = Client.sub({
 	"category": require('./admin/category'),
 	"couponSet": require('./admin/couponSet'),
 	"couponsets": require('./admin/couponsets'),
+	"currencyLocalization": require('./admin/currencyLocalization'),
 	"discount": require('./admin/discount'),
 	"discounts": require('./admin/discounts'),
 	"discountSettings": require('./admin/discountSettings'),

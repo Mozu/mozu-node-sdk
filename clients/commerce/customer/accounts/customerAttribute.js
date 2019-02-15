@@ -14,22 +14,22 @@ var Client = require('../../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getAccountAttribute: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?userId={userId}&responseFields={responseFields}'
 	}),
 	getAccountAttributes: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&userId={userId}&responseFields={responseFields}'
 	}),
 	addAccountAttribute: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes?userId={userId}&responseFields={responseFields}'
 	}),
 	updateAccountAttribute: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?userId={userId}&responseFields={responseFields}'
 	}),
 	deleteAccountAttribute: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}?userId={userId}'
 	})
 });

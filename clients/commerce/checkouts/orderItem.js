@@ -20,8 +20,16 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/items/destinations?responseFields={responseFields}'
 	}),
+	addCheckoutItem: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/items?skipInventoryCheck={skipInventoryCheck}&responseFields={responseFields}'
+	}),
 	updateItemDestination: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/items/{itemId}/destination/{destinationId}?responseFields={responseFields}'
+	}),
+	deleteCheckoutItem: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+tenantPod}api/commerce/checkouts/{checkoutId}/items/{itemId}'
 	})
 });

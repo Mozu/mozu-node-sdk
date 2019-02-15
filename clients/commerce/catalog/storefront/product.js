@@ -22,7 +22,7 @@ module.exports = Client.sub({
 	}),
 	getProduct: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&supressOutOfStock404={supressOutOfStock404}&quantity={quantity}&acceptVariantProductCode={acceptVariantProductCode}&purchaseLocation={purchaseLocation}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}?variationProductCode={variationProductCode}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}&supressOutOfStock404={supressOutOfStock404}&quantity={quantity}&acceptVariantProductCode={acceptVariantProductCode}&purchaseLocation={purchaseLocation}&variationProductCodeFilter={variationProductCodeFilter}&responseFields={responseFields}'
 	}),
 	getProductForIndexing: Client.method({
 		method: constants.verbs.GET,
@@ -30,7 +30,7 @@ module.exports = Client.sub({
 	}),
 	configuredProduct: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}/configure?includeOptionDetails={includeOptionDetails}&skipInventoryCheck={skipInventoryCheck}&quantity={quantity}&purchaseLocation={purchaseLocation}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/catalog/storefront/products/{productCode}/configure?includeOptionDetails={includeOptionDetails}&skipInventoryCheck={skipInventoryCheck}&quantity={quantity}&purchaseLocation={purchaseLocation}&variationProductCodeFilter={variationProductCodeFilter}&responseFields={responseFields}'
 	}),
 	validateProduct: Client.method({
 		method: constants.verbs.POST,

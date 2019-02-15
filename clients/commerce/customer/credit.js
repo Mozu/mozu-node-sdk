@@ -22,7 +22,7 @@ module.exports = Client.sub({
 	}),
 	addCredit: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/customer/credits/?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/credits/?userId={userId}&responseFields={responseFields}'
 	}),
 	associateCreditToShopper: Client.method({
 		method: constants.verbs.PUT,
@@ -30,7 +30,7 @@ module.exports = Client.sub({
 	}),
 	resendCreditCreatedEmail: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/customer/credits/{code}/Resend-Email'
+		url: '{+tenantPod}api/commerce/customer/credits/{code}/Resend-Email?userId={userId}'
 	}),
 	updateCredit: Client.method({
 		method: constants.verbs.PUT,

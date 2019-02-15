@@ -20,6 +20,10 @@ module.exports = Client.sub({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/carts/current/items?responseFields={responseFields}'
 	}),
+	addItemsToCart: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/carts/current/bulkitems?throwErrorOnInvalidItems={throwErrorOnInvalidItems}'
+	}),
 	addItemToCart: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/carts/current/items?responseFields={responseFields}'

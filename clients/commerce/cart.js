@@ -32,6 +32,10 @@ module.exports = Client.sub({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/carts/user/{userId}?responseFields={responseFields}'
 	}),
+	rejectSuggestedDiscount: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/carts/{cartId}/rejectautodiscount/{discountId}?responseFields={responseFields}'
+	}),
 	updateCart: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+tenantPod}api/commerce/carts/current?responseFields={responseFields}'

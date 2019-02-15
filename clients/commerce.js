@@ -15,6 +15,8 @@ module.exports = Client.sub({
 	"order": require('./commerce/order'),
 	"orders": require('./commerce/orders'),
 	"payments": require('./commerce/payments'),
+	"quote": require('./commerce/quote'),
+	"quotes": require('./commerce/quotes'),
 	"return": require('./commerce/return'),
 	"returns": require('./commerce/returns'),
 	"settings": require('./commerce/settings'),

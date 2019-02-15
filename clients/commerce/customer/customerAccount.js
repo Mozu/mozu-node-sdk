@@ -16,13 +16,13 @@ module.exports = Client.sub({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/customer/accounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&fields={fields}&q={q}&qLimit={qLimit}&isAnonymous={isAnonymous}&responseFields={responseFields}'
 	}),
-	getLoginState: Client.method({
-		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/loginstate?responseFields={responseFields}'
-	}),
 	getAccount: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}?responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}&userId={userId}?responseFields={responseFields}'
+	}),
+	getLoginState: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/loginstate?userId={userId}&responseFields={responseFields}'
 	}),
 	addAccount: Client.method({
 		method: constants.verbs.POST,
@@ -30,7 +30,7 @@ module.exports = Client.sub({
 	}),
 	changePassword: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/Change-Password?unlockAccount={unlockAccount}'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/Change-Password?unlockAccount={unlockAccount}&userId={userId}'
 	}),
 	addLoginToExistingCustomer: Client.method({
 		method: constants.verbs.POST,
@@ -42,11 +42,11 @@ module.exports = Client.sub({
 	}),
 	setLoginLocked: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/Set-Login-Locked'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/Set-Login-Locked?userId={userId}'
 	}),
 	setPasswordChangeRequired: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/Set-Password-Change-Required'
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/Set-Password-Change-Required?userId={userId}'
 	}),
 	addAccountAndLogin: Client.method({
 		method: constants.verbs.POST,
@@ -70,7 +70,7 @@ module.exports = Client.sub({
 	}),
 	getCustomersPurchaseOrderAccounts: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/customer/accounts/purchaseOrderAccounts?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/accounts/purchaseOrderAccounts?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&accountType={accountType}&responseFields={responseFields}'
 	}),
 	resetPassword: Client.method({
 		method: constants.verbs.POST,
