@@ -1,0 +1,9 @@
+How to generate 
+1. Clone mozu-node-sdk repo, stay on master with clean state (no modified files)
+2. Clone Mozu.Api.Codegen repo (.Net)
+3. Open GeneratorTest.cs, modify outputPath varaible on NodeGenTest() to the location of mozu-node-sdk repo
+4. Run the test, wait for it to finish
+5. Now you should see files modifiled/added in mozu-node-sdk repo, commit the files
+6. run command 'npm version patch' to increment the patch version
+7. login to npm using command 'npm login'.
+8. run command 'npm publish'. 
