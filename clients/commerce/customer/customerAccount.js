@@ -16,13 +16,13 @@ module.exports = Client.sub({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/customer/accounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&fields={fields}&q={q}&qLimit={qLimit}&isAnonymous={isAnonymous}&responseFields={responseFields}'
 	}),
-	getAccount: Client.method({
-		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}&userId={userId}?responseFields={responseFields}'
-	}),
 	getLoginState: Client.method({
 		method: constants.verbs.GET,
 		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}/loginstate?userId={userId}&responseFields={responseFields}'
+	}),
+	getAccount: Client.method({
+		method: constants.verbs.GET,
+		url: '{+tenantPod}api/commerce/customer/accounts/{accountId}?userId={userId}&responseFields={responseFields}'
 	}),
 	addAccount: Client.method({
 		method: constants.verbs.POST,
