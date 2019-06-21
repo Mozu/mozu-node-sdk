@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "acorn": "^6.1.1",
+    "acorn-walk": "^6.1.1",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "body-parser": "^1.19.0",
