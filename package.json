@@ -10,7 +10,7 @@
     "ci-build": "npm test",
     "ci-build-stable": "npm run ci-build",
     "postci-build-stable": "mozu-validate-npm-package",
-    "cov": "nyc cover test/*.js",
+    "cov": "nyc npm run test",
     "test": "tape ./test/*.js",
     "spec": "npm run test | tap-spec",
     "preversion": "npm run spec",
