@@ -1,7 +1,7 @@
 {
   "name": "mozu-node-sdk",
   "description": "Mozu JavaScript SDK for Node.js and Arc.js environments",
-  "author": "Volusion, LLC",
+  "author": "Kibo, INC",
   "scripts": {
     "lint": "eslint src",
     "prebabel": "npm run lint",

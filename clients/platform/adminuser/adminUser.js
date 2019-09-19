@@ -14,6 +14,14 @@ var Client = require('../../../client'), constants = Client.constants,
 
 
 module.exports = Client.sub({
+	getUsers: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/platform/adminuser/accounts/?emailAddress={emailAddress}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}'
+	}),
+	getUserRoles: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/platform/adminuser/accounts/{userId}/roles?responseFields={responseFields}'
+	}),
 	getTenantScopesForUser : (function(getTenantScopes) { 
 		return function getDefaultScope(conf) {
 			AuthProvider = AuthProvider || require('../../../security/auth-provider');
@@ -28,8 +36,44 @@ module.exports = Client.sub({
 		method: constants.verbs.GET,
 		url: '{+homePod}api/platform/adminuser/accounts/{userId}/tenants?responseFields={responseFields}'
 	})),
+	getUserById: Client.method({
+		method: constants.verbs.GET,
+		url: '{+homePod}api/platform/adminuser/accounts/{userId}/userbyid?responseFields={responseFields}'
+	}),
 	getUser: Client.method({
 		method: constants.verbs.GET,
 		url: '{+homePod}api/platform/adminuser/accounts/{userId}?responseFields={responseFields}'
+	}),
+	createUser: Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/adminuser/accounts/?responseFields={responseFields}'
+	}),
+	changePassword: Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/adminuser/accounts/{userId}/Change-Password'
+	}),
+	changeUserPassword: Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/adminuser/accounts/{userId}/Change-User-Password'
+	}),
+	addUserRole: Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/adminuser/accounts/{userId}/roles/{roleId}'
+	}),
+	resetPassword: Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/adminuser/accounts/Reset-Password'
+	}),
+	updateUser: Client.method({
+		method: constants.verbs.PUT,
+		url: '{+homePod}api/platform/adminuser/accounts/{userId}?responseFields={responseFields}'
+	}),
+	deleteUser: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+homePod}api/platform/adminuser/accounts/{userId}'
+	}),
+	removeUserRole: Client.method({
+		method: constants.verbs.DELETE,
+		url: '{+homePod}api/platform/adminuser/accounts/{userId}/roles/{roleId}'
 	})
 });

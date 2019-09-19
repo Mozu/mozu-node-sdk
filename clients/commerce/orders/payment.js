@@ -31,5 +31,9 @@ module.exports = Client.sub({
 	createPaymentAction: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/payments/actions?responseFields={responseFields}'
+	}),
+	autoCapturePayments: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/payments/autocapture?forcecapture={forceCapture}&responseFields={responseFields}'
 	})
 });

@@ -64,6 +64,10 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/returns/{returnId}/payments/actions?responseFields={responseFields}'
 	}),
+	restockReturnItems: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/returns/{returnId}/restock?responseFields={responseFields}'
+	}),
 	createReturnShippingOrder: Client.method({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/returns/{returnId}/ship?responseFields={responseFields}'

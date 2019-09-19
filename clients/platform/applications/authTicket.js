@@ -16,6 +16,10 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+homePod}api/platform/applications/authtickets/?responseFields={responseFields}'
 	}),
+	oauthAuthenticateApp: Client.method({
+		method: constants.verbs.POST,
+		url: '{+homePod}api/platform/applications/authtickets/oauth?responseFields={responseFields}'
+	}),
 	refreshAppAuthTicket: Client.method({
 		method: constants.verbs.PUT,
 		url: '{+homePod}api/platform/applications/authtickets/refresh-ticket?responseFields={responseFields}'

@@ -14,7 +14,7 @@ var Client = require('../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getDocumentListTypes: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/content/documentlistTypes/{documentListTypeFQN}?responseFields={responseFields}'
+		url: '{+tenantPod}api/content/documentlistTypes/?responseFields={responseFields}'
 	}),
 	getDocumentListType: Client.method({
 		method: constants.verbs.GET,

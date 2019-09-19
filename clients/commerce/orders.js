@@ -5,6 +5,7 @@ module.exports = Client.sub({
 	"appliedDiscount": require('./orders/appliedDiscount'),
 	"attributedefinition": require('./orders/attributedefinition'),
 	"billingInfo": require('./orders/billingInfo'),
+	"canceledReason": require('./orders/canceledReason'),
 	"digitalPackage": require('./orders/digitalPackage'),
 	"extendedProperty": require('./orders/extendedProperty'),
 	"fulfillmentAction": require('./orders/fulfillmentAction'),

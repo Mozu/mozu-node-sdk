@@ -24,6 +24,22 @@ module.exports = Client.sub({
 		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments'
 	}),
+	updateShipmentAdjustments: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/{shipmentNumber}/adjustments/?responseFields={responseFields}'
+	}),
+	updateShipmentItem: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/{shipmentNumber}/item/{itemId}/adjustments?responseFields={responseFields}'
+	}),
+	repriceShipment: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/{shipmentNumber}/reprice?responseFields={responseFields}'
+	}),
+	splitShipments: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/{shipmentNumber}/split'
+	}),
 	deleteShipment: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/{shipmentId}'
