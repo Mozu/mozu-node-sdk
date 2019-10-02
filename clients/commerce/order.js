@@ -14,7 +14,7 @@ var Client = require('../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getOrders: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/orders/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&qLimit={qLimit}&includeBin={includeBin}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/orders/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&qLimit={qLimit}&includeBin={includeBin}&mode={mode}&responseFields={responseFields}'
 	}),
 	getAvailableActions: Client.method({
 		method: constants.verbs.GET,
@@ -26,7 +26,7 @@ module.exports = Client.sub({
 	}),
 	getOrder: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/orders/{orderId}?draft={draft}&includeBin={includeBin}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/orders/{orderId}?draft={draft}&includeBin={includeBin}&mode={mode}&responseFields={responseFields}'
 	}),
 	createOrderFromCart: Client.method({
 		method: constants.verbs.POST,

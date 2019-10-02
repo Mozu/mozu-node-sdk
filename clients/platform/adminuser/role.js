@@ -14,6 +14,6 @@ var Client = require('../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getRoles: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/platform/adminuser/roles/?startIndex={startIndex}&pageSize={pageSize}&filter={filter}&responseFields={responseFields}'
+		url: '{+tenantPod}api/platform/adminuser/roles/?filter={filter}&responseFields={responseFields}'
 	})
 });
