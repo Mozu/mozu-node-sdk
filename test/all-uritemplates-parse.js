@@ -2,7 +2,7 @@
 var fs = require('fs');
 var test = require('tape');
 var acorn = require('acorn');
-var acornWalk = require('acorn/dist/walk');
+var acornWalk = require('acorn-walk');
 var glob = require('glob');
 var getUriTemplate = require('../utils/get-url-template');
 

@@ -10,7 +10,7 @@
     "ci-build": "npm test",
     "ci-build-stable": "npm run ci-build",
     "postci-build-stable": "mozu-validate-npm-package",
-    "cov": "istanbul cover test/*.js",
+    "cov": "nyc npm run test",
     "test": "tape ./test/*.js",
     "spec": "npm run test | tap-spec",
     "preversion": "npm run spec",
@@ -18,34 +18,39 @@
   },
   "babel": {
     "presets": [
-      "es2015"
+      "env"
     ]
   },
-  "version": "2.13.1",
+  "version": "2.14.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Mozu/mozu-node-sdk"
   },
   "dependencies": {
-    "concat-stream": "^1.5.1",
+    "concat-stream": "^2.0.0",
     "mozu-metadata": "^2.3.6",
-    "tunnel-agent": "^0.4.2",
+    "tunnel-agent": "^0.6.0",
     "uri-template": "^1.0.0"
   },
   "devDependencies": {
-    "acorn": "^2.7.0",
-    "babel-cli": "^6.4.0",
-    "babel-preset-es2015": "^6.3.13",
-    "body-parser": "^1.14.2",
-    "eslint": "^1.10.3",
-    "glob": "^6.0.4",
-    "istanbul": "^0.4.2",
+    "acorn": "^6.1.1",
+    "acorn-walk": "^6.1.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "body-parser": "^1.19.0",
+    "eslint": "^5.16.0",
+    "glob": "^7.1.4",
     "jort": "^1.3.0",
     "mozu-multipass": "^0.3.1",
     "mozu-validate-npm-package": "^1.2.1",
-    "sinon": "^1.17.2",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.4.0"
+    "nyc": "^14.1.1",
+    "sinon": "^7.3.2",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.10.2"
+  },
+  "resolutions": {
+    "lodash": "^4.17.11",
+    "micromatch": "^3.0.0"
   },
   "license": "MIT",
   "engines": {
