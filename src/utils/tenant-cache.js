@@ -1,5 +1,7 @@
 'use strict';
 
+const deepClone = require('./deep-clone');
+
 let TenantClient;
 let TenantsOrPromisesById = {};
 
@@ -20,8 +22,11 @@ module.exports = {
       }
       return tenant;
     } else {
-      return TenantsOrPromisesById[tenantId] =
-        (new TenantClient(client)).getTenant(null, { scope: scope });
+      let newClient = deepClone(client);
+      if (newClient.context['user-claims']) {
+        delete newClient.context['user-claims'];
+      }
+      return TenantsOrPromisesById[tenantId] = new TenantClient(newClient).getTenant(null, { scope: scope });
     }
   }
 };
