@@ -1,6 +1,10 @@
 'use strict';
 
+<<<<<<< HEAD
 const { deepClone } = require('./deep-clone');
+=======
+const deepClone = require('./deep-clone');
+>>>>>>> since there is never a reason to pass user-claims when getting tenant data, remove them if they exist so as to not cause a 403
 
 let TenantClient;
 let TenantsOrPromisesById = {};
@@ -26,9 +30,12 @@ module.exports = {
       if (newClient.context['user-claims']) {
         delete newClient.context['user-claims'];
       }
+<<<<<<< HEAD
       if (newClient.context['jwt']) {
         delete newClient.context['jwt'];
       }
+=======
+>>>>>>> since there is never a reason to pass user-claims when getting tenant data, remove them if they exist so as to not cause a 403
       return TenantsOrPromisesById[tenantId] = new TenantClient(newClient).getTenant(null, { scope: scope });
     }
   }
