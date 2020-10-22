@@ -51,8 +51,11 @@ module.exports = {
     CATALOG: 'catalog',
     DATAVIEWMODE: 'dataview-mode',
     VERSION: 'version',
-    SHA256: 'hmac-sha256'
+    SHA256: 'hmac-sha256',
+    JWT: 'jwt'
   },
+  jwtHeader: 'Authorization',
+  jwtHeaderValuePrefix: 'Bearer ',
   dataViewModes: {
     LIVE: 'Live',
     PENDING: 'Pending'
