@@ -26,6 +26,9 @@ module.exports = {
       if (newClient.context['user-claims']) {
         delete newClient.context['user-claims'];
       }
+      if (newClient.context['jwt']) {
+        delete newClient.context['jwt'];
+      }
       return TenantsOrPromisesById[tenantId] = new TenantClient(newClient).getTenant(null, { scope: scope });
     }
   }
