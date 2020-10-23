@@ -1,6 +1,6 @@
 'use strict';
 
-const deepClone = require('./deep-clone');
+const { deepClone } = require('./deep-clone');
 
 let TenantClient;
 let TenantsOrPromisesById = {};
