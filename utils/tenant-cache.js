@@ -1,5 +1,8 @@
 'use strict';
 
+var _require = require('./deep-clone'),
+    deepClone = _require.deepClone;
+
 var TenantClient = void 0;
 var TenantsOrPromisesById = {};
 
@@ -20,7 +23,14 @@ module.exports = {
       }
       return tenant;
     } else {
-      return TenantsOrPromisesById[tenantId] = new TenantClient(client).getTenant(null, { scope: scope });
+      var newClient = deepClone(client);
+      if (newClient.context['user-claims']) {
+        delete newClient.context['user-claims'];
+      }
+      if (newClient.context['jwt']) {
+        delete newClient.context['jwt'];
+      }
+      return TenantsOrPromisesById[tenantId] = new TenantClient(newClient).getTenant(null, { scope: scope });
     }
   }
 };
