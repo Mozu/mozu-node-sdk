@@ -39,7 +39,7 @@ module.exports = function () {
     });
 
     // don't pass the API version!
-    if (!body || !body.hasOwnProperty("version")) delete fullTptEvalCtx.version;
+    if (!body || !Object.prototype.hasOwnProperty.call(body, "version")) delete fullTptEvalCtx.version;
 
     return template.render(fullTptEvalCtx);
   };

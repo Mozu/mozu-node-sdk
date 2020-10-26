@@ -13,7 +13,7 @@ function AuthTicket(json) {
   var self = this;
   if (!(this instanceof AuthTicket)) return new AuthTicket(json);
   for (var p in json) {
-    if (json.hasOwnProperty(p)) {
+    if (Object.prototype.hasOwnProperty.call(json, p)) {
       self[p] = p.indexOf('Expiration') !== -1 ? new Date(json[p]) : json[p]; // dateify the dates, this'll break if the prop name changes
     }
   }

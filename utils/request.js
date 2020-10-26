@@ -1,5 +1,4 @@
 'use strict';
-/* global Promise */
 
 var constants = require('../constants');
 var extend = require('./tiny-extend');
@@ -21,7 +20,11 @@ function makeHeaders(conf, payload) {
   var headers;
   function iterateHeaders(memo, key) {
     if (conf.context[constants.headers[key]]) {
-      memo[constants.headerPrefix + constants.headers[key]] = conf.context[constants.headers[key]];
+      if (key === 'JWT') {
+        memo[constants.jwtHeader] = conf.context[constants.headers[key]].indexOf(constants.jwtHeaderValuePrefix) === -1 ? constants.jwtHeaderValuePrefix + conf.context[constants.headers[key]] : conf.context[constants.headers[key]];
+      } else {
+        memo[constants.headerPrefix + constants.headers[key]] = conf.context[constants.headers[key]];
+      }
     }
     return memo;
   }
