@@ -1,5 +1,4 @@
 'use strict';
-/* global Promise */
 
 var constants = require('../constants');
 var extend = require('./tiny-extend');

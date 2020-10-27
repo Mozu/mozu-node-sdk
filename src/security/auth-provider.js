@@ -1,5 +1,4 @@
 /* eslint handle-callback-err: 0 */
-/* global Promise */
 'use strict';
 var constants = require('../constants'),
     AuthTicket = require('./auth-ticket'),
