@@ -1,4 +1,4 @@
-const Client, { constants } = require('../../client');
+const Client = require('../../client'), constants = Client.constants;
 
 module.exports = Client.sub({
 	getInventory: Client.method({
