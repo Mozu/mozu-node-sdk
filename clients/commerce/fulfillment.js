@@ -14,366 +14,366 @@ var Client = require('../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getManifests: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/fulfillment/shipping/manifests'
+		url: '{+tenantPod}api/commerce/fulfillment/shipping/manifests?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	createManifest: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/fulfillment/shipping/manifests'
+		url: '{+tenantPod}api/commerce/fulfillment/shipping/manifests?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getEligibleShipments: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/fulfillment/shipping/manifests/eligibleShipments'
+		url: '{+tenantPod}api/commerce/fulfillment/shipping/manifests/eligibleShipments?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getManifest: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/fulfillment/shipping/manifests/{manifestId}'
+		url: '{+tenantPod}api/commerce/fulfillment/shipping/manifests/{manifestId}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getStorefrontShipments: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/fulfillment/storefront/shipments'
+		url: '{+tenantPod}api/commerce/fulfillment/storefront/shipments?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getStorefrontShipment: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/fulfillment/storefront/shipments/{shipmentNumber}'
+		url: '{+tenantPod}api/commerce/fulfillment/storefront/shipments/{shipmentNumber}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	createPickWave: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/pickwaves'
+		url: '{+tenantPod}api/commerce/pickwaves?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getOpenPickWaves: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/pickwaves/open/{fulfillmentLocationCode}'
+		url: '{+tenantPod}api/commerce/pickwaves/open/{fulfillmentLocationCode}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getPickWave: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/pickwaves/{pickWaveNumber}'
+		url: '{+tenantPod}api/commerce/pickwaves/{pickWaveNumber}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	closePickWave: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/pickwaves/{pickWaveNumber}/closed'
+		url: '{+tenantPod}api/commerce/pickwaves/{pickWaveNumber}/closed?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getShipmentsInPickWave: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/pickwaves/{pickWaveNumber}/shipments'
+		url: '{+tenantPod}api/commerce/pickwaves/{pickWaveNumber}/shipments?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getDefinitionImage: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/processes/definitionImage/{containerIdOrAlias}/{processId}'
+		url: '{+tenantPod}api/commerce/processes/definitionImage/{containerIdOrAlias}/{processId}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getWorkflowProcesses: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/processes/definitions'
+		url: '{+tenantPod}api/commerce/processes/definitions?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getWorkflowProcess: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/processes/definitions/{containerIdOrAlias}/{processId}'
+		url: '{+tenantPod}api/commerce/processes/definitions/{containerIdOrAlias}/{processId}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getWorkflowProcessByShipmentType: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/processes/shipmentType/{shipmentType}'
+		url: '{+tenantPod}api/commerce/processes/shipmentType/{shipmentType}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getWorkflowProcessByShipmentTypeLocationCode: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/processes/shipmentType/{shipmentType}/location/{locationCode}'
+		url: '{+tenantPod}api/commerce/processes/shipmentType/{shipmentType}/location/{locationCode}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getWorkflowProcessByShipmentTypeLocationGroupCode: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/processes/shipmentType/{shipmentType}/locationGroup/{locationGroupCode}'
+		url: '{+tenantPod}api/commerce/processes/shipmentType/{shipmentType}/locationGroup/{locationGroupCode}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getShipments: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments'
+		url: '{+tenantPod}api/commerce/shipments?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	newShipment: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/shipments'
+		url: '{+tenantPod}api/commerce/shipments?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	newShipments: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/shipments/bulk'
+		url: '{+tenantPod}api/commerce/shipments/bulk?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getShipmentStepCountByShipmentType: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/countsByStep'
+		url: '{+tenantPod}api/commerce/shipments/countsByStep?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getDashboard: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/dashboard'
+		url: '{+tenantPod}api/commerce/shipments/dashboard?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getLocationSummaryReport: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/locationSummaryReport'
+		url: '{+tenantPod}api/commerce/shipments/locationSummaryReport?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	cancelShipments: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/order/{orderId}/canceled'
+		url: '{+tenantPod}api/commerce/shipments/order/{orderId}/canceled?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	searchAndReceiveTransfer: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/received/{search}'
+		url: '{+tenantPod}api/commerce/shipments/received/{search}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getSurvey: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/surveys/{id}'
+		url: '{+tenantPod}api/commerce/shipments/surveys/{id}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getShipment: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	replaceShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	deleteShipment: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getShipmentAttributes: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	setShipmentAttributes: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getShipmentAttribute: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes/{key}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes/{key}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	setShipmentAttribute: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes/{key}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes/{key}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	deleteShipmentAttribute: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes/{key}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/attributes/{key}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	backorderShipment: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/backordered'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/backordered?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	backorderItems: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/backorderedItems'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/backorderedItems?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	backorderItemsUpdate: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/backorderedItems'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/backorderedItems?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	cancelShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/canceled'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/canceled?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	cancelItems: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/canceledItems'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/canceledItems?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	customerAtCurbside: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerAtCurbside'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerAtCurbside?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	customerAtStore: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerAtStore'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerAtStore?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	customerCareShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerCared'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerCared?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	customerCareItems: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerCaredItems'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerCaredItems?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	customerInTransit: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerInTransit'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/customerInTransit?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getShipmentData: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/data'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/data?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	replaceShipmentData: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/data'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/data?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	deleteShipmentData: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/data'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/data?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	destinationUpdate: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/destination'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/destination?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	fulfillShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/fulfilled'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/fulfilled?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getShipmentItemData: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/items/{lineId}/data'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/items/{lineId}/data?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	replaceShipmentItemData: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/items/{lineId}/data'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/items/{lineId}/data?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	deleteShipmentItemAttribute: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/items/{lineId}/data'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/items/{lineId}/data?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	newPackage: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/packages'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/packages?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	updatePackage: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/packages/{packageId}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/packages/{packageId}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	deleteShipmentPackage: Client.method({
 		method: constants.verbs.DELETE,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/packages/{packageId}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/packages/{packageId}?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	pickupItems: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/pickedUpItems'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/pickedUpItems?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	reassignShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/reassigned'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/reassigned?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	reassignItems: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/reassignedItems'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/reassignedItems?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	receiveTransfer: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/received'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/received?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	refreshShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/refresh'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/refresh?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	rejectShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/rejected'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/rejected?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	rejectItems: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/rejectedItems'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/rejectedItems?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	retryFulfillingShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/retried'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/retried?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getSurveys: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/surveys'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/surveys?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	createSurvey: Client.method({
 		method: constants.verbs.POST,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/surveys'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/surveys?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	getTasks: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/tasks'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/tasks?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	execute: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/tasks/{taskName}/completed'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/tasks/{taskName}/completed?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	revert: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/tasks/{taskName}/reverted'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/tasks/{taskName}/reverted?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	skipTask: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/tasks/{taskName}/skipped'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/tasks/{taskName}/skipped?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	transferShipment: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/transferred'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/transferred?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	transferItems: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/transferredItems'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/transferredItems?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	workflowDefinitionImage: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/workflow-definition-image'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/workflow-definition-image?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	workflowInstanceImage: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/workflow-instance-image'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/workflow-instance-image?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 });
