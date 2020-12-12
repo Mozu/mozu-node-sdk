@@ -27,5 +27,13 @@ module.exports = Client.sub({
 	deleteShipment: Client.method({
 		method: constants.verbs.DELETE,
 		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/{shipmentId}'
-	})
+	}),
+	updateShipmentItem: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/{shipmentNumber}/item/{itemId}/adjustments'
+	}),
+	updateShipmentAdjustments: Client.method({
+		method: constants.verbs.POST,
+		url: '{+tenantPod}api/commerce/orders/{orderId}/shipments/{shipmentNumber}/adjustments'
+	}),
 });
