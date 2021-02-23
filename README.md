@@ -25,7 +25,7 @@ var client = require('mozu-node-sdk/clients/platform/application')({
         "appKey": "00000",
         "sharedSecret": "9864c0520cc0468397faa37600f1f110",
         "baseUrl": "https://home.mozu.com/",
-        "basePciUrl" : "https://pmts.mozu.com/"
+        "basePciUrl" : "https://pmts.mozu.com/",
         "developerAccountId": "001",
         "developerAccount": {
             "emailAddress": "example@volusion.com",
@@ -60,7 +60,7 @@ function reportError(error) {
 }
 
 productClient.getProducts({
-    filter: 'categoryId req 123'
+    filter: 'categoryId eq 123'
 }).then(log, reportError);
 ```
 
