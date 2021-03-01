@@ -14,7 +14,7 @@ module.exports = Client.sub({
 		url: '{+tenantPod}api/commerce/inventory/v5/inventory/refresh?responseFields={responseFields}'
 	}),
 	adjustInventory: Client.method({
-		method: constants.verbs.GET,
+		method: constants.verbs.POST,
 		url: '{+tenantPod}api/commerce/inventory/v5/inventory/adjust?responseFields={responseFields}'
 	}),
 	getInventoryJob: Client.method({
