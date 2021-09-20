@@ -45,7 +45,7 @@ module.exports = function getConfig() {
     }
     if (confJson){
       try {
-        conf = Object.assign({}, JSON.parse(confJson), conf);
+        conf = Object.assign({}, conf, JSON.parse(confJson));
       } catch(e) {
         throw new Error("Configuration file was unreadable: " + e.message);
       }
