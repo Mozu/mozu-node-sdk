@@ -11,6 +11,14 @@ var protocolHandlers = {
 var streamToCallback = require('./stream-to-callback');
 var parseJsonDates = require('./parse-json-dates');
 var errorify = require('./errorify');
+var zlib = require('zlib');
+
+var ACCEPT_ENCODING = '';
+if( zlib.createBrotliDecompress && zlib.createGunzip ){
+  ACCEPT_ENCODING ='br;q=1.0, gzip;q=0.8';
+}else if(zlib.createGunzip){
+  ACCEPT_ENCODING = 'gzip;q=1.0'
+}
 
 var USER_AGENT = 'Mozu Node SDK v' + constants.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ')';
 
@@ -48,7 +56,7 @@ function makeHeaders(conf, payload) {
 
   return extend({
     'Accept': 'application/json',
-    'Accept-Encoding': 'br;q=1.0, gzip;q=0.8, *;q=0.1',
+    'Accept-Encoding': ACCEPT_ENCODING,
     'Connection': 'close',
     'Content-Type': 'application/json; charset=utf-8',
     'User-Agent': USER_AGENT
