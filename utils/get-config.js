@@ -63,7 +63,7 @@ module.exports = function getConfig() {
       }
     }
 
-    if (!conf.appKey) {
+    if (!conf.appKey && !conf.workingApplicationKey) {
       throw new Error("No configuration  found. Either set the kibo env vars , create a 'mozu.config' or 'mozu.config.json' file, or supply full config to the .client() method.");
     }
   }
