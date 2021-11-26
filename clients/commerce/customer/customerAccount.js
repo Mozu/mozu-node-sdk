@@ -14,7 +14,7 @@ var Client = require('../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getAccounts: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/customer/accounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&fields={fields}&q={q}&qLimit={qLimit}&isAnonymous={isAnonymous}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/accounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&fields={fields}&q={q}&qLimit={qLimit}&isAnonymous={isAnonymous}&responseFields={responseFields}&responseGroups={responseGroups}'
 	}),
 	getLoginState: Client.method({
 		method: constants.verbs.GET,

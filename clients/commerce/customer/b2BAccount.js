@@ -14,7 +14,7 @@ var Client = require('../../../client'), constants = Client.constants;
 module.exports = Client.sub({
 	getB2BAccounts: Client.method({
 		method: constants.verbs.GET,
-		url: '{+tenantPod}api/commerce/customer/b2baccounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&fields={fields}&q={q}&qLimit={qLimit}&responseFields={responseFields}'
+		url: '{+tenantPod}api/commerce/customer/b2baccounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&fields={fields}&q={q}&qLimit={qLimit}&responseFields={responseFields}&responseGroups={responseGroups}'
 	}),
 	getB2BAccountAttribute: Client.method({
 		method: constants.verbs.GET,
