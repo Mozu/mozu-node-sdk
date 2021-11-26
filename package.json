@@ -21,7 +21,7 @@
       "env"
     ]
   },
-  "version": "2.15.10",
+  "version": "2.15.11",
   "repository": {
     "type": "git",
     "url": "https://github.com/Mozu/mozu-node-sdk"
