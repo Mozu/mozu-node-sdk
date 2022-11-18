@@ -9,16 +9,9 @@ let TenantCache = require('../utils/tenant-cache');
 
 // if (typeof Promise !== "function") require('when/es6-shim/Promise.browserify-es6');
 
-function createMemoizedClientFactory(clientPath) {
-  var c;
-  return function() {
-    return (c || (c = require(clientPath))).apply(this, arguments);
-  };
-}
-
-var makeAppAuthClient = createMemoizedClientFactory('../clients/platform/applications/authTicket');
-var makeDeveloperAuthClient = createMemoizedClientFactory('../clients/platform/developer/developerAdminUserAuthTicket');
-var makeAdminUserAuthClient = createMemoizedClientFactory('../clients/platform/adminuser/tenantAdminUserAuthTicket');
+var makeAppAuthClient = require('../clients/platform/applications/authTicket');
+var makeDeveloperAuthClient = require('../clients/platform/developer/developerAdminUserAuthTicket');
+var makeAdminUserAuthClient = require('../clients/platform/adminuser/tenantAdminUserAuthTicket');
 
 function cacheDataAndCreateAuthTicket(res) {
   let tenants = res.availableTenants;
