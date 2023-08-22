@@ -264,7 +264,7 @@ module.exports = Client.sub({
 
 	replaceShipmentItemData: Client.method({
 		method: constants.verbs.PUT,
-		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/items/{lineId}/data?fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
+		url: '{+tenantPod}api/commerce/shipments/{shipmentNumber}/items/{lineId}/data?merge={merge}&fromDays={fromDays}&fulfillmentLocationCode={fulfillmentLocationCode}&carrier={carrier}&filter={filter}&isLate={isLate}&page={page}&pageSize={pageSize}&quickSearch={quickSearch}&sort={sort}&workflowTaskName={workflowTaskName}&name={name}&shipmentType={shipmentType}&userDisplayName={userDisplayName}&userId={userId}&assignedLocations={assignedLocations}&fulfillmentLocationCodes={fulfillmentLocationCodes}&locationCodes={locationCodes}&startDateTime={startDateTime}&updateFields={updateFields}&shouldLog={shouldLog}'
 	}),
 
 	deleteShipmentItemAttribute: Client.method({
