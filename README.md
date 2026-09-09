@@ -1,3 +1,10 @@
+> [!CAUTION]
+> # THIS LEGACY REPOSITORY IS NOT SUPPORTED
+> 
+> The only supported SDKs for Kibo Commerce Software are:
+> - **[TypeScript REST SDK](https://github.com/KiboSoftware/typescript-rest-sdk)**
+> - **[Java REST SDK](https://github.com/KiboSoftware/java-rest-sdk)**
+
 # Mozu Node SDK
 
 The Mozu Node SDK provides a NodeJS API for connecting to Mozu web services.
